@@ -1,9 +1,9 @@
 <?php
 include_once 'connect_data.php';
-include_once 'equipoClass.php';
+include_once 'tipoUsuarioClass.php';
 
 
-class equipoModel extends equipoClass{
+class tipoUsuarioModel extends tipoUsuarioClass{
     
     private $link;
     private $list=array();
@@ -33,17 +33,17 @@ class equipoModel extends equipoClass{
     {
         
         $this->OpenConnect();
-        $sql="call sp_equipo_load";
+        $sql="call sp_tipoUsuario_load";
         
         $result = $this->link->query($sql);
         while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
         {
-            $newEquipo = new equipoModel();
-            $newEquipo->setIdEquipo($row['idEquipo']);
-            $newEquipo->setIdCategoria($row['idCategoria']);
-            $newEquipo->setNombre($row['nombre']);
+            $newTipoUsuario = new tipoUsuarioModel();
+            $newTipoUsuario->setIdTipo($row['idTipo']);     
+            $newTipoUsuario->setNombre($row['nombre']);
+          
             
-            array_push($this->list, $newEquipo);
+            array_push($this->list,  $newTipoUsuario);
         }
         mysqli_free_result($result);
         $this->CloseConnect();
@@ -62,5 +62,4 @@ class equipoModel extends equipoClass{
         return json_encode($arr);
     }
 }
-
 

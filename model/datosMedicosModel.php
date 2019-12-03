@@ -1,9 +1,9 @@
 <?php
 include_once 'connect_data.php';
-include_once 'equipoClass.php';
+include_once 'datosMedicosClass.php';
 
 
-class equipoModel extends equipoClass{
+class datosMedicosModel extends datosMedicosClass{
     
     private $link;
     private $list=array();
@@ -33,17 +33,17 @@ class equipoModel extends equipoClass{
     {
         
         $this->OpenConnect();
-        $sql="call sp_equipo_load";
+        $sql="call sp_datosMedicos_load";
         
         $result = $this->link->query($sql);
         while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
         {
-            $newEquipo = new equipoModel();
-            $newEquipo->setIdEquipo($row['idEquipo']);
-            $newEquipo->setIdCategoria($row['idCategoria']);
-            $newEquipo->setNombre($row['nombre']);
+            $newDatosMedicos = new usuarioModel();
+            $newDatosMedicos->setIdDatosMedicos($row['idDatosMedicos']);
+            $newDatosMedicos->setDatos($row['datos']);
+            $newDatosMedicos->setUltimaRevision($row['ultimaRevision']);
             
-            array_push($this->list, $newEquipo);
+            array_push($this->list, $newDatosMedicos);
         }
         mysqli_free_result($result);
         $this->CloseConnect();

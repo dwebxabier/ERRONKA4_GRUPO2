@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-12-2019 a las 10:01:15
+-- Tiempo de generación: 03-12-2019 a las 11:11:21
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.1.32
 
@@ -21,6 +21,27 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `pruebaerronka4`
 --
+
+DELIMITER $$
+--
+-- Procedimientos
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_categorias_load` ()  NO SQL
+SELECT * FROM categorias$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_datosMedicos_load` ()  NO SQL
+SELECT * FROM datosmedicos$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_equipo_load` ()  NO SQL
+SELECT * FROM equipo$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_tipoUsuario_load` ()  NO SQL
+SELECT * FROM tipousuario$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_usuario_load` ()  NO SQL
+SELECT * FROM usuario$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -42,7 +63,7 @@ CREATE TABLE `categorias` (
 CREATE TABLE `datosmedicos` (
   `idDatosMedicos` int(11) NOT NULL,
   `datos` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `UltimaRevision` date NOT NULL
+  `ultimaRevision` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------

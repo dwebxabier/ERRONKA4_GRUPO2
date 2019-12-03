@@ -1,18 +1,12 @@
 <?php
 
 
-class equipoClass{
-    protected $idEquipo;
+class categoriasClass{
     protected $idCategoria;
     protected $nombre;
-    /**
-     * @return mixed
-     */
-    public function getIdEquipo()
-    {
-        return $this->idEquipo;
-    }
-
+    
+    
+    
     /**
      * @return mixed
      */
@@ -30,14 +24,6 @@ class equipoClass{
     }
 
     /**
-     * @param mixed $idEquipo
-     */
-    public function setIdEquipo($idEquipo)
-    {
-        $this->idEquipo = $idEquipo;
-    }
-
-    /**
      * @param mixed $idCategoria
      */
     public function setIdCategoria($idCategoria)
@@ -52,14 +38,14 @@ class equipoClass{
     {
         $this->nombre = $nombre;
     }
-    
+
     function getObjectVars()
     {
         $vars = get_object_vars($this);
         return  $vars;
     }
-
-   
+    
+    
     
     
 }
