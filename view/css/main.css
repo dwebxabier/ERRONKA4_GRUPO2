@@ -1,3 +1,8 @@
+
+ body{
+    background-color: lightgrey;
+}
+
 #logo{
     width: 70px;
     margin-left: 2%;
@@ -142,3 +147,5 @@ h1{
     -webkit-transition-delay:.2s;
     transition-delay:.2s;
     }
+
+   
