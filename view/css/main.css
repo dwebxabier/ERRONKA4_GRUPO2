@@ -1,8 +1,4 @@
 
- body{
-    background-color: lightgrey;
-}
-
 #logo{
     width: 70px;
     margin-left: 2%;
@@ -10,6 +6,11 @@
 
 .nav-item{
     margin-left: 20%;
+}
+
+/* MANTIENE "TOP 5" EN LA MISMA LINEA */
+.nav-item>.nav-link{
+    white-space: nowrap;
 }
 
 #carouselExampleFade>.carousel-inner>.carousel-item>img{
