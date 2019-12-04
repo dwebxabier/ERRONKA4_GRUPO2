@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-12-2019 a las 11:11:21
+-- Tiempo de generación: 04-12-2019 a las 13:47:01
 -- Versión del servidor: 10.4.6-MariaDB
--- Versión de PHP: 7.1.32
+-- Versión de PHP: 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -54,6 +54,15 @@ CREATE TABLE `categorias` (
   `nombre` varchar(32) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `categorias`
+--
+
+INSERT INTO `categorias` (`idCategoria`, `nombre`) VALUES
+(1, 'Alevin'),
+(2, 'Infantil'),
+(3, 'Senior');
+
 -- --------------------------------------------------------
 
 --
@@ -65,6 +74,25 @@ CREATE TABLE `datosmedicos` (
   `datos` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `ultimaRevision` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `datosmedicos`
+--
+
+INSERT INTO `datosmedicos` (`idDatosMedicos`, `datos`, `ultimaRevision`) VALUES
+(1, 'apto', '2019-12-04'),
+(2, 'apto', '2019-12-04'),
+(3, 'apto', '2019-12-04'),
+(4, 'apto', '2019-12-04'),
+(5, 'apto', '2019-12-04'),
+(6, 'apto', '2019-12-04'),
+(7, 'apto', '2019-12-04'),
+(8, 'apto', '2019-12-04'),
+(9, 'apto', '2019-12-04'),
+(10, 'apto', '2019-12-04'),
+(11, 'apto', '2019-12-04'),
+(12, 'apto', '2019-12-04'),
+(13, 'apto', '2019-12-04');
 
 -- --------------------------------------------------------
 
@@ -78,6 +106,15 @@ CREATE TABLE `equipo` (
   `nombre` varchar(32) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `equipo`
+--
+
+INSERT INTO `equipo` (`idEquipo`, `idCategoria`, `nombre`) VALUES
+(1, 1, 'Albacete Petanca Club Alevin'),
+(2, 2, 'Albacete Petanca Club Infantil'),
+(3, 3, 'Albacete Petanca Club Senior');
+
 -- --------------------------------------------------------
 
 --
@@ -88,6 +125,15 @@ CREATE TABLE `tipousuario` (
   `idTipo` int(11) NOT NULL,
   `nombre` varchar(32) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `tipousuario`
+--
+
+INSERT INTO `tipousuario` (`idTipo`, `nombre`) VALUES
+(1, 'Admin'),
+(2, 'Entrenador'),
+(3, 'Jugador');
 
 -- --------------------------------------------------------
 
@@ -102,6 +148,25 @@ CREATE TABLE `usuario` (
   `nombre` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `idDatosMedicos` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`idUsuario`, `idTipo`, `idEquipo`, `nombre`, `idDatosMedicos`) VALUES
+(1, 1, 3, 'admin', 1),
+(2, 2, 1, 'Raul Gomez', 2),
+(3, 3, 1, 'Pedro Garcia', 3),
+(4, 3, 1, 'Juan Perez', 4),
+(5, 3, 1, 'Maria Ruiz', 5),
+(6, 2, 2, 'Roberto Gonzalez', 6),
+(7, 3, 2, 'Juan Morales', 7),
+(8, 3, 2, 'Rosa Gil', 8),
+(9, 3, 2, 'Alberto Fernandez', 9),
+(10, 2, 3, 'Francisco Ramos', 10),
+(11, 3, 3, 'Yolanda Matarranz', 11),
+(12, 3, 3, 'Manuel Romero', 12),
+(13, 3, 3, 'Jordi Martinez', 13);
 
 --
 -- Índices para tablas volcadas
@@ -149,31 +214,31 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `idCategoria` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idCategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `datosmedicos`
 --
 ALTER TABLE `datosmedicos`
-  MODIFY `idDatosMedicos` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idDatosMedicos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `equipo`
 --
 ALTER TABLE `equipo`
-  MODIFY `idEquipo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idEquipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `tipousuario`
 --
 ALTER TABLE `tipousuario`
-  MODIFY `idTipo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idTipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Restricciones para tablas volcadas
