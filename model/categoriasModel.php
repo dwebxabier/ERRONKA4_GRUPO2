@@ -42,7 +42,7 @@ class categoriasModel extends categoriasClass{
             $newCategorias->setIdCategoria($row['idCategoria']);
             $newCategorias->setNombre($row['nombre']);
             
-            array_push($this->list, $newCategorias);
+            array_push($this->list, $newCategorias );
         }
         mysqli_free_result($result);
         $this->CloseConnect();
