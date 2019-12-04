@@ -39,6 +39,7 @@ class equipoModel extends equipoClass{
         while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
         {
             $newEquipo = new equipoModel();
+            
             $newEquipo->setIdEquipo($row['idEquipo']);
             $newEquipo->setIdCategoria($row['idCategoria']);
             $newEquipo->setNombre($row['nombre']);

@@ -5,8 +5,10 @@ $(document).ready(function () {
         url: '../controller/cEquipos.php',
         dataType: 'json',
         success: function (data) {
-            
+
             console.log(data);
-        
+        }
+              
+    });
 
 });
