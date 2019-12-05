@@ -24,6 +24,10 @@ body{
     margin-right: 20%;
 }
 
+.carousel{
+    background-color: #981A32;
+}
+
 .titles>img{
     width: 30%;
 }
