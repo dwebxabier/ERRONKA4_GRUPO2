@@ -1,11 +1,31 @@
+body{
+    border: 10px groove #981A32;
+}
+
+#top-banner{
+    display: none;
+}
+
+#banner{
+    width: 100%;
+}
+
+.navbar{
+    border-bottom: 10px groove #981A32;
+}
 
 #logo{
     width: 70px;
     margin-left: 2%;
+    margin-right: 2%;
 }
 
 .nav-item{
-    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.titles>img{
+    width: 30%;
 }
 
 /* MANTIENE "TOP 5" EN LA MISMA LINEA */
@@ -13,34 +33,53 @@
     white-space: nowrap;
 }
 
+/* .nav-link {
+    padding: 50px;
+    transition: transform .2s;
+} */
+  
+/* .nav-link:hover {
+    -ms-transform: scale(1.5); 
+    -webkit-transform: scale(1.5); 
+    transform: scale(1.5); 
+} */
+
 #carouselExampleFade>.carousel-inner>.carousel-item>img{
     width: 1280px;
     height: 700px;
 }
 
-.row>.col-sm-2>img{
+.row>.col-md-2>img{
     width: 200px;
     height: 300px;
     border: black 1px solid;
 }
 
-.row>.col-sm-3>img{
-    width: 200px;
-    height: 300px;
+.row>.col-md-3>img{
+    width: 45%;
 }
 
+.row>.col-md-3>b{
+    white-space: nowrap;
+}
+
+.social{
+    white-space: nowrap;
+}
+
+.social>img{
+    width: 15%;
+}
 
 h1{
     -webkit-text-stroke: 1px black;
 }
 
-.player-info>.col-sm-10{
-    display: none;
-    color: black;
-    background-color: white;
-    border: black 1px solid;
-} 
-
+.mapa{
+    height: 250px;
+    margin-top: 3%;
+    margin-bottom: 3%;
+}
 /* TIENDA */
 
 .zoom {
@@ -49,21 +88,27 @@ h1{
   }
   
   .zoom:hover {
-    -ms-transform: scale(1.5); /* IE 9 */
-    -webkit-transform: scale(1.5); /* Safari 3-8 */
+    -ms-transform: scale(1.5); 
+    -webkit-transform: scale(1.5); 
     transform: scale(1.5); 
   }
 
 /* TOP 5 JUGADORES */
 
-.top>.col-sm-2>.hovereffect>img{
+.top>.col-md-2>.hovereffect>img{
+    display:block;
+    margin:auto;
     width: 200px;
     height: 300px;
 }
 
+.row>.card{
+    width: 40%;
+}
+
 .hovereffect {
     width:100%;
-    height:100%;
+    margin-bottom: 2%;
     float:left;
     overflow:hidden;
     position:relative;
@@ -149,4 +194,28 @@ h1{
     transition-delay:.2s;
     }
 
+  @media screen and (max-width: 992px) {
+    #carouselExampleFade{
+        display: none;
+    }
+    #top-banner{
+        display: block;
+    }
+    .titles>img{
+        width: 70%;
+    }
+  }
+  
+  @media screen and (max-width: 600px) {
+    #carouselExampleFade{
+        display: none;
+    }
+    #top-banner{
+        display: block;
+    }
+    .titles>img{
+        width: 70%;
+    }
+}
+  
    

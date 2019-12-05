@@ -31,17 +31,21 @@
                   <a class="nav-link" href="/view/equipos.html"><b>EQUIPOS</b></a>
                 </li>
             <li class="nav-item active">
-              <a class="nav-link" href="#"><b>GALERIA</b></a>
+              <a class="nav-link"><b>GALERIA</b></a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link" href="#"><b>TOP 5</b></a>
+              <a class="nav-link"><b>TOP 5</b></a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link" href="#"><b>TIENDA</b></a>
+              <a class="nav-link"><b>TIENDA</b></a>
             </li>
           </ul>
         </div>
       </nav>
+
+           <!-- BANNER-->
+
+           <img id="banner" class="col-14" src="view/img/banner.png">
 
        <!-- CAROUSEL -->
        <div class="d-flex align-items-center justify-content-center">
@@ -75,112 +79,126 @@
       <!-- TOP 5 JUGADORES -->
 
       <!-- <h1 class="text-center mb-5"><b>TOP 5 JUGADORES</b></h1> -->
-      <div class="d-flex align-items-center justify-content-center">
+      <div class="d-flex titles align-items-center justify-content-center">
         <img src="view/img/top5.png">
       </div>
 
       <div class="row top d-flex align-items-center justify-content-center text-center mb-5">
         
-          <div class="col-sm-2">
+          <div class="col-md-2">
               <div class="hovereffect">
                   <img class="img-responsive rounded" src="view/img/jugador1.jpg" alt="">
                   <div class="overlay">
                      <h2>Manuel Romero</h2>
-                     <a class="info" href="#">Info</a>
+                     <a class="info" data-toggle="modal" data-target="#exampleModalLong">Info</a>
                   </div>
               </div>
           </div>
-          <div class="col-sm-2">
+          <div class="col-md-2">
               <div class="hovereffect">
                   <img class="img-responsive rounded" src="view/img/jugador2.jpg" alt="">
                   <div class="overlay">
                      <h2>Yolanda Matarranz</h2>
-                     <a class="info" href="#">Info</a>
+                     <a class="info" data-toggle="modal" data-target="#exampleModalLong">Info</a>
                   </div>
               </div>
           </div>
-          <div class="col-sm-2">
+          <div class="col-md-2">
               <div class="hovereffect">
                   <img class="img-responsive rounded" src="view/img/jugador3.jpg" alt="">
                   <div class="overlay">
                      <h2>José Gómez</h2>
-                     <a class="info" href="#">Info</a>
+                     <a class="info" data-toggle="modal" data-target="#exampleModalLong">Info</a>
                   </div>
               </div>
           </div>
-          <div class="col-sm-2">
+          <div class="col-md-2">
               <div class="hovereffect">
                   <img class="img-responsive rounded" src="view/img/jugador4.jpg" alt="">
                   <div class="overlay">
                      <h2>Jordi Martinez</h2>
-                     <a class="info" href="#">Info</a>
+                     <a class="info" data-toggle="modal" data-target="#exampleModalLong">Info</a>
                   </div>
               </div>
           </div>
-          <div class="col-sm-2">
+          <div class="col-md-2">
               <div class="hovereffect">
                   <img class="img-responsive rounded" src="view/img/jugador5.jpg" alt="">
                   <div class="overlay">
                      <h2>Raul Gimenez</h2>
-                     <a class="info" href="#">Info</a>
+                     <a class="info" data-toggle="modal" data-target="#exampleModalLong">Info</a>
                   </div>
               </div>
           </div>
       </div>
 
-      <div class="row player-info d-flex align-items-center justify-content-center mb-5">
-        <div class="col-sm-10" id="player1">
-          Lorem Ipsum 1 is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+  <!-- MODAL -->
+
+  <div class="modal fade text-dark" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle"> </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-        <div class="col-sm-10" id="player2">
-          Lorem Ipsum 2 is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+        <div class="modal-body">
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
         </div>
-        <div class="col-sm-10" id="player3">
-          Lorem Ipsum 3 is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-        </div>
-        <div class="col-sm-10" id="player4">
-          Lorem Ipsum 4 is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-        </div>
-        <div class="col-sm-10" id="player5">
-          Lorem Ipsum 5 is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
       </div>
-
+    </div>
+  </div>
+    
       <!-- TIENDA -->
 
       <!-- <h1 class="text-center mb-5"><b>TIENDA</b></h1> -->
-      <div class="d-flex align-items-center justify-content-center">
+      <div class="d-flex titles align-items-center justify-content-center">
           <img src="view/img/tienda.png">
         </div>
 
       <div class="row top d-flex align-items-center justify-content-center text-center mb-5">
-          <div class="card col-sm-2">
+          <div class="card col-md-2">
               <div class="card-body ">
                 <h5 class="card-title text-dark">Precio: 34,99€</h5>
                 <hr>
-                <a href="#" class="btn btn-success">Comprar</a>
+                <a href="#" class="btn btn-danger">Comprar</a>
               </div>
             </div>
-        <div class="col-sm-3 zoom">
+        <div class="col-md-3 zoom">
           <img src="view/img/camiseta1.PNG">
-          <b>Primera equipación</b>
+          <b>1ª equipación</b>
         </div>
-        <div class="col-sm-3 zoom">
+        <div class="col-md-3 zoom">
           <img src="view/img/camiseta2.PNG">
-          <b>Segunda equipación</b>
+          <b>2ª equipación</b>
         </div>
-        <div class="col-sm-3 zoom">
+        <div class="col-md-3 zoom">
           <img src="view/img/camiseta3.PNG">
-          <b>Tercera equipación</b>
+          <b>3ª equipación</b>
         </div>
       </div>
 
       
      <!-- BANNER-->
 
-     <img id="banner" class="col-12 mb-5" src="view/img/banner.png">
+     <img id="banner" class="col-14" src="view/img/banner.png">
 
-
+     <!-- FOOTER -->
+     <div class="row footer col-14 d-flex align-items-center justify-content-center bg-secondary">
+       <div class="texto-info col-md-4">
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+       </div>
+       <div class="social col-md-4" align="center">
+         <img src="view/img/insta.png">
+         <img src="view/img/facebook.png">
+         <img src="view/img/twitter.png">
+       </div>
+        <iframe class="mapa col-md-3" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24808.104622379622!2d-1.8780989968338722!3d38.99219789157474!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd665fe2fb218d15%3A0x8269cd31d6186180!2sAlbacete!5e0!3m2!1ses!2ses!4v1575539217004!5m2!1ses!2ses" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+     </div>
    
 </body>
 <!-- LINK DE JQUERY -->
