@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-12-2019 a las 13:00:49
+-- Tiempo de generación: 05-12-2019 a las 14:45:54
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.1.32
 
@@ -22,6 +22,16 @@ SET time_zone = "+00:00";
 -- Base de datos: `erronka4grupo2`
 --
 
+DELIMITER $$
+--
+-- Procedimientos
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_equipo_load` ()  NO SQL
+SELECT *
+FROM equipo$$
+
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -34,6 +44,13 @@ CREATE TABLE `admin` (
   `nombre` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `admin`
+--
+
+INSERT INTO `admin` (`idAdmin`, `idUsuario`, `nombre`) VALUES
+(1, 5, 'admin');
+
 -- --------------------------------------------------------
 
 --
@@ -42,9 +59,17 @@ CREATE TABLE `admin` (
 
 CREATE TABLE `categoria` (
   `idCategoria` int(11) NOT NULL,
-  `nombre` varchar(50) NOT NULL,
-  `idEquipo` int(11) NOT NULL
+  `nombre` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `categoria`
+--
+
+INSERT INTO `categoria` (`idCategoria`, `nombre`) VALUES
+(1, 'Alevin'),
+(2, 'Infantil'),
+(3, 'Senior');
 
 -- --------------------------------------------------------
 
@@ -56,6 +81,16 @@ CREATE TABLE `ddmm` (
   `idDDMM` int(11) NOT NULL,
   `idJugador` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `ddmm`
+--
+
+INSERT INTO `ddmm` (`idDDMM`, `idJugador`) VALUES
+(1, 1),
+(2, 1),
+(3, 2),
+(4, 3);
 
 -- --------------------------------------------------------
 
@@ -92,6 +127,35 @@ CREATE TABLE `equipo` (
   `nombre` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `equipo`
+--
+
+INSERT INTO `equipo` (`idEquipo`, `nombre`) VALUES
+(1, 'Petanca Pensionista'),
+(2, 'New Petanca'),
+(3, 'Baby Petanca');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `equipo_categoria`
+--
+
+CREATE TABLE `equipo_categoria` (
+  `idEquipo` int(11) NOT NULL,
+  `idCategoria` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `equipo_categoria`
+--
+
+INSERT INTO `equipo_categoria` (`idEquipo`, `idCategoria`) VALUES
+(1, 3),
+(2, 2),
+(3, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -101,9 +165,17 @@ CREATE TABLE `equipo` (
 CREATE TABLE `jugador` (
   `idJugador` int(11) NOT NULL,
   `idUsuario` int(11) NOT NULL,
-  `nombre` varchar(50) NOT NULL,
-  `idDDMM` int(11) NOT NULL
+  `nombre` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `jugador`
+--
+
+INSERT INTO `jugador` (`idJugador`, `idUsuario`, `nombre`) VALUES
+(1, 1, 'Carlos'),
+(2, 2, 'Bogdan'),
+(3, 3, 'Xabier');
 
 -- --------------------------------------------------------
 
@@ -124,8 +196,18 @@ CREATE TABLE `tecnico` (
 
 CREATE TABLE `usuario` (
   `idUsuario` int(11) NOT NULL,
-  `idEquipo` int(11) NOT NULL
+  `idEquipo` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`idUsuario`, `idEquipo`) VALUES
+(5, NULL),
+(1, 1),
+(2, 2),
+(3, 3);
 
 --
 -- Índices para tablas volcadas
@@ -142,8 +224,7 @@ ALTER TABLE `admin`
 -- Indices de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  ADD PRIMARY KEY (`idCategoria`),
-  ADD KEY `idEquipo` (`idEquipo`);
+  ADD PRIMARY KEY (`idCategoria`);
 
 --
 -- Indices de la tabla `ddmm`
@@ -171,6 +252,14 @@ ALTER TABLE `entrenador`
 --
 ALTER TABLE `equipo`
   ADD PRIMARY KEY (`idEquipo`);
+
+--
+-- Indices de la tabla `equipo_categoria`
+--
+ALTER TABLE `equipo_categoria`
+  ADD KEY `idEquipo` (`idEquipo`),
+  ADD KEY `idEquipo_2` (`idEquipo`),
+  ADD KEY `idCategoria` (`idCategoria`);
 
 --
 -- Indices de la tabla `jugador`
@@ -201,19 +290,19 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `idAdmin` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idAdmin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `idCategoria` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idCategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `ddmm`
 --
 ALTER TABLE `ddmm`
-  MODIFY `idDDMM` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idDDMM` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `delegado`
@@ -231,13 +320,13 @@ ALTER TABLE `entrenador`
 -- AUTO_INCREMENT de la tabla `equipo`
 --
 ALTER TABLE `equipo`
-  MODIFY `idEquipo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idEquipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `jugador`
 --
 ALTER TABLE `jugador`
-  MODIFY `idJugador` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idJugador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `tecnico`
@@ -249,7 +338,7 @@ ALTER TABLE `tecnico`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restricciones para tablas volcadas
@@ -260,12 +349,6 @@ ALTER TABLE `usuario`
 --
 ALTER TABLE `admin`
   ADD CONSTRAINT `admin_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `categoria`
---
-ALTER TABLE `categoria`
-  ADD CONSTRAINT `categoria_ibfk_1` FOREIGN KEY (`idEquipo`) REFERENCES `equipo` (`idEquipo`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `ddmm`
@@ -284,6 +367,13 @@ ALTER TABLE `delegado`
 --
 ALTER TABLE `entrenador`
   ADD CONSTRAINT `entrenador_ibfk_1` FOREIGN KEY (`idTecnico`) REFERENCES `tecnico` (`idTecnico`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `equipo_categoria`
+--
+ALTER TABLE `equipo_categoria`
+  ADD CONSTRAINT `equipo_categoria_ibfk_1` FOREIGN KEY (`idEquipo`) REFERENCES `equipo` (`idEquipo`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `equipo_categoria_ibfk_2` FOREIGN KEY (`idCategoria`) REFERENCES `categoria` (`idCategoria`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `jugador`
