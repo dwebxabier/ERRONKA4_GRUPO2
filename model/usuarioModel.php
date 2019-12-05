@@ -7,7 +7,7 @@ class usuarioModel extends usuarioClass{
     
     private $link;
     private $list=array();
-    
+    <
     public function OpenConnect()
     {
         $konDat=new connect_data();
@@ -40,11 +40,9 @@ class usuarioModel extends usuarioClass{
         {
             $newUsuario = new usuarioModel();
             $newUsuario->setIdUsuario($row['idUsuario']);
-            $newUsuario->setIdTipo($row['idTipo']);
             $newUsuario->setIdEquipo($row['idEquipo']);
-            $newUsuario->setNombre($row['nombre']);
-            $newUsuario->setIdDatosMedicos($row['idDatosMedicos']);
             
+            objJUGADO
             array_push($this->list, $newUsuario);
         }
         mysqli_free_result($result);
