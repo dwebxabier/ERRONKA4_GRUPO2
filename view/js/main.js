@@ -7,7 +7,7 @@ $( document ).ready(function() {
     
     $.ajax({
         type: "GET",
-        url: "../controller/cIndex.php",
+        url: "../../controller/cIndex.php",
         dataType: "json",  //type of the result
         success: function (result) {
         	console.log(result);
