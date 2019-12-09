@@ -3,7 +3,6 @@
 
 class equipoClass{
     protected $idEquipo;
-    protected $idCategoria;
     protected $nombre;
     /**
      * @return mixed
@@ -11,14 +10,6 @@ class equipoClass{
     public function getIdEquipo()
     {
         return $this->idEquipo;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getIdCategoria()
-    {
-        return $this->idCategoria;
     }
 
     /**
@@ -35,14 +26,6 @@ class equipoClass{
     public function setIdEquipo($idEquipo)
     {
         $this->idEquipo = $idEquipo;
-    }
-
-    /**
-     * @param mixed $idCategoria
-     */
-    public function setIdCategoria($idCategoria)
-    {
-        $this->idCategoria = $idCategoria;
     }
 
     /**

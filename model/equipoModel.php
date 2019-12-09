@@ -31,9 +31,8 @@ class equipoModel extends equipoClass{
     
     public function setList()
     {
-        
         $this->OpenConnect();
-        $sql="call sp_equipo_load";
+        $sql="call sp_equipo_load()";
         
         $result = $this->link->query($sql);
         while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
@@ -41,7 +40,6 @@ class equipoModel extends equipoClass{
             $newEquipo = new equipoModel();
             
             $newEquipo->setIdEquipo($row['idEquipo']);
-            $newEquipo->setIdCategoria($row['idCategoria']);
             $newEquipo->setNombre($row['nombre']);
             
             array_push($this->list, $newEquipo);
