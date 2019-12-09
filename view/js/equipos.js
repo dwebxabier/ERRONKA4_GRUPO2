@@ -15,7 +15,7 @@ $( document ).ready(function () {
                     
 	                $.each(result,function(i,equipo) {
 	    
-                        newRow += "<tr><th>"+equipo.idEquipo+"</th>"+"<th>"+equipo.nombre+"</th></tr>";                                    
+                        newRow += "<tr><th>"+equipo.idEquipo+"</th>"+"<th id='nombreEquipo' data-id="+equipo.idEquipo+">"+equipo.nombre+"</th></tr>";                                    
                     });
 	                
 	                    $(".equipos>table").append(newRow);
@@ -24,5 +24,11 @@ $( document ).ready(function () {
         }
 
     });
+
+});
+
+$("#nombreEquipo").click(function(){
+
+    alert("hola");
 
 });
