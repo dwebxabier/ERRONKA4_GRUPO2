@@ -14,7 +14,7 @@ $(document).ready(function () {
 
             $.each(result, function (i, equipo) {
 
-                newRow += "<tr><th>" + equipo.idEquipo + "</th>" + "<th data-id=" + equipo.idEquipo + "><a class='nombreEquipo'>" + equipo.nombre + "<a></th></tr>";
+                newRow += "<tr><th>" + equipo.idEquipo + "</th>" + "<th><a class='nombreEquipo'  data-id=" + equipo.idEquipo + ">" + equipo.nombre + "<a></th></tr>";
             
             });
 
@@ -23,7 +23,21 @@ $(document).ready(function () {
 
             $(".nombreEquipo").click(function () {
 
-                alert("hola");
+                alert($( this ).attr("data-id"));
+                var idEquipo = $( this ).attr("data-id");
+
+                $.ajax({
+
+                    type: 'GET',
+                    data: {"idEquipo":idEquipo},
+                    url: '../controller/cPlantilla.php',
+                    dataType: 'json',
+                    success: function (result) {
+            
+                        console.log(result);
+                    }
+                });
+
 
             });
 

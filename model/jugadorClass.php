@@ -1,9 +1,9 @@
 <?php
 
 
-class usuarioClass{
+class jugadorClass{
     protected $idUsuario;
-    protected $idEquipo;
+    protected $idJugador;
     protected $nombre;
 
     /**
@@ -17,9 +17,9 @@ class usuarioClass{
     /**
      * @return mixed
      */
-    public function getIdEquipo()
+    public function getIdJugador()
     {
-        return $this->idEquipo;
+        return $this->idJugador;
     }
 
     /**
@@ -39,11 +39,11 @@ class usuarioClass{
     }
 
     /**
-     * @param mixed $idEquipo
+     * @param mixed $idJugador
      */
-    public function setIdEquipo($idEquipo)
+    public function setIdJugador($idJugador)
     {
-        $this->idEquipo = $idEquipo;
+        $this->idJugador = $idJugador;
     }
 
     /**
