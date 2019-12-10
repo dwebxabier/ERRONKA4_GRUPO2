@@ -9,7 +9,7 @@ class usuarioModel extends usuarioClass{
     private $list=array();
     private $objectJugador = array();
 
-    public function getObjectJugador(){
+    public function getObjectJugador(){   
         return $this->objectJugador;
     }
     
@@ -48,9 +48,12 @@ class usuarioModel extends usuarioClass{
             $newUsuario->setIdUsuario($row['idUsuario']);
 
             require_once ($_SERVER['DOCUMENT_ROOT']."/ERRONKA4_GRUPO2/model/jugadorModel.php");
+            
             $jugador = new jugadorModel();
             $jugador->setIdUsuario($row['idUsuario']);
-            $newUsuario->objectJugador=$jugador->findJugadorByUser();
+            $jugador->findJugadorByUser();
+            
+            $newUsuario->objectJugador=$jugador;
 
             array_push($this->list, $newUsuario);
         }
@@ -75,14 +78,15 @@ class usuarioModel extends usuarioClass{
     function getListJsonString() {
         
         $arr=array();
-        foreach ($this->list as $object)
+        foreach ($this->list as $usuario)
         {
-            $vars = $object->getObjectVars();
-
-            $objectJugador=$object->objectJugador->getObjectVars();
-            $vars['objectJugador']=$objectJugador;
-          
-            array_push($arr, $vars);
+            if ($usuario->getObjectJugador()->getNombre() != null )
+            {
+                $vars = $usuario->getObjectVars();
+                $objectJugador=$usuario->objectJugador->getObjectVars();
+                $vars['objectJugador']=$objectJugador;
+                array_push($arr, $vars);
+            }
         }
         return json_encode($arr);
     }

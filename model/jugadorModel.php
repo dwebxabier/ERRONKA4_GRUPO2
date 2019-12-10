@@ -38,17 +38,11 @@ class jugadorModel extends jugadorClass{
         $result = $this->link->query($sql);
         while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
         {
-            $newJugador = new jugadorModel();
-            // $newJugador->setIdJugador($row['idJugador']);
-            // $newJugador->setIdUsuario($row['idUsuario']);
-            $newJugador->setNombre($row['nombre']);
-            echo $row['nombre'];
-        }
-        
+            $this->setIdJugador($row['idJugador']);
+            $this->setNombre($row['nombre']);
+        } 
         mysqli_free_result($result);
         $this->CloseConnect();
-
-        return $newJugador;
     }
 
     function getListJsonString() {

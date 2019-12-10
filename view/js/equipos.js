@@ -23,7 +23,6 @@ $(document).ready(function () {
 
             $(".nombreEquipo").click(function () {
 
-                alert($( this ).attr("data-id"));
                 var idEquipo = $( this ).attr("data-id");
 
                 $.ajax({
@@ -35,6 +34,19 @@ $(document).ready(function () {
                     success: function (result) {
             
                         console.log(result);
+
+                        $(".equipos>table").empty();
+                        var newRow = "";
+
+                        newRow += '<tr><th>ID JUGADOR</th><th>NOMBRE</th><tr>'
+
+                        $.each(result, function (i, jugador) {
+
+                        newRow += "<tr><th>" + jugador.objectJugador.idJugador + "</th>" + "<th><a class='nombreJugador'  data-id=" + jugador.objectJugador.idJugador + ">" + jugador.objectJugador.nombre + "<a></th></tr>";
+            
+                        });
+
+                        $(".equipos>table").append(newRow);
                     }
                 });
 
