@@ -1,34 +1,64 @@
-$( document ).ready(function () {
-
+$(document).ready(function () {
     $.ajax({
         type: 'GET',
         url: '../controller/cEquipos.php',
         dataType: 'json',
-        success: function( result ) {
+        success: function (result) {
 
             console.log(result);
-	             
-	                $(".equipos>table").empty();
-	                var newRow="";
-	                
-                    newRow += '<tr><th>ID EQUIPO</th><th>NOMBRE</th><tr>'
-                    
-	                $.each(result,function(i,equipo) {
-	    
-                        newRow += "<tr><th>"+equipo.idEquipo+"</th>"+"<th data-id="+equipo.idEquipo+"><a id='nombreEquipo'>"+equipo.nombre+"<a></th></tr>";                                    
-                    });
-	                
-	                    $(".equipos>table").append(newRow);
-	    		
+
+            $(".equipos>table").empty();
+            var newRow = "";
+
+            newRow += '<tr><th>ID EQUIPO</th><th>NOMBRE</th><tr>'
+
+            $.each(result, function (i, equipo) {
+
+                newRow += "<tr><th>" + equipo.idEquipo + "</th>" + "<th><a class='nombreEquipo'  data-id=" + equipo.idEquipo + ">" + equipo.nombre + "<a></th></tr>";
             
+            });
+
+            $(".equipos>table").append(newRow);
+
+
+            $(".nombreEquipo").click(function () {
+
+                var idEquipo = $( this ).attr("data-id");
+
+                $.ajax({
+
+                    type: 'GET',
+                    data: {"idEquipo":idEquipo},
+                    url: '../controller/cPlantilla.php',
+                    dataType: 'json',
+                    success: function (result) {
+            
+                        console.log(result);
+
+                        $(".equipos>table").empty();
+                        var newRow = "";
+
+                        newRow += '<tr><th>ID JUGADOR</th><th>NOMBRE</th><tr>'
+
+                        $.each(result, function (i, jugador) {
+
+                        newRow += "<tr><th>" + jugador.objectJugador.idJugador + "</th>" + "<th><a class='nombreJugador'  data-id=" + jugador.objectJugador.idJugador + ">" + jugador.objectJugador.nombre + "<a></th></tr>";
+            
+                        });
+
+                        $(".equipos>table").append(newRow);
+                    }
+                });
+
+
+            });
+
         }
 
     });
 
-});
 
-$("#nombreEquipo").click(function(){
-
-    alert("hola");
+    
 
 });
+

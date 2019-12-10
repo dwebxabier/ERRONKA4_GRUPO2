@@ -1,12 +1,13 @@
 <?php
 include_once 'connect_data.php';
-include_once 'tipoUsuarioClass.php';
+include_once 'jugadorClass.php';
 
 
-class tipoUsuarioModel extends tipoUsuarioClass{
+class jugadorModel extends jugadorClass{
     
     private $link;
     private $list=array();
+    // private $objectJugador;
     
     public function OpenConnect()
     {
@@ -19,8 +20,7 @@ class tipoUsuarioModel extends tipoUsuarioClass{
         {
             echo $e->getMessage();
         }
-        $this->link->set_charset("utf8"); // honek behartu egiten du aplikazio eta
-        //                  //databasearen artean UTF -8 erabiltzera datuak trukatzeko
+        $this->link->set_charset("utf8");
     }
     
     public function CloseConnect()
@@ -29,26 +29,22 @@ class tipoUsuarioModel extends tipoUsuarioClass{
         
     }
     
-    public function setList()
-    {
-        
-        $this->OpenConnect();
-        $sql="call sp_tipoUsuario_load";
-        
+    public function findJugadorByUser()
+    {   
+        $idUsuario=$this->getIdUsuario();
+        $this->OpenConnect();  
+        $sql="call sp_jugador_by_idUsuario($idUsuario)";
+        // echo $sql;
         $result = $this->link->query($sql);
         while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
         {
-            $newTipoUsuario = new tipoUsuarioModel();
-            $newTipoUsuario->setIdTipo($row['idTipo']);     
-            $newTipoUsuario->setNombre($row['nombre']);
-          
-            
-            array_push($this->list,  $newTipoUsuario);
-        }
+            $this->setIdJugador($row['idJugador']);
+            $this->setNombre($row['nombre']);
+        } 
         mysqli_free_result($result);
         $this->CloseConnect();
     }
-    
+
     function getListJsonString() {
         
         $arr=array();
@@ -61,5 +57,6 @@ class tipoUsuarioModel extends tipoUsuarioClass{
         }
         return json_encode($arr);
     }
+
 }
 
