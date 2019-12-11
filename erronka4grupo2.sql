@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-12-2019 a las 10:54:42
+-- Tiempo de generación: 11-12-2019 a las 14:12:21
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.1.32
 
@@ -26,6 +26,12 @@ DELIMITER $$
 --
 -- Procedimientos
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_categoria_del_equipo` (IN `vIdEquipo` INT)  NO SQL
+SELECT equipo_categoria.idCategoria, categoria.nombre
+FROM equipo_categoria
+INNER JOIN categoria ON equipo_categoria.idCategoria=categoria.idCategoria
+WHERE equipo_categoria.idEquipo = vIdEquipo$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_entrenador_by_idTecnico` (IN `vIdTecnico` INT)  NO SQL
 SELECT *
 FROM entrenador
@@ -39,6 +45,11 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_jugador_by_idUsuario` (IN `vIdUs
 SELECT *
 FROM jugador
 WHERE jugador.idUsuario = vIdUsuario$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_nombre_categoria` (IN `vIdCategoria` INT)  NO SQL
+SELECT categoria.nombre
+FROM categoria
+WHERE categoria.idCategoria = vIdCategoria$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_tecnico_by_idUsuario` (IN `vIdUsuario` INT)  NO SQL
 SELECT *
