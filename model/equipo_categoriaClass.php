@@ -1,11 +1,9 @@
 <?php
 
 
-class categoriasClass{
+class equipo_categoriaClass{
     protected $idCategoria;
-    protected $nombre;
-    
-    
+    protected $idEquipo;
     
     /**
      * @return mixed
@@ -18,9 +16,9 @@ class categoriasClass{
     /**
      * @return mixed
      */
-    public function getNombre()
+    public function getIdEquipo()
     {
-        return $this->nombre;
+        return $this->idEquipo;
     }
 
     /**
@@ -34,9 +32,9 @@ class categoriasClass{
     /**
      * @param mixed $nombre
      */
-    public function setNombre($nombre)
+    public function setIdEquipo($idEquipo)
     {
-        $this->nombre = $nombre;
+        $this->idEquipo = $idEquipo;
     }
 
     function getObjectVars()

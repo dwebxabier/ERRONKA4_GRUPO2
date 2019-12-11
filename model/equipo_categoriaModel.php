@@ -1,12 +1,13 @@
 <?php
 include_once 'connect_data.php';
-include_once 'categoriasClass.php';
+include_once 'equipo_categoriaClass.php';
 
 
-class categoriasModel extends categoriasClass{
+class equipo_categoriaModel extends equipo_categoriaClass{
     
     private $link;
     private $list=array();
+    private $objectNombre=array();
     
     public function OpenConnect()
     {
@@ -29,20 +30,17 @@ class categoriasModel extends categoriasClass{
         
     }
     
-    public function setList()
+    public function findCategoria()
     {
-        
+        $idEquipo=$this->idEquipo;
         $this->OpenConnect();
-        $sql="call sp_categorias_load";
+        $sql="call sp_categoria_del_equipo($idEquipo)";
         
         $result = $this->link->query($sql);
         while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
-        {
-            $newCategorias = new usuarioModel();
-            $newCategorias->setIdCategoria($row['idCategoria']);
-            $newCategorias->setNombre($row['nombre']);
-            
-            array_push($this->list, $newCategorias );
+        {          
+            $this->setIdCategoria($row['idCategoria']);
+            $this->setIdEquipo($row['nombre']);
         }
         mysqli_free_result($result);
         $this->CloseConnect();
@@ -51,15 +49,28 @@ class categoriasModel extends categoriasClass{
     function getListJsonString() {
         
         $arr=array();
-        
-        foreach ($this->list as $object)
+        foreach ($this->list as $nombre)
         {
-            $vars = $object->getObjectVars();
-            
+            $vars = $nombre->getObjectVars();
+            $objectNombre=$nombre->objectNombre->getObjectVars();
+            $vars['objectNombre']=$objectNombre;
             array_push($arr, $vars);
         }
         return json_encode($arr);
     }
+
+    // function getListJsonString() {
+        
+    //     $arr=array();
+        
+    //     foreach ($this->list as $object)
+    //     {
+    //         $vars = $object->getObjectVars();
+            
+    //         array_push($arr, $vars);
+    //     }
+    //     return json_encode($arr);
+    // }
 }
 
 

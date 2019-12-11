@@ -7,18 +7,22 @@ $(document).ready(function () {
 
             console.log(result);
 
-            $(".equipos>table").empty();
+            $(".equipos").empty();
             var newRow = "";
-
-            newRow += '<tr><th>ID EQUIPO</th><th>NOMBRE</th><tr>'
 
             $.each(result, function (i, equipo) {
 
-                newRow += "<tr><th>" + equipo.idEquipo + "</th>" + "<th><a class='nombreEquipo'  data-id=" + equipo.idEquipo + ">" + equipo.nombre + "<a></th></tr>";
+                newRow += '<div class="card text-center col-md-3 mr-3 ml-3 mb-3" style="width: 18rem;">'
+                newRow += '<img src="img/escudo_APC.png" class="card-img-top mx-auto d-block">'
+                newRow += '<div class="card-body">'
+                newRow += '<h5 class="card-title text-dark">'+equipo.nombre+'</h5>'
+                newRow += '<p class="card-text text-dark">'+equipo.objectCategoria.idEquipo+'</p>'
+                newRow += '<a class="btn btn-primary">Plantilla</a>'
+                newRow += '</div> </div>'
             
             });
 
-            $(".equipos>table").append(newRow);
+            $(".equipos").append(newRow);
 
 
             $(".nombreEquipo").click(function () {
