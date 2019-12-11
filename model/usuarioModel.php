@@ -8,9 +8,14 @@ class usuarioModel extends usuarioClass{
     private $link;
     private $list=array();
     private $objectJugador = array();
+    private $objectTecnico = array();
 
     public function getObjectJugador(){   
         return $this->objectJugador;
+    }
+
+    public function getObjectTecnico(){   
+        return $this->objectTecnico;
     }
     
     public function OpenConnect()
@@ -34,12 +39,11 @@ class usuarioModel extends usuarioClass{
         
     }
     
-    public function setUsuariosByEquipo()
+    public function setJugadoresByEquipo()
     {   
         $this->OpenConnect();
         $id=$this->getIdEquipo();
         $sql="call sp_usuario_by_equipo($id)";
-        // echo $sql;
         $result = $this->link->query($sql);
         while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
         {
@@ -62,20 +66,35 @@ class usuarioModel extends usuarioClass{
         $this->CloseConnect();
     }
 
-    // function getListJsonString() {
-        
-    //     $arr=array();
-        
-    //     foreach ($this->list as $object)
-    //     {
-    //         $vars = $object->getObjectVars();
-            
-    //         array_push($arr, $vars);
-    //     }
-    //     return json_encode($arr);
-    // }
+    public function setTecnicosByEquipo()
+    {   
+        $this->OpenConnect();
+        $id=$this->getIdEquipo();
+        $sql="call sp_usuario_by_equipo($id)";
+        $result = $this->link->query($sql);
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+        {
+            $newUsuario = new usuarioModel();
+            $newUsuario->setIdEquipo($row['idEquipo']);
+            $newUsuario->setIdUsuario($row['idUsuario']);
 
-    function getListJsonString() {
+            require_once ($_SERVER['DOCUMENT_ROOT']."/ERRONKA4_GRUPO2/model/tecnicoModel.php");
+            
+            $tecnico = new tecnicoModel();
+            $tecnico->setIdUsuario($row['idUsuario']);
+            $tecnico->findTecnicoByUser();
+            
+            $newUsuario->objectTecnico=$tecnico;
+
+            array_push($this->list, $newUsuario);
+        }
+        mysqli_free_result($result);
+        unset($tecnico);
+        $this->CloseConnect();
+    }
+
+
+    function getListJsonStringJugador() {
         
         $arr=array();
         foreach ($this->list as $usuario)
@@ -87,8 +106,26 @@ class usuarioModel extends usuarioClass{
                 $vars['objectJugador']=$objectJugador;
                 array_push($arr, $vars);
             }
+            
         }
         return json_encode($arr);
     }
+
+    function getListJsonStringTecnico() {
+        
+        $arr=array();
+        foreach ($this->list as $usuario)
+        {
+            if ($usuario->getObjectTecnico()->getIdTecnico() != null )
+            {
+                $vars = $usuario->getObjectVars();
+                $objectTecnico=$usuario->objectTecnico->getObjectVars();
+                $vars['objectTecnico']=$objectTecnico;
+                array_push($arr, $vars);
+            }
+        }
+        return json_encode($arr);
+    }
+
 }
 
