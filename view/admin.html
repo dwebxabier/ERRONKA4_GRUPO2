@@ -19,13 +19,13 @@
             <fieldset width="50%" height="50%">
                 <table>
                     <tr>
-                        <td><b>ID EQUIPO</b></td>
+                        <td><b>EQUIPO </b></td>
                         <td><b>NOMBRE</b></td>
                     </tr>
                     <tr id="listaEquipos" ng-repeat="item in lista | filter:TEXTObusqueda"
                         ng-show="verTabla === 'true'">
                         <td><b>{{item.idEquipo}}</b></td>
-                        <td class="nombreEquipo"><b>{{item.nombre}}</b></td>
+                        <td class="nombreEquipo" data-id="{{item.idEquipo}}"><b>{{item.nombre}}</b></td>
                         <!-- <td><input type="button" value="Modificar" ng-click="modificar(item)"></td> -->
                     </tr>
                 </table>
