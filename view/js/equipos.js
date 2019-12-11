@@ -22,7 +22,7 @@ $(document).ready(function () {
             
             });
 
-            newRow += '<div id="myModal" class="modal fade" tabindex="-1" role="dialog">'
+            newRow += '<div id="myModal" class="modal fade text-center" tabindex="-1" role="dialog">'
             newRow += '<div class="modal-dialog" role="document">'
             newRow += '<div class="modal-content">'
             newRow += '<div class="modal-header">'
@@ -31,8 +31,8 @@ $(document).ready(function () {
             newRow += '<span aria-hidden="true">&times;</span>'
             newRow += '</button>'
             newRow += '</div>'
-            newRow += '<div class="modal-body">'
-            newRow += '<p>Modal body text goes here.</p>'
+            newRow += '<div class="modal-body text-dark">'
+            newRow += '<p></p>'
             newRow += '</div>'
             newRow += '<div class="modal-footer">'
             newRow += '<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>'
@@ -44,7 +44,13 @@ $(document).ready(function () {
             $(".btnPlantilla").click(function () {
 
                 var idEquipo = $( this ).attr("data-id");
-                alert($(" .card ").find("h5").text());
+
+                $.each(result, function (i, equipo) {
+                    if(idEquipo == equipo.idEquipo){
+                        $( "#myModal" ).find( ".modal-title" ).html("<b>"+equipo.nombre+' ('+equipo.objectCategoria.idEquipo+')</b>');
+                    }
+                });
+                
 
                 $.ajax({
 
@@ -56,17 +62,18 @@ $(document).ready(function () {
             
                         console.log(result);
 
+                        $(' .modal-body>p ').empty();
+
                         var newRow = "";
-
-
+                        newRow += "<h5><b>Jugadores</b></h5>";
 
                         $.each(result, function(i, jugador) {
-
-                            newRow += "<tr><th>"+jugador.objectJugador.idJugador+"</th>" + "<th><a class='nombreJugador'  data-id="+jugador.objectJugador.idJugador+">" + jugador.objectJugador.nombre+"<a></th></tr>";
-
+                            newRow += jugador.objectJugador.nombre;
+                            newRow += "<br>";
                         });
+                        newRow += "<br>";
 
-                        $(".equipos>table").append(newRow);
+                        $(".modal-body>p").append(newRow);
                     }
                 });
 
@@ -80,18 +87,17 @@ $(document).ready(function () {
             
                         console.log(result);
 
-                        // $(".equipos>table").empty();
                         var newRow = "";
-
-                        newRow += '<tr><th>TECNICO</th><th>NOMBRE</th><th>LICENCIA</th><tr>'
+                        newRow += "<h5><b>Tecnicos</b></h5>";
 
                         $.each(result, function(i, tecnico) {
-
-                            newRow += "<tr><th>"+tecnico.objectTecnico.idTecnico+"</th>" + "<th><a class='nombreJugador'  data-id="+tecnico.objectTecnico.idTecnico+">" + tecnico.objectTecnico.nombre+"<a></th><th>"+tecnico.objectTecnico.licencia+"</th></tr>";
-
+                            newRow += tecnico.objectTecnico.nombre+" (";
+                            newRow += tecnico.objectTecnico.licencia+")";
+                            newRow += "<br>";
                         });
+                        newRow += "<br>";
 
-                        $(".equipos>table").append(newRow);
+                        $(".modal-body>p").append(newRow);
                     }
                 });
 
