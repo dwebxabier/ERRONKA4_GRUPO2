@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-12-2019 a las 14:45:54
+-- Tiempo de generación: 11-12-2019 a las 10:54:42
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.1.32
 
@@ -26,9 +26,29 @@ DELIMITER $$
 --
 -- Procedimientos
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_entrenador_by_idTecnico` (IN `vIdTecnico` INT)  NO SQL
+SELECT *
+FROM entrenador
+WHERE entrenador.idTecnico = vIdTecnico$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_equipo_load` ()  NO SQL
 SELECT *
 FROM equipo$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_jugador_by_idUsuario` (IN `vIdUsuario` INT)  NO SQL
+SELECT *
+FROM jugador
+WHERE jugador.idUsuario = vIdUsuario$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_tecnico_by_idUsuario` (IN `vIdUsuario` INT)  NO SQL
+SELECT *
+FROM tecnico
+WHERE tecnico.idUsuario = vIdUsuario$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_usuario_by_equipo` (IN `vIdEquipo` INT)  NO SQL
+SELECT *
+FROM usuario
+WHERE usuario.idEquipo = vIdEquipo$$
 
 DELIMITER ;
 
@@ -91,30 +111,6 @@ INSERT INTO `ddmm` (`idDDMM`, `idJugador`) VALUES
 (2, 1),
 (3, 2),
 (4, 3);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `delegado`
---
-
-CREATE TABLE `delegado` (
-  `idDelegado` int(11) NOT NULL,
-  `idTecnico` int(11) NOT NULL,
-  `nombre` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `entrenador`
---
-
-CREATE TABLE `entrenador` (
-  `idEntrenador` int(11) NOT NULL,
-  `idTecnico` int(11) NOT NULL,
-  `nombre` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -185,8 +181,18 @@ INSERT INTO `jugador` (`idJugador`, `idUsuario`, `nombre`) VALUES
 
 CREATE TABLE `tecnico` (
   `idTecnico` int(11) NOT NULL,
-  `idUsuario` int(11) NOT NULL
+  `idUsuario` int(11) NOT NULL,
+  `licencia` varchar(50) NOT NULL,
+  `nombre` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tecnico`
+--
+
+INSERT INTO `tecnico` (`idTecnico`, `idUsuario`, `licencia`, `nombre`) VALUES
+(1, 6, 'entrenador', 'Jose'),
+(2, 7, 'delegado', 'Ramon');
 
 -- --------------------------------------------------------
 
@@ -206,6 +212,8 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`idUsuario`, `idEquipo`) VALUES
 (5, NULL),
 (1, 1),
+(6, 1),
+(7, 1),
 (2, 2),
 (3, 3);
 
@@ -232,20 +240,6 @@ ALTER TABLE `categoria`
 ALTER TABLE `ddmm`
   ADD PRIMARY KEY (`idDDMM`),
   ADD KEY `idJugador` (`idJugador`);
-
---
--- Indices de la tabla `delegado`
---
-ALTER TABLE `delegado`
-  ADD PRIMARY KEY (`idDelegado`),
-  ADD KEY `idTecnico` (`idTecnico`);
-
---
--- Indices de la tabla `entrenador`
---
-ALTER TABLE `entrenador`
-  ADD PRIMARY KEY (`idEntrenador`),
-  ADD KEY `idTecnico` (`idTecnico`);
 
 --
 -- Indices de la tabla `equipo`
@@ -305,18 +299,6 @@ ALTER TABLE `ddmm`
   MODIFY `idDDMM` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT de la tabla `delegado`
---
-ALTER TABLE `delegado`
-  MODIFY `idDelegado` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `entrenador`
---
-ALTER TABLE `entrenador`
-  MODIFY `idEntrenador` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de la tabla `equipo`
 --
 ALTER TABLE `equipo`
@@ -332,13 +314,13 @@ ALTER TABLE `jugador`
 -- AUTO_INCREMENT de la tabla `tecnico`
 --
 ALTER TABLE `tecnico`
-  MODIFY `idTecnico` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idTecnico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Restricciones para tablas volcadas
@@ -355,18 +337,6 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `ddmm`
   ADD CONSTRAINT `ddmm_ibfk_1` FOREIGN KEY (`idJugador`) REFERENCES `jugador` (`idJugador`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `delegado`
---
-ALTER TABLE `delegado`
-  ADD CONSTRAINT `delegado_ibfk_1` FOREIGN KEY (`idTecnico`) REFERENCES `tecnico` (`idTecnico`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `entrenador`
---
-ALTER TABLE `entrenador`
-  ADD CONSTRAINT `entrenador_ibfk_1` FOREIGN KEY (`idTecnico`) REFERENCES `tecnico` (`idTecnico`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `equipo_categoria`

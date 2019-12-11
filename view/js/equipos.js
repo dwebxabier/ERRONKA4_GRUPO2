@@ -38,12 +38,37 @@ $(document).ready(function () {
                         $(".equipos>table").empty();
                         var newRow = "";
 
-                        newRow += '<tr><th>ID JUGADOR</th><th>NOMBRE</th><tr>'
+                        newRow += '<tr><th>JUGADOR</th><th>NOMBRE</th><tr>'
 
-                        $.each(result, function (i, jugador) {
+                        $.each(result, function(i, jugador) {
 
-                        newRow += "<tr><th>" + jugador.objectJugador.idJugador + "</th>" + "<th><a class='nombreJugador'  data-id=" + jugador.objectJugador.idJugador + ">" + jugador.objectJugador.nombre + "<a></th></tr>";
+                            newRow += "<tr><th>"+jugador.objectJugador.idJugador+"</th>" + "<th><a class='nombreJugador'  data-id="+jugador.objectJugador.idJugador+">" + jugador.objectJugador.nombre+"<a></th></tr>";
+
+                        });
+
+                        $(".equipos>table").append(newRow);
+                    }
+                });
+
+                $.ajax({
+
+                    type: 'GET',
+                    data: {"idEquipo":idEquipo},
+                    url: '../controller/cTecnicos.php',
+                    dataType: 'json',
+                    success: function (result) {
             
+                        console.log(result);
+
+                        // $(".equipos>table").empty();
+                        var newRow = "";
+
+                        newRow += '<tr><th>TECNICO</th><th>NOMBRE</th><th>LICENCIA</th><tr>'
+
+                        $.each(result, function(i, tecnico) {
+
+                            newRow += "<tr><th>"+tecnico.objectTecnico.idTecnico+"</th>" + "<th><a class='nombreJugador'  data-id="+tecnico.objectTecnico.idTecnico+">" + tecnico.objectTecnico.nombre+"<a></th><th>"+tecnico.objectTecnico.licencia+"</th></tr>";
+
                         });
 
                         $(".equipos>table").append(newRow);

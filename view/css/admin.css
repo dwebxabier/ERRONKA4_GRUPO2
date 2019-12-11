@@ -1,0 +1,43 @@
+body{
+    background-color: #981A32;
+}
+.contenedor{
+    margin: 8%;
+    display: grid;
+    grid-column-gap: 1%;
+    grid-row-gap: 1%;
+    grid-template-areas: 
+    "areaA areaA areaA areaA"
+    "areaB areaB areaB areaB"
+    ;
+    background-color: #dc3545;
+    border:1%;
+    border-radius: 10px;
+}
+
+.contenedor > legend{
+
+    grid-area: areaA;
+    margin: 1%;
+    color: white;
+}
+.contenedor > fieldset{
+
+    grid-area: areaB;
+    margin: 1%;
+    border:1% solid #981A32;
+    border-radius: 10px;
+}
+
+fieldset > table{
+
+    color: white;
+    margin: 1%;
+}
+
+.botones{
+    color: white;
+    background-color:#981A32 ;
+    border:1% solid;
+    border-radius: 10px;
+}

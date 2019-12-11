@@ -9,9 +9,8 @@ if (isset($idEquipo))
     $usuario->setIdEquipo($idEquipo);
 }
 
-$usuario->setJugadoresByEquipo(); 
-$usuarioJSON=$usuario->getListJsonStringJugador();
+$usuario->setTecnicosByEquipo(); 
+$usuarioJSON=$usuario->getListJsonStringTecnico();
 
 echo $usuarioJSON;
-
 ?>
