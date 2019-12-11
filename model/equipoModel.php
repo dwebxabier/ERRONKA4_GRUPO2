@@ -7,6 +7,7 @@ class equipoModel extends equipoClass{
     
     private $link;
     private $list=array();
+    private $objectCategoria=array();
     
     public function OpenConnect()
     {
@@ -41,25 +42,47 @@ class equipoModel extends equipoClass{
             
             $newEquipo->setIdEquipo($row['idEquipo']);
             $newEquipo->setNombre($row['nombre']);
+
+            require_once ($_SERVER['DOCUMENT_ROOT']."/ERRONKA4_GRUPO2/model/equipo_categoriaModel.php");
+            
+            $equipo_categoria = new equipo_categoriaModel();
+            $equipo_categoria->setIdEquipo($row['idEquipo']);
+            $equipo_categoria->findCategoria();
+            
+            $newEquipo->objectCategoria=$equipo_categoria;
             
             array_push($this->list, $newEquipo);
         }
         mysqli_free_result($result);
         $this->CloseConnect();
     }
-    
+
     function getListJsonString() {
         
         $arr=array();
-        
-        foreach ($this->list as $object)
+        foreach ($this->list as $categoria)
         {
-            $vars = $object->getObjectVars();
-            
+            $vars = $categoria->getObjectVars();
+            $objectCategoria=$categoria->objectCategoria->getObjectVars();
+            $vars['objectCategoria']=$objectCategoria;
             array_push($arr, $vars);
+            
         }
         return json_encode($arr);
     }
+    
+    // function getListJsonString() {
+        
+    //     $arr=array();
+        
+    //     foreach ($this->list as $object)
+    //     {
+    //         $vars = $object->getObjectVars();
+            
+    //         array_push($arr, $vars);
+    //     }
+    //     return json_encode($arr);
+    // }
 }
 
 
