@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html ng-app="miApp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/admin.css">
+    <title>Admin</title>
+</head>
+
+<body>
+
+    <div ng-controller="miControlador" ng-show="ConAjax==='true'">
+        <div class="contenedor">
+            <legend>
+                <h1>Lista de Equipos</h1>
+            </legend>
+            <fieldset width="50%" height="50%">
+                <table>
+                    <tr>
+                        <td><b>ID EQUIPO</b></td>
+                        <td><b>NOMBRE</b></td>
+                    </tr>
+                    <tr id="listaEquipos" ng-repeat="item in lista | filter:TEXTObusqueda"
+                        ng-show="verTabla === 'true'">
+                        <td><b>{{item.idEquipo}}</b></td>
+                        <td class="nombreEquipo"><b>{{item.nombre}}</b></td>
+                        <!-- <td><input type="button" value="Modificar" ng-click="modificar(item)"></td> -->
+                    </tr>
+                </table>
+
+                <div id="doha" ng-show="verMenu==='true'" ng-style="menu">
+                        <input type="button" class="botones" value="Buscar Equipo" ng-click="Buscar()">
+                        <input type="button" class="botones" value="Nuevo Equipo" ng-click="AlumnoNuevo()">
+                        <input type="button" class="botones" value="Eliminar Equipos" ng-click="Eliminarlista()">
+                        <input type="button" class="botones" value="Eliminar Equipo" ng-click="EliminarAlumno()">
+    
+                    </div>
+    
+                    <form id="formularioBusqueda" ng-show="buscarEquipo==='true'" ng-style="menu">
+                        <span>Escribe el nombre del Equipo</span> <input type="text" ng-model="TEXTObusqueda">
+                    </form>
+            </fieldset>
+
+
+
+            <div id="acciones">
+                <div id="">
+                    <form id="formagregar" ng-submit="agregar()" ng-show="agregarEquipo==='true'">
+
+                        <span>Nombre</span> <input type="text" ng-model="misdatos.nombre"><br>
+
+                        <input type="submit" value="Agregar Equipo">
+                        <input type="button" ng-click="cancelar()" value="Cancelar">
+                    </form>
+                </div>
+
+                <div id="" ng-style="menu">
+                    <form id="formmodificar" ng-submit="modificar()" ng-show="modificarEquipo==='true'">
+
+                        <span>Nombre</span> <input type="text" ng-model="misdatos.nombre"><br>
+
+                        <input type="button" ng-click="ModificarAlumnos()" value="finalizar">
+                    </form>
+                </div>
+
+
+                <button type="button" name="button" ng-click="aparecerTablaAjax()" id="botonAjax"
+                    ng-show="cargarTabla === 'si'">Cargar Tabla</button>
+                
+            </div>
+        </div>
+
+
+    </div>
+</body>
+<!-- LINK DE ajax -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+
+<!-- LINK DE JQUERY -->
+<script src="js/jquery.js"></script>
+
+<!-- LINK DE BOOSTRAP JS -->
+<script src="js/js_bootstrap/bootstrap.js"></script>
+
+<!-- LINK DE NUESTRO JS -->
+<script src="js/admin.js"></script>
+
+</html>
