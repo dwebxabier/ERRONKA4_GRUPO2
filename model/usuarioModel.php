@@ -61,7 +61,31 @@ class usuarioModel extends usuarioClass{
         unset($jugador);
         $this->CloseConnect();
     }
-
+    public function findUserByUsername(){
+        $this->OpenConnect();
+        
+        $username=$this->username;
+        
+        $sql="call spFindUserByUsername('$username')";
+        $result= $this->link->query($sql);
+        
+        $userExists=false;
+        
+        if ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+        {
+            $passwordEncripted=$row['password'];
+            
+            // if (password_verify($this->getPassword(), $passwordEncripted))
+            // {
+            //     $this->setAdmin($row['admin']); 
+                
+            //     $userExists=true;
+            // }
+        }
+        return $userExists;
+        mysqli_free_result($result);
+        $this->CloseConnect();
+    }
     // function getListJsonString() {
         
     //     $arr=array();
