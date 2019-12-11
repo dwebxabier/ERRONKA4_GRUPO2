@@ -63,11 +63,11 @@ $(document).ready(function () {
                         // $(".equipos>table").empty();
                         var newRow = "";
 
-                        newRow += '<tr><th>TECNICO</th><th>NOMBRE</th><tr>'
+                        newRow += '<tr><th>TECNICO</th><th>NOMBRE</th><th>LICENCIA</th><tr>'
 
                         $.each(result, function(i, tecnico) {
 
-                            newRow += "<tr><th>"+tecnico.objectTecnico.idTecnico+"</th>" + "<th><a class='nombreJugador'  data-id="+tecnico.objectTecnico.idTecnico+">"+tecnico.objectTecnico.nombre+"</a></th></tr>";
+                            newRow += "<tr><th>"+tecnico.objectTecnico.idTecnico+"</th>" + "<th><a class='nombreJugador'  data-id="+tecnico.objectTecnico.idTecnico+">" + tecnico.objectTecnico.nombre+"<a></th><th>"+tecnico.objectTecnico.licencia+"</th></tr>";
 
                         });
 
