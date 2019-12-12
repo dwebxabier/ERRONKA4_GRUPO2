@@ -45,7 +45,7 @@ class equipo_categoriaModel extends equipo_categoriaClass{
         mysqli_free_result($result);
         $this->CloseConnect();
     }
-    
+
     function getListJsonString() {
         
         $arr=array();

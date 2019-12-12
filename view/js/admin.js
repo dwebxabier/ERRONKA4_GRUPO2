@@ -24,20 +24,28 @@ $http({
             alert(idEquipo);
 
 
-            $http({
-                method: 'GET',
-                data: {"idEquipo":idEquipo},
-                url: '../controller/cPlantilla.php',
-            }).then(function (data) { //necesito saber un evento que al cargar lista sepa que esta cargado
+            // $http({
+            //     method: 'GET',
+            //     data: {"idEquipo":idEquipo},
+            //     url: '../controller/cPlantilla.php',
+            // }).then(function (data) { //necesito saber un evento que al cargar lista sepa que esta cargado
             
-                console.log(data.data);
+            //     console.log(data.data);
             
-            });
+            // });
 
 
 
         });
 
+        $http({
+            method: 'GET',
+            url: '../controller/cCategoria.php',
+        }).then(function (data) {
+        
+            console.log(data.data);
+            $scope.categorias = data.data;
+        });
 
         $scope.Buscar = function () {
             $scope.agregarEquipo = "false";

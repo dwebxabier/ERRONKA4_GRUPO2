@@ -65,7 +65,7 @@ class usuarioModel extends usuarioClass{
         unset($jugador);
         $this->CloseConnect();
     }
-<<<<<<< HEAD
+
     public function findUserByUsername(){
         $this->OpenConnect();
         
@@ -91,15 +91,7 @@ class usuarioModel extends usuarioClass{
         mysqli_free_result($result);
         $this->CloseConnect();
     }
-    // function getListJsonString() {
-        
-    //     $arr=array();
-        
-    //     foreach ($this->list as $object)
-    //     {
-    //         $vars = $object->getObjectVars();
-=======
-
+    
     public function setTecnicosByEquipo()
     {   
         $this->OpenConnect();
@@ -113,7 +105,6 @@ class usuarioModel extends usuarioClass{
             $newUsuario->setIdUsuario($row['idUsuario']);
 
             require_once ($_SERVER['DOCUMENT_ROOT']."/ERRONKA4_GRUPO2/model/tecnicoModel.php");
->>>>>>> ca8b7a2cd9ffe95e683ad13d40421179393802b2
             
             $tecnico = new tecnicoModel();
             $tecnico->setIdUsuario($row['idUsuario']);
@@ -127,7 +118,6 @@ class usuarioModel extends usuarioClass{
         unset($tecnico);
         $this->CloseConnect();
     }
-
 
     function getListJsonStringJugador() {
         

@@ -50,7 +50,8 @@
                     <div id="acciones">
                         <div id=""><!-- Agrear Equipo -->
                             <form id="formagregar" ng-submit="agregar()" ng-show="agregarEquipo==='true'">
-        
+                                
+                                <span>Categoria</span> <input type="text" ng-model="misdatos.nombre"><br>
                                 <span>Nombre</span> <input type="text" ng-model="misdatos.nombre"><br>
         
                                 <input type="submit" class="botones" value="Agregar Equipo">
@@ -62,8 +63,9 @@
                             <form id="formmodificar" ng-submit="modificar()" ng-show="modificarEquipo==='true'">
         
                                 <span>Nombre</span> <input type="text" ng-model="misdatos.nombre"><br>
-        
-                                <input type="button" ng-click="ModificarAlumnos()" value="finalizar">
+                                
+                                <input type="submit" class="botones" ng-click="finalizar()" value="Finalizar">
+                                <input type="button" ng-click="cancelar()" value="Cancelar">
                             </form>
                         </div>
         
