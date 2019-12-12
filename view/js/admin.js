@@ -17,8 +17,25 @@ $http({
     $scope.verMenu="true";
 
     setTimeout(function(){ //hace que se ejecute mas tarde para que pueda realizar esta accion
+       
         $(".nombreEquipo").click(function(){
-            alert("hola");
+
+            var idEquipo = $(this).attr("data-id");
+            alert(idEquipo);
+
+
+            $http({
+                method: 'GET',
+                data: {"idEquipo":idEquipo},
+                url: '../controller/cPlantilla.php',
+            }).then(function (data) { //necesito saber un evento que al cargar lista sepa que esta cargado
+            
+                console.log(data.data);
+            
+            });
+
+
+
         });
     
     },300)
