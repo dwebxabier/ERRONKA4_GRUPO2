@@ -11,7 +11,7 @@ $scope.verTabla="true";
 
 $scope.misdatosEquipo = {
     idCategoria: "",
-    nombre: "",
+    nombreEquipo: "",
 }
 
 
@@ -90,8 +90,8 @@ $http({
 
         $scope.agregarEquipo = function () {
             
-            alert("hola");
-            equipoNuevo = { 'idCategoria': $scope.misdatosEquipo.idCategoria, 'nombre': $scope.misdatosEquipo.nombre};
+            alert( $scope.misdatosEquipo.idCategoria.idCategoria);
+            equipoNuevo = { 'idCategoria': $scope.misdatosEquipo.idCategoria.idCategoria, 'nombre': $scope.misdatosEquipo.nombreEquipo};
 
             equipoNuevo = JSON.stringify(equipoNuevo);
             alert(equipoNuevo);
@@ -103,7 +103,7 @@ $http({
             }).then(function (data) {
             
                 console.log(data.data);
-                location.reload(true);
+                
             });
         }
 
