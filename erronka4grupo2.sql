@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-12-2019 a las 14:12:21
+-- Tiempo de generación: 12-12-2019 a las 12:22:12
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.1.32
 
@@ -31,6 +31,9 @@ SELECT equipo_categoria.idCategoria, categoria.nombre
 FROM equipo_categoria
 INNER JOIN categoria ON equipo_categoria.idCategoria=categoria.idCategoria
 WHERE equipo_categoria.idEquipo = vIdEquipo$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_categoria_load` ()  NO SQL
+SELECT * FROM categoria$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_entrenador_by_idTecnico` (IN `vIdTecnico` INT)  NO SQL
 SELECT *

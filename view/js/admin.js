@@ -4,8 +4,11 @@ miApp.controller('miControlador', ['$scope', '$http', function ($scope, $http) {
 
 $scope.ConAjax="true";
 $scope.agregarEquipo="false";
+$scope.agregarJugador = "false";
+$scope.agregarTecnico="false";  
 $scope.modificarEquipo="false";
 $scope.verTabla="true";
+
 
 $http({
     method: 'GET',
@@ -55,6 +58,20 @@ $http({
         $scope.EquipoNuevo = function () {
             $scope.buscarEquipo = "false";
             $scope.agregarEquipo = "true";
+        }
+
+        $scope.JugadorNuevo = function () {
+            $scope.buscarEquipo = "false";
+            $scope.agregarEquipo = "false";
+            $scope.agregarTecnico = "false";
+            $scope.agregarJugador = "true";
+        }
+
+        $scope.TecnicoNuevo = function () {
+            $scope.buscarEquipo = "false";
+            $scope.agregarEquipo = "false";
+            $scope.agregarJugador = "false";
+            $scope.agregarTecnico = "true";
         }
 
         $scope.cancelar = function () {
