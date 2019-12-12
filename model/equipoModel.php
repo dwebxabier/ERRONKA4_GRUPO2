@@ -3,6 +3,7 @@ include_once 'connect_data.php';
 include_once 'equipoClass.php';
 
 
+
 class equipoModel extends equipoClass{
     
     private $link;
@@ -53,6 +54,18 @@ class equipoModel extends equipoClass{
             
             array_push($this->list, $newEquipo);
         }
+        mysqli_free_result($result);
+        $this->CloseConnect();
+    }
+
+    public function insert()
+    {
+        $this->OpenConnect();
+        $nombre=$this->getNombre();
+        $sql="call sp_insertar_nombre_equipo('$nombre')";
+        
+        $result = $this->link->query($sql);
+      
         mysqli_free_result($result);
         $this->CloseConnect();
     }

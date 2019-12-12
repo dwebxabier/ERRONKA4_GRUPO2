@@ -3,11 +3,16 @@ var miApp = angular.module('miApp', []);
 miApp.controller('miControlador', ['$scope', '$http', function ($scope, $http) {
 
 $scope.ConAjax="true";
-$scope.agregarEquipo="false";
+$scope.agregarEquipos="false";
 $scope.agregarJugador = "false";
 $scope.agregarTecnico="false";  
 $scope.modificarEquipo="false";
 $scope.verTabla="true";
+
+$scope.misdatosEquipo = {
+    idCategoria: "",
+    nombre: "",
+}
 
 
 $http({
@@ -51,25 +56,29 @@ $http({
         });
 
         $scope.Buscar = function () {
-            $scope.agregarEquipo = "false";
+            $scope.agregarEquipos = "false";
             $scope.buscarEquipo = "true";
         }
 
         $scope.EquipoNuevo = function () {
             $scope.buscarEquipo = "false";
-            $scope.agregarEquipo = "true";
+            $scope.agregarTecnico = "false";
+            $scope.agregarJugador = "false";
+            $scope.agregarEquipos = "true";
+            
         }
 
         $scope.JugadorNuevo = function () {
             $scope.buscarEquipo = "false";
-            $scope.agregarEquipo = "false";
+            $scope.agregarEquipos = "false";
             $scope.agregarTecnico = "false";
             $scope.agregarJugador = "true";
+            
         }
 
         $scope.TecnicoNuevo = function () {
             $scope.buscarEquipo = "false";
-            $scope.agregarEquipo = "false";
+            $scope.agregarEquipos = "false";
             $scope.agregarJugador = "false";
             $scope.agregarTecnico = "true";
         }
@@ -77,6 +86,25 @@ $http({
         $scope.cancelar = function () {
             $scope.buscarEquipo = "false";
             $scope.agregarEquipo = "false";
+        }
+
+        $scope.agregarEquipo = function () {
+            
+            alert("hola");
+            equipoNuevo = { 'idCategoria': $scope.misdatosEquipo.idCategoria, 'nombre': $scope.misdatosEquipo.nombre};
+
+            equipoNuevo = JSON.stringify(equipoNuevo);
+            alert(equipoNuevo);
+
+            $http({
+                method: 'GET',
+                params:{value: equipoNuevo},
+                url: '../controller/cEquipoInsert.php',
+            }).then(function (data) {
+            
+                console.log(data.data);
+                location.reload(true);
+            });
         }
 
     
