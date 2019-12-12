@@ -32,7 +32,6 @@ $(document).ready(function () {
             newRow += '</button>'
             newRow += '</div>'
             newRow += '<div class="modal-body text-dark">'
-            newRow += '<p></p>'
             newRow += '</div>'
             newRow += '<div class="modal-footer">'
             newRow += '<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>'
@@ -62,45 +61,41 @@ $(document).ready(function () {
             
                         console.log(result);
 
-                        $(' .modal-body>p ').empty();
+                        $(' .modal-body ').empty();
 
                         var newRow = "";
                         newRow += "<h5><b>Jugadores</b></h5>";
 
                         $.each(result, function(i, jugador) {
-                            newRow += jugador.objectJugador.nombre;
-                            newRow += "<br>";
+                            newRow += "<p>"+jugador.objectJugador.nombre+"</p>";
                         });
-                        newRow += "<br>";
 
-                        $(".modal-body>p").append(newRow);
-                    }
-                });
+                        $(".modal-body").append(newRow);
 
-                $.ajax({
+                        $.ajax({
 
-                    type: 'GET',
-                    data: {"idEquipo":idEquipo},
-                    url: '../controller/cTecnicos.php',
-                    dataType: 'json',
-                    success: function (result) {
-            
-                        console.log(result);
-
-                        var newRow = "";
-                        newRow += "<h5><b>Tecnicos</b></h5>";
-
-                        $.each(result, function(i, tecnico) {
-                            newRow += tecnico.objectTecnico.nombre+" (";
-                            newRow += tecnico.objectTecnico.licencia+")";
-                            newRow += "<br>";
+                            type: 'GET',
+                            data: {"idEquipo":idEquipo},
+                            url: '../controller/cTecnicos.php',
+                            dataType: 'json',
+                            success: function (result) {
+                    
+                                console.log(result);
+        
+                                var newRow = "";
+                                newRow += "<h5><b>Tecnicos</b></h5>";
+        
+                                $.each(result, function(i, tecnico) {
+                                    newRow += "<p>"+tecnico.objectTecnico.nombre+" (";
+                                    newRow += tecnico.objectTecnico.licencia+")</p>";
+                                });
+        
+                                $(".modal-body").append(newRow);
+                            }
                         });
-                        newRow += "<br>";
 
-                        $(".modal-body>p").append(newRow);
-                    }
+                    }  
                 });
-
 
             });
 
@@ -112,4 +107,5 @@ $(document).ready(function () {
     
 
 });
+
 
