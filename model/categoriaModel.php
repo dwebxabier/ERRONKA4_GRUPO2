@@ -37,10 +37,13 @@ class categoriaModel extends categoriaClass{
         $sql="call sp_categoria_load()";
         
         $result = $this->link->query($sql);
-        if ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
         {          
-            $this->setIdCategoria($row['idCategoria']);
-            $this->setNombre($row['nombre']);
+            $categoria = new categoriaModel();
+            $categoria->setIdCategoria($row['idCategoria']);
+            $categoria->setNombre($row['nombre']);
+
+            array_push($this->list, $categoria);
         }
         mysqli_free_result($result);
         $this->CloseConnect();
