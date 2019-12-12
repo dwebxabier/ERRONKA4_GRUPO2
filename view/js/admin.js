@@ -37,11 +37,31 @@ $http({
 
 
         });
+
+
+        $scope.Buscar = function () {
+            $scope.agregarEquipo = "false";
+            $scope.buscarEquipo = "true";
+        }
+
+        $scope.EquipoNuevo = function () {
+            $scope.buscarEquipo = "false";
+            $scope.agregarEquipo = "true";
+        }
+
+        $scope.cancelar = function () {
+            $scope.buscarEquipo = "false";
+            $scope.agregarEquipo = "false";
+        }
+
     
     },300)
 
+   
 
 });
+
+
 
     
 }]);

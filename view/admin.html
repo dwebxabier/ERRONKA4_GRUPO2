@@ -32,44 +32,48 @@
 
                 <div id="doha" ng-show="verMenu==='true'" ng-style="menu">
                         <input type="button" class="botones" value="Buscar Equipo" ng-click="Buscar()">
-                        <input type="button" class="botones" value="Nuevo Equipo" ng-click="AlumnoNuevo()">
-                        <input type="button" class="botones" value="Eliminar Equipos" ng-click="Eliminarlista()">
-                        <input type="button" class="botones" value="Eliminar Equipo" ng-click="EliminarAlumno()">
+                        <input type="button" class="botones" value="Añadir Equipo" ng-click="EquipoNuevo()">
+                        <input type="button" class="botones" value="Añadir Jugador" ng-click="JugadorNuevo()">
+                        <input type="button" class="botones" value="Añadir Tecnico" ng-click="TecnicoNuevo()">
+                        <input type="button" class="botones" value="Eliminar Equipo" ng-click="EliminarrEquipo()">
+                        <input type="button" class="botones" value="Eliminar Jugador" ng-click="EliminarJugador()">
+                        <input type="button" class="botones" value="Eliminar Tecnico" ng-click="EliminarTecnico()">
     
                     </div>
     
+                    <!-- Busqueda de jugador -->
                     <form id="formularioBusqueda" ng-show="buscarEquipo==='true'" ng-style="menu">
                         <span>Escribe el nombre del Equipo</span> <input type="text" ng-model="TEXTObusqueda">
+                        <input type="button" class="botones" ng-click="cancelar()" value="Cancelar">
                     </form>
+
+                    <div id="acciones">
+                        <div id=""><!-- Agrear Equipo -->
+                            <form id="formagregar" ng-submit="agregar()" ng-show="agregarEquipo==='true'">
+        
+                                <span>Nombre</span> <input type="text" ng-model="misdatos.nombre"><br>
+        
+                                <input type="submit" class="botones" value="Agregar Equipo">
+                                <input type="button" class="botones" ng-click="cancelar()" value="Cancelar">
+                            </form>
+                        </div>
+        
+                        <div id="" ng-style="menu"><!-- Modificar Equipo -->
+                            <form id="formmodificar" ng-submit="modificar()" ng-show="modificarEquipo==='true'">
+        
+                                <span>Nombre</span> <input type="text" ng-model="misdatos.nombre"><br>
+        
+                                <input type="button" ng-click="ModificarAlumnos()" value="finalizar">
+                            </form>
+                        </div>
+        
+        
+                        <button type="button" name="button" ng-click="aparecerTablaAjax()" id="botonAjax"
+                            ng-show="cargarTabla === 'si'">Cargar Tabla</button>
+                        
+                    </div>
+
             </fieldset>
-
-
-
-            <div id="acciones">
-                <div id="">
-                    <form id="formagregar" ng-submit="agregar()" ng-show="agregarEquipo==='true'">
-
-                        <span>Nombre</span> <input type="text" ng-model="misdatos.nombre"><br>
-
-                        <input type="submit" value="Agregar Equipo">
-                        <input type="button" ng-click="cancelar()" value="Cancelar">
-                    </form>
-                </div>
-
-                <div id="" ng-style="menu">
-                    <form id="formmodificar" ng-submit="modificar()" ng-show="modificarEquipo==='true'">
-
-                        <span>Nombre</span> <input type="text" ng-model="misdatos.nombre"><br>
-
-                        <input type="button" ng-click="ModificarAlumnos()" value="finalizar">
-                    </form>
-                </div>
-
-
-                <button type="button" name="button" ng-click="aparecerTablaAjax()" id="botonAjax"
-                    ng-show="cargarTabla === 'si'">Cargar Tabla</button>
-                
-            </div>
         </div>
 
 
