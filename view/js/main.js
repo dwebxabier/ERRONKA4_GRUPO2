@@ -9,6 +9,9 @@ $(document).ready(function () {
     $('#exampleModalLongTitle').html($(this).prev('h2').text());
   });
 
+
+  
+//NO TOCAR $$$$$$$$$$$$$$$$
   // $.ajax({
   //     type: "GET",
   //     url: "../controller/cIndex.php",
@@ -24,6 +27,8 @@ $(document).ready(function () {
 });
 
 function sessionCheck(){
+  //NO TOCAR $$$$$$$$$$$$
+
   // $.ajax({
 
   //   url: "../controller/cSessionVerVars.php",

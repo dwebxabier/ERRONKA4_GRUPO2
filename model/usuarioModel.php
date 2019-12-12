@@ -93,26 +93,33 @@ class usuarioModel extends usuarioClass{
         mysqli_free_result($result);
         $this->CloseConnect();
     }
-    //  function getListJsonString() {
-        
-    //      $arr=array();
-        
-    //      foreach ($this->list as $object)
-    //      {
-    //          $vars = $object->getObjectVars();
-            
-    //         $tecnico = new tecnicoModel();
-    //         $tecnico->setIdUsuario($row['idUsuario']);
-    //         $tecnico->findTecnicoByUser();
-            
-    //         $newUsuario->objectTecnico=$tecnico;
 
-    //         array_push($this->list, $newUsuario);
-    //     }
-    //     mysqli_free_result($result);
-    //     unset($tecnico);
-    //     $this->CloseConnect();
-    // }
+    public function setTecnicosByEquipo()
+    {   
+        $this->OpenConnect();
+        $id=$this->getIdEquipo();
+        $sql="call sp_usuario_by_equipo($id)";
+        $result = $this->link->query($sql);
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+        {
+            $newUsuario = new usuarioModel();
+            $newUsuario->setIdEquipo($row['idEquipo']);
+            $newUsuario->setIdUsuario($row['idUsuario']);
+
+            require_once ($_SERVER['DOCUMENT_ROOT']."/ERRONKA4_GRUPO2/model/tecnicoModel.php");
+            
+               $tecnico = new tecnicoModel();
+               $tecnico->setIdUsuario($row['idUsuario']);
+               $tecnico->findTecnicoByUser();
+            
+               $newUsuario->objectTecnico=$tecnico;
+
+               array_push($this->list, $newUsuario);
+           }
+           mysqli_free_result($result);
+           unset($tecnico);
+           $this->CloseConnect();
+       }
 
 
     function getListJsonStringJugador() {
