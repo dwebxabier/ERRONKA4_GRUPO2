@@ -65,6 +65,40 @@ class usuarioModel extends usuarioClass{
         unset($jugador);
         $this->CloseConnect();
     }
+<<<<<<< HEAD
+    public function findUserByUsername(){
+        $this->OpenConnect();
+        
+        $username=$this->username;
+        
+        $sql="call spFindUserByUsername('$username')";
+        $result= $this->link->query($sql);
+        
+        $userExists=false;
+        
+        if ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+        {
+            $passwordEncripted=$row['password'];
+            
+            // if (password_verify($this->getPassword(), $passwordEncripted))
+            // {
+            //     $this->setAdmin($row['admin']); 
+                
+            //     $userExists=true;
+            // }
+        }
+        return $userExists;
+        mysqli_free_result($result);
+        $this->CloseConnect();
+    }
+    // function getListJsonString() {
+        
+    //     $arr=array();
+        
+    //     foreach ($this->list as $object)
+    //     {
+    //         $vars = $object->getObjectVars();
+=======
 
     public function setTecnicosByEquipo()
     {   
@@ -79,6 +113,7 @@ class usuarioModel extends usuarioClass{
             $newUsuario->setIdUsuario($row['idUsuario']);
 
             require_once ($_SERVER['DOCUMENT_ROOT']."/ERRONKA4_GRUPO2/model/tecnicoModel.php");
+>>>>>>> ca8b7a2cd9ffe95e683ad13d40421179393802b2
             
             $tecnico = new tecnicoModel();
             $tecnico->setIdUsuario($row['idUsuario']);
