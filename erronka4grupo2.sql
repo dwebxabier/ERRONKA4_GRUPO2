@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-12-2019 a las 12:25:23
+-- Tiempo de generación: 12-12-2019 a las 14:17:11
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.1.32
 
@@ -49,6 +49,14 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_insertar_equipo` (IN `vNombre` V
   INSERT INTO equipo (equipo.nombre ) values ( vNombre );
   INSERT INTO equipo_categoria ( equipo_categoria.idEquipo, equipo_categoria.idCategoria ) values ( EQUIPO_LAST_ID(), vIdCategoria );
 END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_insertar_idCat_equipo_categoria` (IN `vIdCategoria` INT)  NO SQL
+INSERT INTO equipo_categoria(equipo_categoria.idEquipo, equipo_categoria.idCategoria)
+VALUES(EQUIPO_LAST_ID(), vIdCategoria)$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_insertar_nombre_equipo` (IN `vNombre` VARCHAR(50))  NO SQL
+INSERT INTO equipo(equipo.nombre)
+VALUES(vNombre)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_jugador_by_idUsuario` (IN `vIdUsuario` INT)  NO SQL
 SELECT *
@@ -157,7 +165,9 @@ INSERT INTO `equipo` (`idEquipo`, `nombre`) VALUES
 (1, 'Petanca Pensionista'),
 (2, 'New Petanca'),
 (3, 'Baby Petanca'),
-(4, 'Prueba de Equipo');
+(4, 'Prueba de Equipo'),
+(5, 'equipito'),
+(6, 'equipito2');
 
 -- --------------------------------------------------------
 
@@ -178,7 +188,8 @@ INSERT INTO `equipo_categoria` (`idEquipo`, `idCategoria`) VALUES
 (1, 3),
 (2, 2),
 (3, 1),
-(4, 3);
+(4, 3),
+(6, 3);
 
 -- --------------------------------------------------------
 
@@ -330,7 +341,7 @@ ALTER TABLE `ddmm`
 -- AUTO_INCREMENT de la tabla `equipo`
 --
 ALTER TABLE `equipo`
-  MODIFY `idEquipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idEquipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `jugador`
