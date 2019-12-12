@@ -32,14 +32,48 @@
           <a class="nav-link" href="view/equipos.html"><b>EQUIPOS</b></a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link"><b>GALERIA</b></a>
+          <a href="#galeria" class="nav-link"><b>GALERIA</b></a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link"><b>TOP 5</b></a>
+          <a href="#top5" class="nav-link"><b>TOP 5</b></a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link"><b>TIENDA</b></a>
+          <a href="#tienda" class="nav-link"><b>TIENDA</b></a>
         </li>
+        <li class="nav-item active">
+          <a class="nav-link" data-toggle="modal" href="#myModal"><b>CONTACTO</b></a>
+        </li>
+
+        <!-- MODAL DE CONTACTO -->
+
+        <div id="myModal" class="modal fade text-center" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+          <div class="modal-content">
+          <div class="modal-header">
+          <h5 class="modal-title text-dark">CONTACTA CON NOSOTROS</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+          </div>
+          <div class="modal-body text-dark">
+              <form>
+                  <div class="form-row">
+                    <div class="col-md-10 mb-3">
+                      <input type="text" class="form-control" placeholder="Nombre">
+                    </div>
+                    <div class="col-md-10">
+                      <input type="text" class="form-control" placeholder="Rseña">
+                    </div>
+                  </div>
+                </form>
+          </div>
+          <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>'
+          </div></div></div></div>
+
+
+
+
       </ul>
     </div>
   </nav>
@@ -49,7 +83,7 @@
   <img id="top-banner" class="col-14" src="view/img/banner.png">
 
   <!-- CAROUSEL -->
-  <div class="carousel d-flex align-items-center justify-content-center">
+  <div id="galeria" class="carousel d-flex align-items-center justify-content-center">
     <div class="row col-12 mb-3">
       <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
         <div class="carousel-inner">
@@ -79,8 +113,7 @@
 
   <!-- TOP 5 JUGADORES -->
 
-  <!-- <h1 class="text-center mb-5"><b>TOP 5 JUGADORES</b></h1> -->
-  <div class="d-flex titles align-items-center justify-content-center">
+  <div id="top5" class="d-flex titles align-items-center justify-content-center">
     <img src="view/img/top5.png">
   </div>
 
@@ -167,7 +200,7 @@
     <img src="view/img/tienda.png">
   </div>
 
-  <div class="row top d-flex align-items-center justify-content-center text-center mb-5">
+  <div id="tienda" class="row top d-flex align-items-center justify-content-center text-center mb-5">
     <div class="card col-md-2">
       <div class="card-body ">
         <h5 class="card-title text-dark">Precio: 34,99€</h5>
@@ -190,7 +223,7 @@
   </div>
 
   <!-- Contactanos-->
-  <div class="row top d-flex align-items-center justify-content-center text-center">
+  <!-- <div class="row top d-flex align-items-center justify-content-center text-center">
 
     <img class="img-responsive rounded" src="view/img/contactanos.png">
     <div class="col-md-2">
@@ -201,7 +234,7 @@
 
       </form>
     </div>
-  </div>
+  </div> -->
 
   <!-- BANNER-->
 
@@ -222,7 +255,7 @@
       <img src="view/img/facebook.png">
       <img src="view/img/twitter.png">
     </div>
-    <iframe class="mapa col-md-3"
+    <iframe id="lugar" class="mapa col-md-3"
       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24808.104622379622!2d-1.8780989968338722!3d38.99219789157474!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd665fe2fb218d15%3A0x8269cd31d6186180!2sAlbacete!5e0!3m2!1ses!2ses!4v1575539217004!5m2!1ses!2ses"
       width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
   </div>

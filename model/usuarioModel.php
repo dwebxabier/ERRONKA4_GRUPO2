@@ -106,18 +106,18 @@ class usuarioModel extends usuarioClass{
 
             require_once ($_SERVER['DOCUMENT_ROOT']."/ERRONKA4_GRUPO2/model/tecnicoModel.php");
             
-            $tecnico = new tecnicoModel();
-            $tecnico->setIdUsuario($row['idUsuario']);
-            $tecnico->findTecnicoByUser();
+               $tecnico = new tecnicoModel();
+               $tecnico->setIdUsuario($row['idUsuario']);
+               $tecnico->findTecnicoByUser();
             
-            $newUsuario->objectTecnico=$tecnico;
+               $newUsuario->objectTecnico=$tecnico;
 
-            array_push($this->list, $newUsuario);
-        }
-        mysqli_free_result($result);
-        unset($tecnico);
-        $this->CloseConnect();
-    }
+               array_push($this->list, $newUsuario);
+           }
+           mysqli_free_result($result);
+           unset($tecnico);
+           $this->CloseConnect();
+       }
 
     function getListJsonStringJugador() {
         
