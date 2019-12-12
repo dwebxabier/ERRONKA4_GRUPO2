@@ -9,6 +9,7 @@ $(document).ready(function () {
     $('#exampleModalLongTitle').html($(this).prev('h2').text());
   });
 
+  // TRANSICION DE LOS DROPDOWNS A LA SECCION
   $(function(){
     $('.dropdown-menu>a[href]').click(function() {
       if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
@@ -22,6 +23,23 @@ $(document).ready(function () {
       }
     });
   });
+
+  // VALIDAMIENTO DEL MODAL CONTACTO
+
+  $('.modal-footer>#enviarOp').click(function() {
+
+    var regex = /[\w-\.]{2,}@([\w-]{2,}\.)*([\w-]{2,}\.)[\w-]{2,4}/;
+
+    if (regex.test($("form").find('#email').val().trim())) {
+        
+      if($("form").find('#comentario').val()==""){
+        alert('No has escrito el comentario');
+      }
+
+    } else {
+        alert('La direccón de correo no es válida');
+    }
+});
 
 
   

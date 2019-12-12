@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    
+
     $.ajax({
         type: 'GET',
         url: '../controller/cEquipos.php',
@@ -47,7 +47,7 @@ $(document).ready(function () {
 
                 $.each(result, function (i, equipo) {
                     if(idEquipo == equipo.idEquipo){
-                        $( "#myModal" ).find( ".modal-title" ).html("<b>"+equipo.nombre+' ('+equipo.objectCategoria.idEquipo+')</b>');
+                        $( "#myModalPlantilla" ).find( ".modal-title" ).html("<b>"+equipo.nombre+' ('+equipo.objectCategoria.idEquipo+')</b>');
                     }
                 });
                 
