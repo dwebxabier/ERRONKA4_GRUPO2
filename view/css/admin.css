@@ -40,4 +40,17 @@ fieldset > table{
     background-color:#981A32 ;
     border:1% solid;
     border-radius: 10px;
+    margin-top: 1%;
+}
+
+#formularioBusqueda{
+
+    margin: 1%;
+    color: white;
+}
+
+#formagregar{
+
+    margin: 1%;
+    color: white;
 }
