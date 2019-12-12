@@ -27,23 +27,62 @@
         </button>
       
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav">
-              <li class="nav-item active">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
                   <a class="nav-link" href="../index.html"><b>INICIO</b></a>
                 </li>
-            <li class="nav-item active">
-              <a class="nav-link"><b>GALERIA</b></a>
-            </li>
-           
-            <li class="nav-item active">
-              <a class="nav-link"><b>TOP 5</b></a>
-            </li>
-            <li class="nav-item active">
-              <a class="nav-link"><b>TIENDA</b></a>
-            </li>
-          </ul>
+                <li class="nav-item active">
+                  <a class="nav-link" style="color:black;" href="view/equipos.html"><b><u>EQUIPOS</u></b></a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     <b>SECCIONES</b>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item text-secondary" href="../index.html#galeria"><b>GALERIA</b></a>
+                      <a class="dropdown-item text-secondary" href="../index.html#top5"><b>TOP 5</b></a>
+                      <a class="dropdown-item text-secondary" href="../index.html#tienda"><b>TIENDA</b></a>
+                    </div>
+                  </li>
+
+                <li class="nav-item active">
+                  <a class="nav-link" data-toggle="modal" href="#myModal"><b>CONTACTO</b></a>
+                </li>
+              </ul>
         </div>
       </nav>
+
+
+      <!-- MODAL DE CONTACTO -->
+
+      <div id="myModal" class="modal fade text-center" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+          <div class="modal-content">
+          <div class="modal-header">
+          <h5 class="modal-title text-dark">CONTACTA CON NOSOTROS</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+          </div>
+          <div class="modal-body text-dark">
+              <form>
+                  <div class="form-row">
+                    <div class="col-md-10 mb-3">
+                      <input type="text" class="form-control" placeholder="correo">
+                    </div>
+                    <div class="col-md-10">
+                      <div class="form-group">
+                        <textarea class="form-control" rows="5" id="comment" placeholder="Comentario"></textarea>
+                      </div>                    
+                    </div>
+                  </div>
+                </form>
+          </div>
+          <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Enviar</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>'
+          </div></div></div></div>
 
      <div class="row d-flex align-items-center justify-content-center m-3 equipos">
  
