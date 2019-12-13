@@ -53,6 +53,18 @@ class tecnicoModel extends tecnicoClass{
         $this->CloseConnect();
     }
 
+    public function insertTecnico()
+    {   
+        $this->OpenConnect();
+        $nombre=$this->getNombre();
+        $licencia=$this->getLicencia();
+        $sql="call sp_insertar_tecnico('$nombre', '$licencia')";
+        $result = $this->link->query($sql);
+
+        mysqli_free_result($result);
+        $this->CloseConnect();
+    }
+
     function getListJsonString() {
         
         $arr=array();

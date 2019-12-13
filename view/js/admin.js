@@ -125,6 +125,24 @@ $http({
             });
         }
 
+        $scope.agregar_Tecnico = function () {
+            
+            tecnicoNuevo = { 'nombreTecnico': $scope.misdatos.nombreTecnico, 'licencia': $scope.misdatos.licencia, 'idEquipo': $scope.misdatosEquipo.idEquipo.idEquipo};
+
+            tecnicoNuevo = JSON.stringify(tecnicoNuevo);
+            alert(tecnicoNuevo);
+
+            $http({
+                method: 'GET',
+                params:{value: tecnicoNuevo},
+                url: '../controller/cTecnicoInsert.php',
+            }).then(function (data) {
+            
+                console.log(data.data);
+                
+            });
+        }
+
     
     },300)
 

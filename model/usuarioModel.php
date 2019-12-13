@@ -91,33 +91,33 @@ class usuarioModel extends usuarioClass{
         $this->CloseConnect();
     }
 
-    public function findUserByUsername(){
-        $this->OpenConnect();
+    // public function findUserByUsername(){
+    //     $this->OpenConnect();
         
-        $username=$this->username;
+    //     $username=$this->username;
         
-        $sql="call spFindUserByUsername('$username')";
-        $result= $this->link->query($sql);
+    //     $sql="call spFindUserByUsername('$username')";
+    //     $result= $this->link->query($sql);
         
-        $userExists=false;
+    //     $userExists=false;
         
-        if ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
-        {
-            $passwordEncripted=$row['password'];
+    //     if ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+    //     {
+    //         $passwordEncripted=$row['password'];
             
-            if (password_verify($this->getPassword(), $passwordEncripted))
-            {
+    //         if (password_verify($this->getPassword(), $passwordEncripted))
+    //         {
                 
-                $admin=new Ad
-                $this->setAdmin($row['admin']); 
+    //             $admin=new Ad
+    //             $this->setAdmin($row['admin']); 
                 
-                $userExists=true;
-            }
-        }
-        return $userExists;
-        mysqli_free_result($result);
-        $this->CloseConnect();
-    }
+    //             $userExists=true;
+    //         }
+    //     }
+    //     return $userExists;
+    //     mysqli_free_result($result);
+    //     $this->CloseConnect();
+    // }
     
     public function setTecnicosByEquipo()
     {   
