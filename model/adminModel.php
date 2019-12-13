@@ -55,10 +55,5 @@ class adminModel extends adminClass{
         mysqli_free_result($result);
         $this->CloseConnect();
     }
-
-  
-
-  
-
 }
 

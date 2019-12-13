@@ -4,6 +4,57 @@
 class usuarioClass{
     protected $idUsuario;
     protected $idEquipo;
+    protected $password;
+    protected $email;
+    protected $nombreUsuario;
+
+    /**
+     * @return mixed
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNombreUsuario()
+    {
+        return $this->nombreUsuario;
+    }
+
+    /**
+     * @param mixed $password
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
+
+    /**
+     * @param mixed $email
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+    /**
+     * @param mixed $nombreUsuario
+     */
+    public function setNombreUsuario($nombreUsuario)
+    {
+        $this->nombreUsuario = $nombreUsuario;
+    }
 
     /**
      * @return mixed
