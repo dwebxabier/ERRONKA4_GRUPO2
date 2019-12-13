@@ -9,7 +9,21 @@ class usuarioModel extends usuarioClass{
     private $list=array();
     private $objectJugador = array();
     private $objectTecnico = array();
+    private $objAdmin;
 
+    /**
+     * @param mixed $objAdmin
+     */
+    public function setObjAdmin($objAdmin)
+    {
+        $this->objAdmin = $objAdmin;
+    }
+
+    public function getObjAdmin(){   
+        return $this->objAdmin;
+    }
+    
+    
     public function getObjectJugador(){   
         return $this->objectJugador;
     }
@@ -91,12 +105,14 @@ class usuarioModel extends usuarioClass{
         {
             $passwordEncripted=$row['password'];
             
-            // if (password_verify($this->getPassword(), $passwordEncripted))
-            // {
-            //     $this->setAdmin($row['admin']); 
+            if (password_verify($this->getPassword(), $passwordEncripted))
+            {
                 
-            //     $userExists=true;
-            // }
+                $admin=new Ad
+                $this->setAdmin($row['admin']); 
+                
+                $userExists=true;
+            }
         }
         return $userExists;
         mysqli_free_result($result);

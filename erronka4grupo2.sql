@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-12-2019 a las 14:17:11
+-- Tiempo de generación: 13-12-2019 a las 09:04:51
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.1.32
 
@@ -35,6 +35,15 @@ WHERE equipo_categoria.idEquipo = vIdEquipo$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_categoria_load` ()  NO SQL
 SELECT *
 FROM categoria$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_delete_equipo` (IN `_idEquipo` INT)  NO SQL
+DELETE FROM `equipo` WHERE equipo.idEquipo = _idEquipo$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_delete_jugador` (IN `_idUsuario` INT)  NO SQL
+DELETE FROM `jugador` WHERE jugador.idUsuario = _idUsuario$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_delete_tecnico` (IN `_idUsuario` INT)  NO SQL
+DELETE FROM `tecnico` WHERE tecnico.idUsuario = _idUsuario$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_entrenador_by_idTecnico` (IN `vIdTecnico` INT)  NO SQL
 SELECT *
@@ -165,9 +174,7 @@ INSERT INTO `equipo` (`idEquipo`, `nombre`) VALUES
 (1, 'Petanca Pensionista'),
 (2, 'New Petanca'),
 (3, 'Baby Petanca'),
-(4, 'Prueba de Equipo'),
-(5, 'equipito'),
-(6, 'equipito2');
+(4, 'Prueba de Equipo');
 
 -- --------------------------------------------------------
 
@@ -188,8 +195,7 @@ INSERT INTO `equipo_categoria` (`idEquipo`, `idCategoria`) VALUES
 (1, 3),
 (2, 2),
 (3, 1),
-(4, 3),
-(6, 3);
+(4, 3);
 
 -- --------------------------------------------------------
 
