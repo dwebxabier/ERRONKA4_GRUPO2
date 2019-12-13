@@ -45,6 +45,17 @@ class jugadorModel extends jugadorClass{
         $this->CloseConnect();
     }
 
+    public function insertJugador()
+    {   
+        $this->OpenConnect();
+        $nombre=$this->getNombre();
+        $sql="call sp_insertar_jugador('$nombre')";
+        $result = $this->link->query($sql);
+
+        mysqli_free_result($result);
+        $this->CloseConnect();
+    }
+
     function getListJsonString() {
         
         $arr=array();

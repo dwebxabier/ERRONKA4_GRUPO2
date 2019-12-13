@@ -107,6 +107,24 @@ $http({
             });
         }
 
+        $scope.agregar_Jugador = function () {
+            
+            jugadorNuevo = { 'nombreJugador': $scope.misdatos.nombreJugador, 'idEquipo': $scope.misdatosEquipo.idEquipo.idEquipo};
+
+            jugadorNuevo = JSON.stringify(jugadorNuevo);
+            alert(jugadorNuevo);
+
+            $http({
+                method: 'GET',
+                params:{value: jugadorNuevo},
+                url: '../controller/cJugadorInsert.php',
+            }).then(function (data) {
+            
+                console.log(data.data);
+                
+            });
+        }
+
     
     },300)
 

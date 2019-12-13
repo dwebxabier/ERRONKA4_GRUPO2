@@ -66,6 +66,17 @@ class usuarioModel extends usuarioClass{
         $this->CloseConnect();
     }
 
+    public function insertIdEquipoEnUsuario()
+    {   
+        $this->OpenConnect();
+        $idEquipo=$this->getIdEquipo();
+        $sql="call sp_insertar_equipo_en_usuario($idEquipo)";
+        $result = $this->link->query($sql);
+
+        mysqli_free_result($result);
+        $this->CloseConnect();
+    }
+
     public function findUserByUsername(){
         $this->OpenConnect();
         

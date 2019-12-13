@@ -51,8 +51,11 @@
                         <div id=""><!-- Agrear Equipo -->
                             <form id="formagregar" ng-submit="agregarEquipo()" ng-show="agregarEquipos==='true'">
                                 
-                                <span>Categoria</span> <select ng-model="misdatosEquipo.idCategoria" ng-options="item.idCategoria for item in categorias">
-                                </select><br>
+                                <span>Categoria</span> 
+                                <select ng-model="misdatosEquipo.idCategoria" ng-options="item.idCategoria for item in categorias">
+                                </select>
+                                <br>
+
                                 <span>Nombre</span> <input type="text" ng-model="misdatosEquipo.nombreEquipo"><br>
         
                                 <input type="submit" class="botones" value="Agregar Equipo">
@@ -61,11 +64,14 @@
                         </div>
 
                         <div id=""><!-- Agrear Jugador -->
-                            <form id="formagregar" ng-submit="agregarJugador()" ng-show="agregarJugador==='true'">
+                            <form id="formagregar" ng-submit="agregar_Jugador()" ng-show="agregarJugador==='true'">
                                 
-                                <span>Categoria</span> <select ng-model="misdatos.nombreCategoria" ng-options="item.nombre for item in categorias">
-                                </select><br>
-                                <span>Nombre</span> <input type="text" ng-model="misdatos.nombreEquipo"><br>
+                                <span>Nombre del jugador</span> <input type="text" ng-model="misdatos.nombreJugador"><br>
+                                <br>
+                                <span>Equipo</span> <select ng-model="misdatosEquipo.idEquipo" ng-options="item.nombre for item in lista">
+                                        <option ng-repeat="item in lista" value="{{item.idEquipo}}">{{item.nombre}}</option>
+                                    </select>
+                                <br>
         
                                 <input type="submit" class="botones" value="Agregar Jugador">
                                 <input type="button" class="botones" ng-click="cancelar()" value="Cancelar">
