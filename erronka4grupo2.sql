@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-12-2019 a las 09:04:51
+-- Tiempo de generación: 13-12-2019 a las 10:53:19
 -- Versión del servidor: 10.4.6-MariaDB
--- Versión de PHP: 7.1.32
+-- Versión de PHP: 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -26,6 +26,11 @@ DELIMITER $$
 --
 -- Procedimientos
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spFindUserByUsername` (IN `pUser` VARCHAR(256))  NO SQL
+BEGIN
+SELECT usuario.*  FROM usuario WHERE usuario.nombreUsuario=pUser;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_categoria_del_equipo` (IN `vIdEquipo` INT)  NO SQL
 SELECT equipo_categoria.idCategoria, categoria.nombre
 FROM equipo_categoria
@@ -173,8 +178,7 @@ CREATE TABLE `equipo` (
 INSERT INTO `equipo` (`idEquipo`, `nombre`) VALUES
 (1, 'Petanca Pensionista'),
 (2, 'New Petanca'),
-(3, 'Baby Petanca'),
-(4, 'Prueba de Equipo');
+(3, 'Baby Petanca');
 
 -- --------------------------------------------------------
 
@@ -194,8 +198,7 @@ CREATE TABLE `equipo_categoria` (
 INSERT INTO `equipo_categoria` (`idEquipo`, `idCategoria`) VALUES
 (1, 3),
 (2, 2),
-(3, 1),
-(4, 3);
+(3, 1);
 
 -- --------------------------------------------------------
 
@@ -247,20 +250,23 @@ INSERT INTO `tecnico` (`idTecnico`, `idUsuario`, `licencia`, `nombre`) VALUES
 
 CREATE TABLE `usuario` (
   `idUsuario` int(11) NOT NULL,
-  `idEquipo` int(11) DEFAULT NULL
+  `idEquipo` int(11) DEFAULT NULL,
+  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(2562) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `nombreUsuario` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`idUsuario`, `idEquipo`) VALUES
-(5, NULL),
-(1, 1),
-(6, 1),
-(7, 1),
-(2, 2),
-(3, 3);
+INSERT INTO `usuario` (`idUsuario`, `idEquipo`, `password`, `email`, `nombreUsuario`) VALUES
+(1, 1, '123', '', ''),
+(2, 2, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', 'la-contraseña-es-1234', 'bogdanAPC'),
+(3, 3, '123', '', ''),
+(5, NULL, '123', '', ''),
+(6, 1, '123', '', ''),
+(7, 1, '123', '', '');
 
 --
 -- Índices para tablas volcadas
