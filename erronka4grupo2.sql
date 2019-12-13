@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-12-2019 a las 14:12:21
+-- Tiempo de generación: 12-12-2019 a las 14:17:11
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.1.32
 
@@ -32,6 +32,10 @@ FROM equipo_categoria
 INNER JOIN categoria ON equipo_categoria.idCategoria=categoria.idCategoria
 WHERE equipo_categoria.idEquipo = vIdEquipo$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_categoria_load` ()  NO SQL
+SELECT *
+FROM categoria$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_entrenador_by_idTecnico` (IN `vIdTecnico` INT)  NO SQL
 SELECT *
 FROM entrenador
@@ -40,6 +44,19 @@ WHERE entrenador.idTecnico = vIdTecnico$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_equipo_load` ()  NO SQL
 SELECT *
 FROM equipo$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_insertar_equipo` (IN `vNombre` VARCHAR(50), IN `vIdCategoria` INT)  BEGIN
+  INSERT INTO equipo (equipo.nombre ) values ( vNombre );
+  INSERT INTO equipo_categoria ( equipo_categoria.idEquipo, equipo_categoria.idCategoria ) values ( EQUIPO_LAST_ID(), vIdCategoria );
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_insertar_idCat_equipo_categoria` (IN `vIdCategoria` INT)  NO SQL
+INSERT INTO equipo_categoria(equipo_categoria.idEquipo, equipo_categoria.idCategoria)
+VALUES(EQUIPO_LAST_ID(), vIdCategoria)$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_insertar_nombre_equipo` (IN `vNombre` VARCHAR(50))  NO SQL
+INSERT INTO equipo(equipo.nombre)
+VALUES(vNombre)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_jugador_by_idUsuario` (IN `vIdUsuario` INT)  NO SQL
 SELECT *
@@ -60,6 +77,12 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_usuario_by_equipo` (IN `vIdEquip
 SELECT *
 FROM usuario
 WHERE usuario.idEquipo = vIdEquipo$$
+
+--
+-- Funciones
+--
+CREATE DEFINER=`root`@`localhost` FUNCTION `EQUIPO_LAST_ID` () RETURNS INT(11) NO SQL
+RETURN (SELECT equipo.idEquipo FROM equipo ORDER BY equipo.idEquipo DESC LIMIT 1)$$
 
 DELIMITER ;
 
@@ -141,7 +164,10 @@ CREATE TABLE `equipo` (
 INSERT INTO `equipo` (`idEquipo`, `nombre`) VALUES
 (1, 'Petanca Pensionista'),
 (2, 'New Petanca'),
-(3, 'Baby Petanca');
+(3, 'Baby Petanca'),
+(4, 'Prueba de Equipo'),
+(5, 'equipito'),
+(6, 'equipito2');
 
 -- --------------------------------------------------------
 
@@ -161,7 +187,9 @@ CREATE TABLE `equipo_categoria` (
 INSERT INTO `equipo_categoria` (`idEquipo`, `idCategoria`) VALUES
 (1, 3),
 (2, 2),
-(3, 1);
+(3, 1),
+(4, 3),
+(6, 3);
 
 -- --------------------------------------------------------
 
@@ -313,7 +341,7 @@ ALTER TABLE `ddmm`
 -- AUTO_INCREMENT de la tabla `equipo`
 --
 ALTER TABLE `equipo`
-  MODIFY `idEquipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idEquipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `jugador`

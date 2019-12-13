@@ -29,20 +29,27 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li class="nav-item active">
+          <a class="nav-link" style="color:black;" href="index.html"><b><u>INICIO</u></b></a>
+        </li>
+        <li class="nav-item active">
           <a class="nav-link" href="view/equipos.html"><b>EQUIPOS</b></a>
         </li>
-        <li class="nav-item active">
-          <a href="#galeria" class="nav-link"><b>GALERIA</b></a>
-        </li>
-        <li class="nav-item active">
-          <a href="#top5" class="nav-link"><b>TOP 5</b></a>
-        </li>
-        <li class="nav-item active">
-          <a href="#tienda" class="nav-link"><b>TIENDA</b></a>
-        </li>
+
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+             <b>SECCIONES</b>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item text-secondary"href="#galeria"><b>GALERIA</b></a>
+              <a class="dropdown-item text-secondary" href="#top5"><b>TOP 5</b></a>
+              <a class="dropdown-item text-secondary" href="#tienda"><b>TIENDA</b></a>
+            </div>
+          </li>
+
         <li class="nav-item active">
           <a class="nav-link" data-toggle="modal" href="#myModal"><b>CONTACTO</b></a>
         </li>
+<<<<<<< HEAD
         <a class="nav-link" href="view/login.html">
           <button type="button" class="btn btn-light">Iniciar sesion</button>
         </a>
@@ -79,9 +86,42 @@
 
 
 
+=======
+      </ul>
+>>>>>>> 1c41809bc4ec52b27705df9b3712aaf0df0372ab
       </ul>
     </div>
   </nav>
+
+   <!-- MODAL DE CONTACTO -->
+
+   <div id="myModal" class="modal fade text-center" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+      <div class="modal-content">
+      <div class="modal-header">
+      <h5 class="modal-title text-dark">CONTACTA CON NOSOTROS</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+      </button>
+      </div>
+      <div class="modal-body text-dark">
+          <form>
+              <div class="form-row">
+                <div class="col-md-10 mb-3">
+                  <input id="email" type="text" class="form-control" placeholder="Correo">
+                </div>
+                <div class="col-md-10">
+                  <div class="form-group">
+                    <textarea id="comentario" class="form-control" rows="5" id="comment" placeholder="Comentario"></textarea>
+                  </div>                    
+                </div>
+              </div>
+            </form>
+      </div>
+      <div class="modal-footer">
+      <button id="enviarOp" type="submit" class="btn btn-primary">Enviar</button>
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>'
+      </div></div></div></div>
 
   <!-- BANNER-->
 
@@ -256,9 +296,9 @@
       of Lorem Ipsum.
     </div>
     <div class="social col-md-4" align="center">
-      <img src="view/img/insta.png">
-      <img src="view/img/facebook.png">
-      <img src="view/img/twitter.png">
+      <a href="https://www.instagram.com/albacetepetancaclub/?hl=es" target="_blank"><img src="view/img/insta.png"></a>
+      <a href="https://www.facebook.com/petancaclub.albacete.1" target="_blank"><img src="view/img/facebook.png"></a>
+      <a href="https://twitter.com/albacetepetanc1" target="_blank"><img src="view/img/twitter.png"></a>
     </div>
     <iframe id="lugar" class="mapa col-md-3"
       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24808.104622379622!2d-1.8780989968338722!3d38.99219789157474!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd665fe2fb218d15%3A0x8269cd31d6186180!2sAlbacete!5e0!3m2!1ses!2ses!4v1575539217004!5m2!1ses!2ses"

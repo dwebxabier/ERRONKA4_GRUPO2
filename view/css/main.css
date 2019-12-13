@@ -1,5 +1,9 @@
 body{
     border: 10px groove #981A32;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 5px;
+    border-bottom: none;
 }
 
 #top-banner{
@@ -68,11 +72,16 @@ body{
     white-space: nowrap;
 }
 
+.footer{
+    border-top: 10px groove #981A32;
+    box-shadow: 0 50vh 0 50vh grey;
+}
+
 .social{
     white-space: nowrap;
 }
 
-.social>img{
+.social>a>img{
     width: 15%;
 }
 

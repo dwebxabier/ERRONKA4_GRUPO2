@@ -45,7 +45,19 @@ class equipo_categoriaModel extends equipo_categoriaClass{
         mysqli_free_result($result);
         $this->CloseConnect();
     }
-    
+
+    public function insert()
+    {
+        $this->OpenConnect();
+        $idCategoria=$this->getIdCategoria();
+        $sql="call sp_insertar_idCat_equipo_categoria($idCategoria)";
+        
+        $result = $this->link->query($sql);
+      
+        mysqli_free_result($result);
+        $this->CloseConnect();
+    }
+
     function getListJsonString() {
         
         $arr=array();

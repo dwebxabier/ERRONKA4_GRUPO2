@@ -29,7 +29,41 @@ class categoriaModel extends categoriaClass{
         
     }
     
-    // public function findNombreCategoria()
+
+    public function setList()
+    {
+       
+        $this->OpenConnect();
+        $sql="call sp_categoria_load()";
+        
+        $result = $this->link->query($sql);
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+        {          
+            $categoria = new categoriaModel();
+            $categoria->setIdCategoria($row['idCategoria']);
+            $categoria->setNombre($row['nombre']);
+
+            array_push($this->list, $categoria);
+        }
+        mysqli_free_result($result);
+        $this->CloseConnect();
+    }
+    
+    
+    function getListJsonString() {
+        
+         $arr=array();
+        
+         foreach ($this->list as $object)
+         {
+             $vars = $object->getObjectVars();
+            
+             array_push($arr, $vars);
+         }
+         return json_encode($arr);
+     }
+
+     // public function findNombreCategoria()
     // {
     //     $idCategoria=$this->idCategoria;
     //     $this->OpenConnect();
@@ -42,19 +76,6 @@ class categoriaModel extends categoriaClass{
     //     }
     //     mysqli_free_result($result);
     //     $this->CloseConnect();
-    // }
-    
-    // function getListJsonString() {
-        
-    //     $arr=array();
-        
-    //     foreach ($this->list as $object)
-    //     {
-    //         $vars = $object->getObjectVars();
-            
-    //         array_push($arr, $vars);
-    //     }
-    //     return json_encode($arr);
     // }
 }
 

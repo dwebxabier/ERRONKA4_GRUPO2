@@ -54,3 +54,8 @@ fieldset > table{
     margin: 1%;
     color: white;
 }
+
+#formagregar > select{
+
+    margin: 1%;
+}

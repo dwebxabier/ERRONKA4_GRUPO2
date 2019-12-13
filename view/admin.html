@@ -49,21 +49,48 @@
 
                     <div id="acciones">
                         <div id=""><!-- Agrear Equipo -->
-                            <form id="formagregar" ng-submit="agregar()" ng-show="agregarEquipo==='true'">
-        
-                                <span>Nombre</span> <input type="text" ng-model="misdatos.nombre"><br>
+                            <form id="formagregar" ng-submit="agregarEquipo()" ng-show="agregarEquipos==='true'">
+                                
+                                <span>Categoria</span> <select ng-model="misdatosEquipo.idCategoria" ng-options="item.idCategoria for item in categorias">
+                                </select><br>
+                                <span>Nombre</span> <input type="text" ng-model="misdatosEquipo.nombreEquipo"><br>
         
                                 <input type="submit" class="botones" value="Agregar Equipo">
                                 <input type="button" class="botones" ng-click="cancelar()" value="Cancelar">
                             </form>
                         </div>
+
+                        <div id=""><!-- Agrear Jugador -->
+                            <form id="formagregar" ng-submit="agregarJugador()" ng-show="agregarJugador==='true'">
+                                
+                                <span>Categoria</span> <select ng-model="misdatos.nombreCategoria" ng-options="item.nombre for item in categorias">
+                                </select><br>
+                                <span>Nombre</span> <input type="text" ng-model="misdatos.nombreEquipo"><br>
         
-                        <div id="" ng-style="menu"><!-- Modificar Equipo -->
+                                <input type="submit" class="botones" value="Agregar Jugador">
+                                <input type="button" class="botones" ng-click="cancelar()" value="Cancelar">
+                            </form>
+                        </div>
+
+                        <div id=""><!-- Agrear Tecnico -->
+                            <form id="formagregar" ng-submit="agregarTecnico()" ng-show="agregarTecnico==='true'">
+                                
+                                <span>Categoria</span> <select ng-model="misdatos.nombreCategoria" ng-options="item.nombre for item in categorias">
+                                </select><br>
+                                <span>Nombre</span> <input type="text" ng-model="misdatos.nombreEquipo"><br>
+        
+                                <input type="submit" class="botones" value="Agregar Tecnico">
+                                <input type="button" class="botones" ng-click="cancelar()" value="Cancelar">
+                            </form>
+                        </div>
+        
+                        <div id=""><!-- Modificar Equipo -->
                             <form id="formmodificar" ng-submit="modificar()" ng-show="modificarEquipo==='true'">
         
                                 <span>Nombre</span> <input type="text" ng-model="misdatos.nombre"><br>
-        
-                                <input type="button" ng-click="ModificarAlumnos()" value="finalizar">
+                                
+                                <input type="submit" class="botones" ng-click="finalizar()" value="Finalizar">
+                                <input type="button" ng-click="cancelar()" value="Cancelar">
                             </form>
                         </div>
         

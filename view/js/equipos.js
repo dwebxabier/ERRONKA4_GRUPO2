@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
     $.ajax({
         type: 'GET',
         url: '../controller/cEquipos.php',
@@ -17,12 +18,12 @@ $(document).ready(function () {
                 newRow += '<div class="card-body">'
                 newRow += '<h5 class="card-title text-dark">'+equipo.nombre+'</h5>'
                 newRow += '<p class="card-text text-dark">'+equipo.objectCategoria.idEquipo+'</p>'
-                newRow += '<a class="btn btnPlantilla btn-primary" data-id="'+equipo.idEquipo+'" data-toggle="modal" data-target="#myModal">Plantilla</a>'
+                newRow += '<a class="btn btnPlantilla btn-primary" data-id="'+equipo.idEquipo+'" data-toggle="modal" data-target="#myModalPlantilla">Plantilla</a>'
                 newRow += '</div></div>'
             
             });
 
-            newRow += '<div id="myModal" class="modal fade text-center" tabindex="-1" role="dialog">'
+            newRow += '<div id="myModalPlantilla" class="modal fade text-center" tabindex="-1" role="dialog">'
             newRow += '<div class="modal-dialog" role="document">'
             newRow += '<div class="modal-content">'
             newRow += '<div class="modal-header">'
@@ -46,7 +47,7 @@ $(document).ready(function () {
 
                 $.each(result, function (i, equipo) {
                     if(idEquipo == equipo.idEquipo){
-                        $( "#myModal" ).find( ".modal-title" ).html("<b>"+equipo.nombre+' ('+equipo.objectCategoria.idEquipo+')</b>');
+                        $( "#myModalPlantilla" ).find( ".modal-title" ).html("<b>"+equipo.nombre+' ('+equipo.objectCategoria.idEquipo+')</b>');
                     }
                 });
                 
