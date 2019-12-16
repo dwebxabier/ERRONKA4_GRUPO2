@@ -92,6 +92,7 @@ class usuarioModel extends usuarioClass{
     }
 
     public function findUserByUsername(){
+        require_once ($_SERVER['DOCUMENT_ROOT']."/ERRONKA4_GRUPO2/model/adminModel.php");
         $this->OpenConnect();
         
         $username=$this->username;
@@ -108,8 +109,8 @@ class usuarioModel extends usuarioClass{
             if (password_verify($this->getPassword(), $passwordEncripted))
             {
                 
-                $admin=new Ad
-                $this->setAdmin($row['admin']); 
+                $admin=new adminModel()
+                $admin->setIdUsuario($row['idUsuario']); 
                 
                 $userExists=true;
             }

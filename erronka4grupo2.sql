@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-12-2019 a las 10:53:19
+-- Tiempo de generación: 11-12-2019 a las 10:54:42
 -- Versión del servidor: 10.4.6-MariaDB
--- Versión de PHP: 7.3.9
+-- Versión de PHP: 7.1.32
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -26,30 +26,6 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spFindUserByUsername` (IN `pUser` VARCHAR(256))  NO SQL
-BEGIN
-SELECT usuario.*  FROM usuario WHERE usuario.nombreUsuario=pUser;
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_categoria_del_equipo` (IN `vIdEquipo` INT)  NO SQL
-SELECT equipo_categoria.idCategoria, categoria.nombre
-FROM equipo_categoria
-INNER JOIN categoria ON equipo_categoria.idCategoria=categoria.idCategoria
-WHERE equipo_categoria.idEquipo = vIdEquipo$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_categoria_load` ()  NO SQL
-SELECT *
-FROM categoria$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_delete_equipo` (IN `_idEquipo` INT)  NO SQL
-DELETE FROM `equipo` WHERE equipo.idEquipo = _idEquipo$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_delete_jugador` (IN `_idUsuario` INT)  NO SQL
-DELETE FROM `jugador` WHERE jugador.idUsuario = _idUsuario$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_delete_tecnico` (IN `_idUsuario` INT)  NO SQL
-DELETE FROM `tecnico` WHERE tecnico.idUsuario = _idUsuario$$
-
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_entrenador_by_idTecnico` (IN `vIdTecnico` INT)  NO SQL
 SELECT *
 FROM entrenador
@@ -59,28 +35,10 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_equipo_load` ()  NO SQL
 SELECT *
 FROM equipo$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_insertar_equipo` (IN `vNombre` VARCHAR(50), IN `vIdCategoria` INT)  BEGIN
-  INSERT INTO equipo (equipo.nombre ) values ( vNombre );
-  INSERT INTO equipo_categoria ( equipo_categoria.idEquipo, equipo_categoria.idCategoria ) values ( EQUIPO_LAST_ID(), vIdCategoria );
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_insertar_idCat_equipo_categoria` (IN `vIdCategoria` INT)  NO SQL
-INSERT INTO equipo_categoria(equipo_categoria.idEquipo, equipo_categoria.idCategoria)
-VALUES(EQUIPO_LAST_ID(), vIdCategoria)$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_insertar_nombre_equipo` (IN `vNombre` VARCHAR(50))  NO SQL
-INSERT INTO equipo(equipo.nombre)
-VALUES(vNombre)$$
-
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_jugador_by_idUsuario` (IN `vIdUsuario` INT)  NO SQL
 SELECT *
 FROM jugador
 WHERE jugador.idUsuario = vIdUsuario$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_nombre_categoria` (IN `vIdCategoria` INT)  NO SQL
-SELECT categoria.nombre
-FROM categoria
-WHERE categoria.idCategoria = vIdCategoria$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_tecnico_by_idUsuario` (IN `vIdUsuario` INT)  NO SQL
 SELECT *
@@ -91,12 +49,6 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_usuario_by_equipo` (IN `vIdEquip
 SELECT *
 FROM usuario
 WHERE usuario.idEquipo = vIdEquipo$$
-
---
--- Funciones
---
-CREATE DEFINER=`root`@`localhost` FUNCTION `EQUIPO_LAST_ID` () RETURNS INT(11) NO SQL
-RETURN (SELECT equipo.idEquipo FROM equipo ORDER BY equipo.idEquipo DESC LIMIT 1)$$
 
 DELIMITER ;
 
@@ -250,23 +202,20 @@ INSERT INTO `tecnico` (`idTecnico`, `idUsuario`, `licencia`, `nombre`) VALUES
 
 CREATE TABLE `usuario` (
   `idUsuario` int(11) NOT NULL,
-  `idEquipo` int(11) DEFAULT NULL,
-  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(2562) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `nombreUsuario` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
+  `idEquipo` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`idUsuario`, `idEquipo`, `password`, `email`, `nombreUsuario`) VALUES
-(1, 1, '123', '', ''),
-(2, 2, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', 'la-contraseña-es-1234', 'bogdanAPC'),
-(3, 3, '123', '', ''),
-(5, NULL, '123', '', ''),
-(6, 1, '123', '', ''),
-(7, 1, '123', '', '');
+INSERT INTO `usuario` (`idUsuario`, `idEquipo`) VALUES
+(5, NULL),
+(1, 1),
+(6, 1),
+(7, 1),
+(2, 2),
+(3, 3);
 
 --
 -- Índices para tablas volcadas
@@ -353,7 +302,7 @@ ALTER TABLE `ddmm`
 -- AUTO_INCREMENT de la tabla `equipo`
 --
 ALTER TABLE `equipo`
-  MODIFY `idEquipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idEquipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `jugador`
