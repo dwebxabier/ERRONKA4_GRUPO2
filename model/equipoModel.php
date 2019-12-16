@@ -70,6 +70,25 @@ class equipoModel extends equipoClass{
         $this->CloseConnect();
     }
 
+    public function delete()
+    {
+        $this->OpenConnect();
+        
+        $idEquipo=$this->getIdEquipo();
+        
+        
+        $sql = "CALL sp_delete_equipo($idEquipo)";
+        
+        if ($this->link->query($sql)>=1) // delete egiten da
+        {
+            echo "El Equipo se ha borrado con exito";
+        } else {
+            echo "Fallo al borrar el Equipo: (" . $this->link->errno . ") " . $this->link->error;
+        }
+        
+        $this->CloseConnect();
+    }
+
     function getListJsonString() {
         
         $arr=array();

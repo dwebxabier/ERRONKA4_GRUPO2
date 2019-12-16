@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-12-2019 a las 09:29:21
+-- Tiempo de generación: 16-12-2019 a las 10:09:48
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.1.32
 
@@ -41,8 +41,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_categoria_load` ()  NO SQL
 SELECT *
 FROM categoria$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_delete_equipo` (IN `_nombreEquipo` VARCHAR(32))  NO SQL
-DELETE FROM `equipo` WHERE equipo.nombre = _nombreEquipo$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_delete_equipo` (IN `_idEquipo` INT)  NO SQL
+DELETE FROM `equipo` WHERE equipo.idEquipo = _idEquipo$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_delete_jugador` (IN `_idUsuario` INT)  NO SQL
 DELETE FROM `jugador` WHERE jugador.idUsuario = _idUsuario$$
@@ -196,7 +196,8 @@ CREATE TABLE `equipo` (
 INSERT INTO `equipo` (`idEquipo`, `nombre`) VALUES
 (1, 'Petanca Pensionista'),
 (2, 'New Petanca'),
-(3, 'Baby Petanca');
+(3, 'Baby Petanca'),
+(4, 'EquipoPrueba');
 
 -- --------------------------------------------------------
 
@@ -216,7 +217,8 @@ CREATE TABLE `equipo_categoria` (
 INSERT INTO `equipo_categoria` (`idEquipo`, `idCategoria`) VALUES
 (1, 3),
 (2, 2),
-(3, 1);
+(3, 1),
+(4, 1);
 
 -- --------------------------------------------------------
 

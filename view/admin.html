@@ -77,7 +77,7 @@
                             </form>
                         </div>
 
-                        <div id=""><!-- Agrear Tecnico -->
+                        <div id=""><!-- Agregar Tecnico -->
                             <form id="formagregar" ng-submit="agregar_Tecnico()" ng-show="agregarTecnico==='true'">
                                 
                                 <span>Nombre de Tecnico</span> <input type="text" ng-model="misdatos.nombreTecnico"><br><br>
@@ -95,7 +95,7 @@
                         <div id=""><!-- Eliminar Equipo -->
                             <form id="formagregar" ng-submit="eliminarEquipo()" ng-show="eliminarEquipos==='true'">
                                 
-                                <span>Equipo</span> <select ng-model="misdatosEquipo.nombreEquipo" ng-options="item.nombre for item in lista"></select>
+                                <span>Equipo</span> <select ng-model="misdatosEquipo.idEquipo"  value="{{item.idEquipo}}" ng-options="item.nombre for item in lista"></select>
                                     
                                 </select><br>
         

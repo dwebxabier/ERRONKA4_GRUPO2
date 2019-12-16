@@ -13,6 +13,7 @@ $scope.verTabla="true";
 
 
 $scope.misdatosEquipo = {
+    idEquipo:"",
     idCategoria: "",
     nombreEquipo: "",
 }
@@ -145,6 +146,24 @@ $http({
                 method: 'GET',
                 params:{value: tecnicoNuevo},
                 url: '../controller/cTecnicoInsert.php',
+            }).then(function (data) {
+            
+                console.log(data.data);
+                
+            });
+        }
+
+        $scope.eliminarEquipo = function () {
+            
+            EquipoDelete = { 'idEquipo': $scope.misdatosEquipo.idEquipo.idEquipo};
+
+            EquipoDelete = JSON.stringify(EquipoDelete);
+            alert(EquipoDelete);
+
+            $http({
+                method: 'GET',
+                params:{value: EquipoDelete},
+                url: '../controller/cEquipoDelete.php',
             }).then(function (data) {
             
                 console.log(data.data);
