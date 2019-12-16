@@ -6,7 +6,7 @@ $(document).ready(function(){
 		var password=$("#password").val();
 		$.ajax({
 			data:{'name':name,'password':password},
-	       	url: "../../controller/login/cSessionSetVar.php", 
+	       	url: "../controller/login/cSessionSetVar.php", 
 	       	dataType:"text",
 	    	success: function(result){ 
 	    		
