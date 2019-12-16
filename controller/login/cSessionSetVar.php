@@ -3,20 +3,20 @@ require_once '../../model/usuarioModel.php';
 
 $name=filter_input(INPUT_GET, "name");
 $password=filter_input(INPUT_GET, "password");
-print_r($name,$password."@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+
 if (( $name !=null ) && ( $password !=null )){
 
     $user=new usuarioModel();
-    $user->setUsername($name);
-    $user->setContrasena($password);
+    $user->setNombreUsuario($name);
+    $user->setPassword($password);
     
     if ($user->findUserByUsername()) // si es correcto el userName y el password
     {
-        // session_start();
-        // $_SESSION['name']=$name;
-        // $_SESSION['admin']=$user->getAdmin();
+        session_start();
+        $_SESSION['name']=$name;
+        $_SESSION['admin']=$user->getObjAdmin();
     
-        // echo 1;
+        echo 1;
         
     }  else {
         

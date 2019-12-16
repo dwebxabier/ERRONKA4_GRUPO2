@@ -29,29 +29,21 @@ class adminModel extends adminClass{
     }
     
   
-    public function findAdminByIdUser(){
+    public function getAdminByUserId(){
         $this->OpenConnect();
         
-        $username=$this->username;
+        $userId=$this->idUsuario;
         
-        $sql="call spFindUserByUsername('$username')";
+        $sql="call sp_get_admin_by_user_id($userId)";
         $result= $this->link->query($sql);
         
-        $userExists=false;
         
         if ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
         {
-            $passwordEncripted=$row['password'];
             
-            if (password_verify($this->getPassword(), $passwordEncripted))
-            {
+            $this->setNombre($row['nombre']);
 
-                $this->setAdmin($row['admin']); 
-                
-                $userExists=true;
-            }
         }
-        return $userExists;
         mysqli_free_result($result);
         $this->CloseConnect();
     }
