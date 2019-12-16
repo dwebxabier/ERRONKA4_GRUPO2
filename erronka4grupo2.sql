@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-12-2019 a las 09:02:01
+-- Tiempo de generación: 16-12-2019 a las 09:29:21
 -- Versión del servidor: 10.4.6-MariaDB
--- Versión de PHP: 7.3.9
+-- Versión de PHP: 7.1.32
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -41,8 +41,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_categoria_load` ()  NO SQL
 SELECT *
 FROM categoria$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_delete_equipo` (IN `_idEquipo` INT)  NO SQL
-DELETE FROM `equipo` WHERE equipo.idEquipo = _idEquipo$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_delete_equipo` (IN `_nombreEquipo` VARCHAR(32))  NO SQL
+DELETE FROM `equipo` WHERE equipo.nombre = _nombreEquipo$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_delete_jugador` (IN `_idUsuario` INT)  NO SQL
 DELETE FROM `jugador` WHERE jugador.idUsuario = _idUsuario$$
@@ -153,7 +153,8 @@ INSERT INTO `categoria` (`idCategoria`, `nombre`) VALUES
 CREATE TABLE `contacto` (
   `idContacto` int(11) NOT NULL,
   `nombre` varchar(32) NOT NULL,
-  `sugerencia` varchar(256) NOT NULL
+  `sugerencia` varchar(256) NOT NULL,
+  `Fecha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
