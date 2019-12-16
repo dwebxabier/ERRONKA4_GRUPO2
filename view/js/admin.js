@@ -25,6 +25,13 @@ $scope.misdatosJugador = {
     nombreJugador: "",
 }
 
+$scope.misdatosTecnico = {
+    idUsuario:"",
+    idTecnico: "",
+    licencia: "",
+    nombreTecnico: "",
+}
+
 
 $http({
     method: 'GET',
@@ -75,6 +82,15 @@ $http({
             $scope.jugadores = data.data;
         });
 
+        $http({
+            method: 'GET',
+            url: '../controller/cTecnicosLoad.php',
+        }).then(function (data) {
+        
+            console.log(data.data);
+            $scope.tecnicos = data.data;
+        });
+
         $scope.Buscar = function () {
             $scope.agregarEquipos = "false";
             $scope.buscarEquipo = "true";
@@ -116,6 +132,10 @@ $http({
 
         $scope.EliminarJugador = function () {
             $scope.eliminarJugadores = "true";
+        }
+
+        $scope.EliminarTecnico = function () {
+            $scope.eliminarTecnicos = "true";
         }
 
         $scope.agregarEquipo = function () {
@@ -202,6 +222,24 @@ $http({
                 method: 'GET',
                 params:{value: JugadorDelete},
                 url: '../controller/cJugadorDelete.php',
+            }).then(function (data) {
+            
+                console.log(data.data);
+                
+            });
+        }
+
+        $scope.eliminarTecnico = function () {
+            
+            TecnicoDelete = { 'idUsuario': $scope.misdatosTecnico.idUsuario.idUsuario};
+
+            TecnicoDelete = JSON.stringify(TecnicoDelete);
+            alert(TecnicoDelete);
+
+            $http({
+                method: 'GET',
+                params:{value: TecnicoDelete},
+                url: '../controller/cTecnicoDelete.php',
             }).then(function (data) {
             
                 console.log(data.data);

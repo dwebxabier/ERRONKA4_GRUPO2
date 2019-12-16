@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-12-2019 a las 13:49:15
+-- Tiempo de generación: 16-12-2019 a las 14:20:10
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.1.32
 
@@ -94,6 +94,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_tecnico_by_idUsuario` (IN `vIdUs
 SELECT *
 FROM tecnico
 WHERE tecnico.idUsuario = vIdUsuario$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_tecnico_load` ()  NO SQL
+SELECT * FROM tecnico$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_usuario_by_equipo` (IN `vIdEquipo` INT)  NO SQL
 SELECT *
@@ -288,7 +291,8 @@ INSERT INTO `usuario` (`idUsuario`, `idEquipo`, `password`, `email`, `nombreUsua
 (4, 3, '123', 'agusmanop@gmail.com', 'Gusmano'),
 (5, NULL, '123', '', ''),
 (6, 1, '123', '', ''),
-(7, 1, '123', '', '');
+(7, 1, '123', '', ''),
+(8, 3, '123', '131', 'juanito');
 
 --
 -- Índices para tablas volcadas
@@ -399,13 +403,13 @@ ALTER TABLE `jugador`
 -- AUTO_INCREMENT de la tabla `tecnico`
 --
 ALTER TABLE `tecnico`
-  MODIFY `idTecnico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idTecnico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Restricciones para tablas volcadas

@@ -37,6 +37,46 @@ class tecnicoModel extends tecnicoClass{
         
     }
     
+    public function setList()
+    {
+        $this->OpenConnect();
+        $sql="call sp_tecnico_load()";
+        
+        $result = $this->link->query($sql);
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+        {
+            $newTecnico = new tecnicoModel();
+            
+            $newTecnico->setIdTecnico($row['idTecnico']);
+            $newTecnico->setIdUsuario($row['idUsuario']);
+            $newTecnico->setLicencia($row['licencia']);
+            $newTecnico->setNombre($row['nombre']);
+            
+            array_push($this->list, $newTecnico);
+        }
+        mysqli_free_result($result);
+        $this->CloseConnect();
+    }
+    
+    public function delete()
+    {
+        $this->OpenConnect();
+        
+        $idUsuario=$this->getIdUsuario();
+        
+        
+        $sql = "CALL sp_delete_tecnico($idUsuario)";
+        
+        if ($this->link->query($sql)>=1) // delete egiten da
+        {
+            echo "El Tecnico se ha borrado con exito";
+        } else {
+            echo "Fallo al borrar el Tecnico: (" . $this->link->errno . ") " . $this->link->error;
+        }
+        
+        $this->CloseConnect();
+    }
+
     public function findTecnicoByUser()
     {   
         $idUsuario=$this->idUsuario;

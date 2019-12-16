@@ -48,7 +48,7 @@
                     </form>
 
                     <div id="acciones">
-                        <div id=""><!-- Agrear Equipo -->
+                        <div id=""><!-- Agregar Equipo -->
                             <form id="formagregar" ng-submit="agregarEquipo()" ng-show="agregarEquipos==='true'">
                                 
                                 <span>Categoria</span> <select ng-model="misdatosEquipo.idCategoria" ng-options="item.idCategoria for item in categorias">
@@ -61,7 +61,7 @@
                             </form>
                         </div>
 
-                        <div id=""><!-- Agrear Jugador -->
+                        <div id=""><!-- Agregar Jugador -->
                             <form id="formagregar" ng-submit="agregarJuga
                             dor()" ng-show="agregarJugador==='true'">
                                 
@@ -112,6 +112,18 @@
                                 </select><br>
         
                                 <input type="submit" class="botones" value="Eliminar Jugador">
+                                <input type="button" class="botones" ng-click="cancelar()" value="Cancelar">
+                            </form>
+                        </div>
+
+                        <div id=""><!-- Eliminar Tecnico -->
+                            <form id="formagregar" ng-submit="eliminarTecnico()" ng-show="eliminarTecnicos==='true'">
+                                
+                                <span>Tecnico</span> <select ng-model="misdatosTecnico.idUsuario"  value="{{item.idUsuario}}" ng-options="item.nombre for item in tecnicos"></select>
+                                    
+                                </select><br>
+        
+                                <input type="submit" class="botones" value="Eliminar Tecnico">
                                 <input type="button" class="botones" ng-click="cancelar()" value="Cancelar">
                             </form>
                         </div>
