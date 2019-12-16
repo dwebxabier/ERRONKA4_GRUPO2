@@ -12,11 +12,11 @@ if (( $name !=null ) && ( $password !=null )){
     
     if ($user->findUserByUsername()) // si es correcto el userName y el password
     {
-        // session_start();
-        // $_SESSION['name']=$name;
-        // $_SESSION['admin']=$user->getAdmin();
+        session_start();
+        $_SESSION['name']=$name;
+        $_SESSION['admin']=$user->getObjAdmin();
     
-        // echo 1;
+        echo 1;
         
     }  else {
         

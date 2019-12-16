@@ -1,6 +1,5 @@
 
 $(document).ready(function(){
-	alert("holis");
 	$("#submit").click(function(){	
 		var name=$("#name").val();
 		var password=$("#password").val();

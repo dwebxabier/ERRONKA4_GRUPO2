@@ -3,9 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-12-2019 a las 14:20:10
 -- Versión del servidor: 10.4.6-MariaDB
--- Versión de PHP: 7.1.32
+-- Versión de PHP: 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -59,9 +58,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_equipo_load` ()  NO SQL
 SELECT *
 FROM equipo$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_insertar_contacto` (IN `vNombre` VARCHAR(32), IN `vSugerencia` VARCHAR(256))  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_get_admin_by_user_id` (IN `pUserId` VARCHAR(64))  NO SQL
 BEGIN
-  INSERT INTO contacto (nombre, sugerencia) values (vNombre, vSugerencia);
+SELECT admin.*  FROM admin WHERE admin.idUsuario=pUserId;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_insertar_equipo` (IN `vNombre` VARCHAR(50), IN `vIdCategoria` INT)  BEGIN
@@ -128,7 +127,8 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`idAdmin`, `idUsuario`, `nombre`) VALUES
-(1, 5, 'admin');
+(1, 5, 'admin'),
+(2, 2, 'admin');
 
 -- --------------------------------------------------------
 
@@ -149,19 +149,6 @@ INSERT INTO `categoria` (`idCategoria`, `nombre`) VALUES
 (1, 'Alevin'),
 (2, 'Infantil'),
 (3, 'Senior');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `contacto`
---
-
-CREATE TABLE `contacto` (
-  `idContacto` int(11) NOT NULL,
-  `nombre` varchar(32) NOT NULL,
-  `sugerencia` varchar(256) NOT NULL,
-  `Fecha` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -287,8 +274,12 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`idUsuario`, `idEquipo`, `password`, `email`, `nombreUsuario`) VALUES
 (1, 1, '123', '', ''),
 (2, 2, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', 'la-contraseña-es-1234', 'bogdanAPC'),
+<<<<<<< HEAD
+(3, 3, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', '', 'qwerty'),
+=======
 (3, 3, '123', '', ''),
 (4, 3, '123', 'agusmanop@gmail.com', 'Gusmano'),
+>>>>>>> e8a81a027cfd3f50c3a8eaf203eaa8eaa6615bfb
 (5, NULL, '123', '', ''),
 (6, 1, '123', '', ''),
 (7, 1, '123', '', ''),
@@ -310,12 +301,6 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `categoria`
   ADD PRIMARY KEY (`idCategoria`);
-
---
--- Indices de la tabla `contacto`
---
-ALTER TABLE `contacto`
-  ADD PRIMARY KEY (`idContacto`);
 
 --
 -- Indices de la tabla `ddmm`
@@ -367,19 +352,13 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `idAdmin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idAdmin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
   MODIFY `idCategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT de la tabla `contacto`
---
-ALTER TABLE `contacto`
-  MODIFY `idContacto` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `ddmm`
