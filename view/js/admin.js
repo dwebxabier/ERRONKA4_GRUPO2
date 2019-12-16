@@ -9,6 +9,7 @@ $scope.agregarJugador = "false";
 $scope.agregarTecnico="false";  
 $scope.modificarEquipo="false";
 $scope.eliminarEquipos = "false";
+$scope.eliminarJugadores = "false";
 $scope.verTabla="true";
 
 
@@ -16,6 +17,12 @@ $scope.misdatosEquipo = {
     idEquipo:"",
     idCategoria: "",
     nombreEquipo: "",
+}
+
+$scope.misdatosJugador = {
+    idJugador:"",
+    idUsuario: "",
+    nombreJugador: "",
 }
 
 
@@ -59,6 +66,15 @@ $http({
             $scope.categorias = data.data;
         });
 
+        $http({
+            method: 'GET',
+            url: '../controller/cJugadores.php',
+        }).then(function (data) {
+        
+            console.log(data.data);
+            $scope.jugadores = data.data;
+        });
+
         $scope.Buscar = function () {
             $scope.agregarEquipos = "false";
             $scope.buscarEquipo = "true";
@@ -91,11 +107,15 @@ $http({
             $scope.buscarEquipo = "false";
             $scope.agregarEquipo = "false";
             $scope.eliminarEquipos = "false";
+            $scope.eliminarJugadores = "false";
         }
 
         $scope.EliminarEquipo = function () {
             $scope.eliminarEquipos = "true";
-            $scope.agregarEquipo = "false";
+        }
+
+        $scope.EliminarJugador = function () {
+            $scope.eliminarJugadores = "true";
         }
 
         $scope.agregarEquipo = function () {
@@ -164,6 +184,24 @@ $http({
                 method: 'GET',
                 params:{value: EquipoDelete},
                 url: '../controller/cEquipoDelete.php',
+            }).then(function (data) {
+            
+                console.log(data.data);
+                
+            });
+        }
+
+        $scope.eliminarJugador = function () {
+            
+            JugadorDelete = { 'idUsuario': $scope.misdatosJugador.idUsuario.idUsuario};
+
+            JugadorDelete = JSON.stringify(JugadorDelete);
+            alert(JugadorDelete);
+
+            $http({
+                method: 'GET',
+                params:{value: JugadorDelete},
+                url: '../controller/cJugadorDelete.php',
             }).then(function (data) {
             
                 console.log(data.data);

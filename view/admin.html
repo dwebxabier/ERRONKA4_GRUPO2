@@ -104,6 +104,18 @@
                             </form>
                         </div>
 
+                        <div id=""><!-- Eliminar Jugador -->
+                            <form id="formagregar" ng-submit="eliminarJugador()" ng-show="eliminarJugadores==='true'">
+                                
+                                <span>Jugador</span> <select ng-model="misdatosJugador.idUsuario"  value="{{item.idUsuario}}" ng-options="item.nombre for item in jugadores"></select>
+                                    
+                                </select><br>
+        
+                                <input type="submit" class="botones" value="Eliminar Jugador">
+                                <input type="button" class="botones" ng-click="cancelar()" value="Cancelar">
+                            </form>
+                        </div>
+
 
         
                         <div id=""><!-- Modificar Equipo -->
