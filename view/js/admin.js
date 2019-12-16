@@ -2,12 +2,15 @@
 var miApp = angular.module('miApp', []);
 miApp.controller('miControlador', ['$scope', '$http', function ($scope, $http) {
 
+//Escondemos todo al Principio
 $scope.ConAjax="true";
 $scope.agregarEquipos="false";
 $scope.agregarJugador = "false";
 $scope.agregarTecnico="false";  
 $scope.modificarEquipo="false";
+$scope.eliminarEquipos = "false";
 $scope.verTabla="true";
+
 
 $scope.misdatosEquipo = {
     idCategoria: "",
@@ -85,6 +88,12 @@ $http({
 
         $scope.cancelar = function () {
             $scope.buscarEquipo = "false";
+            $scope.agregarEquipo = "false";
+            $scope.eliminarEquipos = "false";
+        }
+
+        $scope.EliminarEquipo = function () {
+            $scope.eliminarEquipos = "true";
             $scope.agregarEquipo = "false";
         }
 

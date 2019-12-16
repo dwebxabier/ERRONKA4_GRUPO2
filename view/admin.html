@@ -35,7 +35,7 @@
                         <input type="button" class="botones" value="Añadir Equipo" ng-click="EquipoNuevo()">
                         <input type="button" class="botones" value="Añadir Jugador" ng-click="JugadorNuevo()">
                         <input type="button" class="botones" value="Añadir Tecnico" ng-click="TecnicoNuevo()">
-                        <input type="button" class="botones" value="Eliminar Equipo" ng-click="EliminarrEquipo()">
+                        <input type="button" class="botones" value="Eliminar Equipo" ng-click="EliminarEquipo()">
                         <input type="button" class="botones" value="Eliminar Jugador" ng-click="EliminarJugador()">
                         <input type="button" class="botones" value="Eliminar Tecnico" ng-click="EliminarTecnico()">
     
@@ -80,7 +80,7 @@
                         <div id=""><!-- Agrear Tecnico -->
                             <form id="formagregar" ng-submit="agregar_Tecnico()" ng-show="agregarTecnico==='true'">
                                 
-                                <span>Nombre del jugador</span> <input type="text" ng-model="misdatos.nombreTecnico"><br><br>
+                                <span>Nombre de Tecnico</span> <input type="text" ng-model="misdatos.nombreTecnico"><br><br>
                                 <span>Licencia</span> <input type="text" ng-model="misdatos.licencia"><br>
                                 <span>Equipo</span> <select ng-model="misdatosEquipo.idEquipo" ng-options="item.nombre for item in lista">
                                     <option ng-repeat="item in lista" value="{{item.idEquipo}}">{{item.nombre}}</option>
@@ -91,6 +91,20 @@
                                 <input type="button" class="botones" ng-click="cancelar()" value="Cancelar">
                             </form>
                         </div>
+
+                        <div id=""><!-- Eliminar Equipo -->
+                            <form id="formagregar" ng-submit="eliminarEquipo()" ng-show="eliminarEquipos==='true'">
+                                
+                                <span>Equipo</span> <select ng-model="misdatosEquipo.nombreEquipo" ng-options="item.nombre for item in lista"></select>
+                                    
+                                </select><br>
+        
+                                <input type="submit" class="botones" value="Eliminar Equipo">
+                                <input type="button" class="botones" ng-click="cancelar()" value="Cancelar">
+                            </form>
+                        </div>
+
+
         
                         <div id=""><!-- Modificar Equipo -->
                             <form id="formmodificar" ng-submit="modificar()" ng-show="modificarEquipo==='true'">
