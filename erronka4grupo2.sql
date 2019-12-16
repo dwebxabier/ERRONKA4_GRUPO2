@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-12-2019 a las 10:09:48
+-- Tiempo de generación: 16-12-2019 a las 13:49:15
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.1.32
 
@@ -81,6 +81,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_jugador_by_idUsuario` (IN `vIdUs
 SELECT *
 FROM jugador
 WHERE jugador.idUsuario = vIdUsuario$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_jugador_load` ()  NO SQL
+SELECT * FROM jugador$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_nombre_categoria` (IN `vIdCategoria` INT)  NO SQL
 SELECT categoria.nombre
@@ -196,8 +199,7 @@ CREATE TABLE `equipo` (
 INSERT INTO `equipo` (`idEquipo`, `nombre`) VALUES
 (1, 'Petanca Pensionista'),
 (2, 'New Petanca'),
-(3, 'Baby Petanca'),
-(4, 'EquipoPrueba');
+(3, 'Baby Petanca');
 
 -- --------------------------------------------------------
 
@@ -217,8 +219,7 @@ CREATE TABLE `equipo_categoria` (
 INSERT INTO `equipo_categoria` (`idEquipo`, `idCategoria`) VALUES
 (1, 3),
 (2, 2),
-(3, 1),
-(4, 1);
+(3, 1);
 
 -- --------------------------------------------------------
 
@@ -284,6 +285,7 @@ INSERT INTO `usuario` (`idUsuario`, `idEquipo`, `password`, `email`, `nombreUsua
 (1, 1, '123', '', ''),
 (2, 2, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', 'la-contraseña-es-1234', 'bogdanAPC'),
 (3, 3, '123', '', ''),
+(4, 3, '123', 'agusmanop@gmail.com', 'Gusmano'),
 (5, NULL, '123', '', ''),
 (6, 1, '123', '', ''),
 (7, 1, '123', '', '');
@@ -391,7 +393,7 @@ ALTER TABLE `equipo`
 -- AUTO_INCREMENT de la tabla `jugador`
 --
 ALTER TABLE `jugador`
-  MODIFY `idJugador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idJugador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `tecnico`
