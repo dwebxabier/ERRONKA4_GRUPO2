@@ -3,7 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
+<<<<<<< HEAD
 -- Tiempo de generación: 16-12-2019 a las 13:50:28
+=======
+-- Tiempo de generación: 16-12-2019 a las 13:49:15
+>>>>>>> e8a81a027cfd3f50c3a8eaf203eaa8eaa6615bfb
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.3.9
 
@@ -81,6 +85,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_jugador_by_idUsuario` (IN `vIdUs
 SELECT *
 FROM jugador
 WHERE jugador.idUsuario = vIdUsuario$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_jugador_load` ()  NO SQL
+SELECT * FROM jugador$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_nombre_categoria` (IN `vIdCategoria` INT)  NO SQL
 SELECT categoria.nombre
@@ -269,7 +276,12 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`idUsuario`, `idEquipo`, `password`, `email`, `nombreUsuario`) VALUES
 (1, 1, '123', '', ''),
 (2, 2, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', 'la-contraseña-es-1234', 'bogdanAPC'),
+<<<<<<< HEAD
 (3, 3, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', '', 'qwerty'),
+=======
+(3, 3, '123', '', ''),
+(4, 3, '123', 'agusmanop@gmail.com', 'Gusmano'),
+>>>>>>> e8a81a027cfd3f50c3a8eaf203eaa8eaa6615bfb
 (5, NULL, '123', '', ''),
 (6, 1, '123', '', ''),
 (7, 1, '123', '', '');
@@ -365,7 +377,7 @@ ALTER TABLE `equipo`
 -- AUTO_INCREMENT de la tabla `jugador`
 --
 ALTER TABLE `jugador`
-  MODIFY `idJugador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idJugador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `tecnico`

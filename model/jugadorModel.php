@@ -28,6 +28,45 @@ class jugadorModel extends jugadorClass{
         mysqli_close ($this->link);
         
     }
+
+    public function setList()
+    {
+        $this->OpenConnect();
+        $sql="call sp_jugador_load()";
+        
+        $result = $this->link->query($sql);
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+        {
+            $newJugador = new jugadorModel();
+            
+            $newJugador->setIdJugador($row['idJugador']);
+            $newJugador->setIdUsuario($row['idUsuario']);
+            $newJugador->setNombre($row['nombre']);
+            
+            array_push($this->list, $newJugador);
+        }
+        mysqli_free_result($result);
+        $this->CloseConnect();
+    }
+
+    public function delete()
+    {
+        $this->OpenConnect();
+        
+        $idUsuario=$this->getIdUsuario();
+        
+        
+        $sql = "CALL sp_delete_jugador($idUsuario)";
+        
+        if ($this->link->query($sql)>=1) // delete egiten da
+        {
+            echo "El Jugador se ha borrado con exito";
+        } else {
+            echo "Fallo al borrar el Jugador: (" . $this->link->errno . ") " . $this->link->error;
+        }
+        
+        $this->CloseConnect();
+    }
     
     public function findJugadorByUser()
     {   
