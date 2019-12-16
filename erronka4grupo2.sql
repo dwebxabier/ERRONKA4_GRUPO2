@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-12-2019 a las 10:53:19
+-- Tiempo de generación: 16-12-2019 a las 09:02:01
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.3.9
 
@@ -58,6 +58,11 @@ WHERE entrenador.idTecnico = vIdTecnico$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_equipo_load` ()  NO SQL
 SELECT *
 FROM equipo$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_insertar_contacto` (IN `vNombre` VARCHAR(32), IN `vSugerencia` VARCHAR(256))  NO SQL
+BEGIN
+  INSERT INTO contacto (nombre, sugerencia) values (vNombre, vSugerencia);
+END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_insertar_equipo` (IN `vNombre` VARCHAR(50), IN `vIdCategoria` INT)  BEGIN
   INSERT INTO equipo (equipo.nombre ) values ( vNombre );
@@ -138,6 +143,18 @@ INSERT INTO `categoria` (`idCategoria`, `nombre`) VALUES
 (1, 'Alevin'),
 (2, 'Infantil'),
 (3, 'Senior');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `contacto`
+--
+
+CREATE TABLE `contacto` (
+  `idContacto` int(11) NOT NULL,
+  `nombre` varchar(32) NOT NULL,
+  `sugerencia` varchar(256) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -286,6 +303,12 @@ ALTER TABLE `categoria`
   ADD PRIMARY KEY (`idCategoria`);
 
 --
+-- Indices de la tabla `contacto`
+--
+ALTER TABLE `contacto`
+  ADD PRIMARY KEY (`idContacto`);
+
+--
 -- Indices de la tabla `ddmm`
 --
 ALTER TABLE `ddmm`
@@ -342,6 +365,12 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `categoria`
   MODIFY `idCategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `contacto`
+--
+ALTER TABLE `contacto`
+  MODIFY `idContacto` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `ddmm`
