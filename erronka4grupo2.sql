@@ -3,7 +3,6 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-12-2019 a las 10:53:19
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.3.9
 
@@ -59,6 +58,11 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_equipo_load` ()  NO SQL
 SELECT *
 FROM equipo$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_get_admin_by_user_id` (IN `pUserId` VARCHAR(64))  NO SQL
+BEGIN
+SELECT admin.*  FROM admin WHERE admin.idUsuario=pUserId;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_insertar_equipo` (IN `vNombre` VARCHAR(50), IN `vIdCategoria` INT)  BEGIN
   INSERT INTO equipo (equipo.nombre ) values ( vNombre );
   INSERT INTO equipo_categoria ( equipo_categoria.idEquipo, equipo_categoria.idCategoria ) values ( EQUIPO_LAST_ID(), vIdCategoria );
@@ -77,6 +81,9 @@ SELECT *
 FROM jugador
 WHERE jugador.idUsuario = vIdUsuario$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_jugador_load` ()  NO SQL
+SELECT * FROM jugador$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_nombre_categoria` (IN `vIdCategoria` INT)  NO SQL
 SELECT categoria.nombre
 FROM categoria
@@ -86,6 +93,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_tecnico_by_idUsuario` (IN `vIdUs
 SELECT *
 FROM tecnico
 WHERE tecnico.idUsuario = vIdUsuario$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_tecnico_load` ()  NO SQL
+SELECT * FROM tecnico$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_usuario_by_equipo` (IN `vIdEquipo` INT)  NO SQL
 SELECT *
@@ -117,7 +127,8 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`idAdmin`, `idUsuario`, `nombre`) VALUES
-(1, 5, 'admin');
+(1, 5, 'admin'),
+(2, 2, 'admin');
 
 -- --------------------------------------------------------
 
@@ -263,10 +274,16 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`idUsuario`, `idEquipo`, `password`, `email`, `nombreUsuario`) VALUES
 (1, 1, '123', '', ''),
 (2, 2, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', 'la-contraseña-es-1234', 'bogdanAPC'),
+<<<<<<< HEAD
+(3, 3, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', '', 'qwerty'),
+=======
 (3, 3, '123', '', ''),
+(4, 3, '123', 'agusmanop@gmail.com', 'Gusmano'),
+>>>>>>> e8a81a027cfd3f50c3a8eaf203eaa8eaa6615bfb
 (5, NULL, '123', '', ''),
 (6, 1, '123', '', ''),
-(7, 1, '123', '', '');
+(7, 1, '123', '', ''),
+(8, 3, '123', '131', 'juanito');
 
 --
 -- Índices para tablas volcadas
@@ -335,7 +352,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `idAdmin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idAdmin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `categoria`
@@ -359,19 +376,19 @@ ALTER TABLE `equipo`
 -- AUTO_INCREMENT de la tabla `jugador`
 --
 ALTER TABLE `jugador`
-  MODIFY `idJugador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idJugador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `tecnico`
 --
 ALTER TABLE `tecnico`
-  MODIFY `idTecnico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idTecnico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Restricciones para tablas volcadas

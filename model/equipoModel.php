@@ -1,5 +1,9 @@
 <?php
-include_once 'connect_data.php';
+if ($_SERVER['SERVER_NAME'] == 'apc.dominios.fpz1920.com'){
+    include_once ("connect_dataServer.php");
+}else{
+    include_once ("connect_data.php");
+}
 include_once 'equipoClass.php';
 
 
@@ -67,6 +71,25 @@ class equipoModel extends equipoClass{
         $result = $this->link->query($sql);
       
         mysqli_free_result($result);
+        $this->CloseConnect();
+    }
+
+    public function delete()
+    {
+        $this->OpenConnect();
+        
+        $idEquipo=$this->getIdEquipo();
+        
+        
+        $sql = "CALL sp_delete_equipo($idEquipo)";
+        
+        if ($this->link->query($sql)>=1) // delete egiten da
+        {
+            echo "El Equipo se ha borrado con exito";
+        } else {
+            echo "Fallo al borrar el Equipo: (" . $this->link->errno . ") " . $this->link->error;
+        }
+        
         $this->CloseConnect();
     }
 

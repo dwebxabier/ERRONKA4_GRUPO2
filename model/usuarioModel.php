@@ -1,6 +1,11 @@
 <?php
-include_once 'connect_data.php';
+if ($_SERVER['SERVER_NAME'] == 'apc.dominios.fpz1920.com'){
+    include_once ("connect_dataServer.php");
+}else{
+    include_once ("connect_data.php");
+}
 include_once 'usuarioClass.php';
+include_once 'adminModel.php';
 
 
 class usuarioModel extends usuarioClass{
@@ -92,7 +97,7 @@ class usuarioModel extends usuarioClass{
 	}
 
 	public function findUserByUsername(){
-		require_once ($_SERVER['DOCUMENT_ROOT']."/ERRONKA4_GRUPO2/model/adminModel.php");
+		
 		$this->OpenConnect();
 		$user=$this->nombreUsuario;
 
@@ -110,7 +115,7 @@ class usuarioModel extends usuarioClass{
 				
 				$checkAdmin = new adminModel();
 				$checkAdmin->setIdUsuario($row['idUsuario']);
-				$jugador->getAdminByUserId();
+				$checkAdmin->getAdminByUserId();
 				
 				$userExists=true;
 			}

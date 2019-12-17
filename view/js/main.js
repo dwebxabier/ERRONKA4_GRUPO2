@@ -61,31 +61,31 @@ $(document).ready(function () {
 function sessionCheck(){
   //NO TOCAR $$$$$$$$$$$$
 
-  // $.ajax({
+  $.ajax({
 
-  //   url: "../controller/cSessionVerVars.php",
-  //   dataType: "json",
+    url: "../controller/login/cSessionVerVars.php",
+    dataType: "json",
 
-  //   success: function (result) {
+    success: function (result) {
 
-  //     console.log(result);
+      console.log(result);
 
-  //     if (result != 0) {
+      if (result != 0) {
 
-  //       newRow = "";
-  //       newRow += "<p>Has iniciado sesion: " + result.name
-  //         + " y eres admin(SI/NO) : " + result.admin + "</p>";
+        newRow = "";
+        newRow += "<p>Has iniciado sesion: " + result.name
+          + " y eres admin(SI/NO) : " + result.admin + "</p>";
 
-  //       newRow += "<p><button id='itxi'>Session close</button></p>";
-  //       $("body").append(newRow);
+        newRow += "<p><button id='itxi'>Session close</button></p>";
+        $("body").append(newRow);
 
-  //     } else {
-  //       $("body").append("No has iniciado session");
+      } else {
+        $("body").append("No has iniciado session");
 
-  //     }
-  //   },
-  //   error: function (xhr) {
-  //     alert("An error occured: " + xhr.status + " " + xhr.statusText);
-  //   }
-  // });
+      }
+    },
+    error: function (xhr) {
+      alert("An error occured: " + xhr.status + " " + xhr.statusText);
+    }
+  });
 }
