@@ -7,6 +7,23 @@ class usuarioClass{
     protected $password;
     protected $email;
     protected $nombreUsuario;
+    protected $admin;
+
+    /**
+     * @return mixed
+     */
+    public function getAdmin()
+    {
+        return $this->admin;
+    }
+
+    /**
+     * @param mixed $admin
+     */
+    public function setAdmin($admin)
+    {
+        $this->admin = $admin;
+    }
 
     /**
      * @return mixed

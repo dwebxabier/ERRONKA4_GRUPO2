@@ -3,183 +3,172 @@ include_once 'connect_data.php';
 include_once 'usuarioClass.php';
 include_once 'adminModel.php';
 
+class usuarioModel extends usuarioClass
+{
 
-class usuarioModel extends usuarioClass{
+    private $link;
 
-	private $link;
-	private $list=array();
-	private $objectJugador = array();
-	private $objectTecnico = array();
-	private $objAdmin;
+    private $list = array();
 
-	/**
-	 * @param mixed $objAdmin
-	 */
-	public function setObjAdmin($objAdmin)
-	{
-		$this->objAdmin = $objAdmin;
-	}
+    private $objectJugador = array();
 
-	public function getObjAdmin(){
-		return $this->objAdmin;
-	}
+    private $objectTecnico = array();
 
+    private $objAdmin;
 
-	public function getObjectJugador(){
-		return $this->objectJugador;
-	}
+    /**
+     *
+     * @param mixed $objAdmin
+     */
+    public function setObjAdmin($objAdmin)
+    {
+        $this->objAdmin = $objAdmin;
+    }
 
-	public function getObjectTecnico(){
-		return $this->objectTecnico;
-	}
+    public function getObjAdmin()
+    {
+        return $this->objAdmin;
+    }
 
-	public function OpenConnect()
-	{
-		$konDat=new connect_data();
-		try
-		{
-			$this->link=new mysqli($konDat->host,$konDat->userbbdd,$konDat->passbbdd,$konDat->ddbbname);
-		}
-		catch(Exception $e)
-		{
-			echo $e->getMessage();
-		}
-		$this->link->set_charset("utf8"); // honek behartu egiten du aplikazio eta
-		//                  //databasearen artean UTF -8 erabiltzera datuak trukatzeko
-	}
+    public function getObjectJugador()
+    {
+        return $this->objectJugador;
+    }
 
-	public function CloseConnect()
-	{
-		mysqli_close ($this->link);
+    public function getObjectTecnico()
+    {
+        return $this->objectTecnico;
+    }
 
-	}
+    public function OpenConnect()
+    {
+        $konDat = new connect_data();
+        try {
+            $this->link = new mysqli($konDat->host, $konDat->userbbdd, $konDat->passbbdd, $konDat->ddbbname);
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+        $this->link->set_charset("utf8"); // honek behartu egiten du aplikazio eta
+                                          // //databasearen artean UTF -8 erabiltzera datuak trukatzeko
+    }
 
-	public function setJugadoresByEquipo()
-	{
-		$this->OpenConnect();
-		$id=$this->getIdEquipo();
-		$sql="call sp_usuario_by_equipo($id)";
-		$result = $this->link->query($sql);
-		while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
-		{
-			$newUsuario = new usuarioModel();
-			$newUsuario->setIdEquipo($row['idEquipo']);
-			$newUsuario->setIdUsuario($row['idUsuario']);
+    public function CloseConnect()
+    {
+        mysqli_close($this->link);
+    }
 
-			require_once ($_SERVER['DOCUMENT_ROOT']."/ERRONKA4_GRUPO2/model/jugadorModel.php");
+    public function setJugadoresByEquipo()
+    {
+        $this->OpenConnect();
+        $id = $this->getIdEquipo();
+        $sql = "call sp_usuario_by_equipo($id)";
+        $result = $this->link->query($sql);
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $newUsuario = new usuarioModel();
+            $newUsuario->setIdEquipo($row['idEquipo']);
+            $newUsuario->setIdUsuario($row['idUsuario']);
 
-			$jugador = new jugadorModel();
-			$jugador->setIdUsuario($row['idUsuario']);
-			$jugador->findJugadorByUser();
+            require_once ($_SERVER['DOCUMENT_ROOT'] . "/ERRONKA4_GRUPO2/model/jugadorModel.php");
 
-			$newUsuario->objectJugador=$jugador;
+            $jugador = new jugadorModel();
+            $jugador->setIdUsuario($row['idUsuario']);
+            $jugador->findJugadorByUser();
 
-			array_push($this->list, $newUsuario);
-		}
-		mysqli_free_result($result);
-		unset($jugador);
-		$this->CloseConnect();
-	}
+            $newUsuario->objectJugador = $jugador;
 
-	public function insertIdEquipoEnUsuario()
-	{
-		$this->OpenConnect();
-		$idEquipo=$this->getIdEquipo();
-		$sql="call sp_insertar_equipo_en_usuario($idEquipo)";
-		$result = $this->link->query($sql);
+            array_push($this->list, $newUsuario);
+        }
+        mysqli_free_result($result);
+        unset($jugador);
+        $this->CloseConnect();
+    }
 
-		mysqli_free_result($result);
-		$this->CloseConnect();
-	}
+    public function insertIdEquipoEnUsuario()
+    {
+        $this->OpenConnect();
+        $idEquipo = $this->getIdEquipo();
+        $sql = "call sp_insertar_equipo_en_usuario($idEquipo)";
+        $result = $this->link->query($sql);
 
-	public function findUserByUsername(){
-		
-		$this->OpenConnect();
-		$user=$this->nombreUsuario;
+        mysqli_free_result($result);
+        $this->CloseConnect();
+    }
 
-		$sql="call spFindUserByUsername('$user')";
-	
-		$result= $this->link->query($sql);
-		$userExists=false;
-		
-		if ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
-		{
-			$passwordEncripted=$row['password'];
-			
-			if (password_verify($this->getPassword(), $passwordEncripted))
-			{
-				
-				$checkAdmin = new adminModel();
-				$checkAdmin->setIdUsuario($row['idUsuario']);
-				$checkAdmin->getAdminByUserId();
-				
-				$userExists=true;
-			}
-		}
-		return $userExists;
-		mysqli_free_result($result);
-		$this->CloseConnect();
-	}
+    public function findUserByUsername()
+    {
+        $this->OpenConnect();
+        $user = $this->nombreUsuario;
 
-	public function setTecnicosByEquipo()
-	{
-		$this->OpenConnect();
-		$id=$this->getIdEquipo();
-		$sql="call sp_usuario_by_equipo($id)";
-		$result = $this->link->query($sql);
-		while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
-		{
-			$newUsuario = new usuarioModel();
-			$newUsuario->setIdEquipo($row['idEquipo']);
-			$newUsuario->setIdUsuario($row['idUsuario']);
+        $sql = "call spFindUserByUsername('$user')";
 
-			require_once ($_SERVER['DOCUMENT_ROOT']."/ERRONKA4_GRUPO2/model/tecnicoModel.php");
+        $result = $this->link->query($sql);
+        $userExists = false;
 
-			$tecnico = new tecnicoModel();
-			$tecnico->setIdUsuario($row['idUsuario']);
-			$tecnico->findTecnicoByUser();
+        if ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $passwordEncripted = $row['password'];
 
-			$newUsuario->objectTecnico=$tecnico;
+            if (password_verify($this->getPassword(), $passwordEncripted)) {
+                $this->setAdmin($row['admin']);
+                $userExists = true;
+            }
+        }
+        return $userExists;
+        mysqli_free_result($result);
+        $this->CloseConnect();
+    }
 
-			array_push($this->list, $newUsuario);
-		}
-		mysqli_free_result($result);
-		unset($tecnico);
-		$this->CloseConnect();
-	}
+    public function setTecnicosByEquipo()
+    {
+        $this->OpenConnect();
+        $id = $this->getIdEquipo();
+        $sql = "call sp_usuario_by_equipo($id)";
+        $result = $this->link->query($sql);
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $newUsuario = new usuarioModel();
+            $newUsuario->setIdEquipo($row['idEquipo']);
+            $newUsuario->setIdUsuario($row['idUsuario']);
 
-	function getListJsonStringJugador() {
+            require_once ($_SERVER['DOCUMENT_ROOT'] . "/ERRONKA4_GRUPO2/model/tecnicoModel.php");
 
-		$arr=array();
-		foreach ($this->list as $usuario)
-		{
-			if ($usuario->getObjectJugador()->getNombre() != null )
-			{
-				$vars = $usuario->getObjectVars();
-				$objectJugador=$usuario->objectJugador->getObjectVars();
-				$vars['objectJugador']=$objectJugador;
-				array_push($arr, $vars);
-			}
+            $tecnico = new tecnicoModel();
+            $tecnico->setIdUsuario($row['idUsuario']);
+            $tecnico->findTecnicoByUser();
 
-		}
-		return json_encode($arr);
-	}
+            $newUsuario->objectTecnico = $tecnico;
 
-	function getListJsonStringTecnico() {
+            array_push($this->list, $newUsuario);
+        }
+        mysqli_free_result($result);
+        unset($tecnico);
+        $this->CloseConnect();
+    }
 
-		$arr=array();
-		foreach ($this->list as $usuario)
-		{
-			if ($usuario->getObjectTecnico()->getIdTecnico() != null )
-			{
-				$vars = $usuario->getObjectVars();
-				$objectTecnico=$usuario->objectTecnico->getObjectVars();
-				$vars['objectTecnico']=$objectTecnico;
-				array_push($arr, $vars);
-			}
-		}
-		return json_encode($arr);
-	}
+    function getListJsonStringJugador()
+    {
+        $arr = array();
+        foreach ($this->list as $usuario) {
+            if ($usuario->getObjectJugador()->getNombre() != null) {
+                $vars = $usuario->getObjectVars();
+                $objectJugador = $usuario->objectJugador->getObjectVars();
+                $vars['objectJugador'] = $objectJugador;
+                array_push($arr, $vars);
+            }
+        }
+        return json_encode($arr);
+    }
 
+    function getListJsonStringTecnico()
+    {
+        $arr = array();
+        foreach ($this->list as $usuario) {
+            if ($usuario->getObjectTecnico()->getIdTecnico() != null) {
+                $vars = $usuario->getObjectVars();
+                $objectTecnico = $usuario->objectTecnico->getObjectVars();
+                $vars['objectTecnico'] = $objectTecnico;
+                array_push($arr, $vars);
+            }
+        }
+        return json_encode($arr);
+    }
 }
 

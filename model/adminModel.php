@@ -38,12 +38,11 @@ class adminModel extends adminClass{
         $result= $this->link->query($sql);
         
         
-        if ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
-        {
-            
-            $this->setNombre($row['nombre']);
-
-        }
+        if (mysqli_fetch_array($result, MYSQLI_ASSOC))
+        {           
+            echo 1;
+        }else{echo 0;}
+        
         mysqli_free_result($result);
         $this->CloseConnect();
     }
