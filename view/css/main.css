@@ -42,6 +42,8 @@ body{
     white-space: nowrap;
 }
 
+
+
 #carouselExampleFade>.carousel-inner>.carousel-item>img{
     width: 1280px;
     height: 700px;
