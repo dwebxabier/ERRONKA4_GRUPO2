@@ -1,5 +1,9 @@
 <?php
-include_once 'connect_data.php';
+if ($_SERVER['SERVER_NAME'] == 'apc.dominios.fpz1920.com'){
+    include_once ("connect_dataServer.php");
+}else{
+    include_once ("connect_data.php");
+}
 include_once 'jugadorClass.php';
 
 

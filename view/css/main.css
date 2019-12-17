@@ -42,16 +42,7 @@ body{
     white-space: nowrap;
 }
 
-/* .nav-link {
-    padding: 50px;
-    transition: transform .2s;
-} */
-  
-/* .nav-link:hover {
-    -ms-transform: scale(1.5); 
-    -webkit-transform: scale(1.5); 
-    transform: scale(1.5); 
-} */
+
 
 #carouselExampleFade>.carousel-inner>.carousel-item>img{
     width: 1280px;

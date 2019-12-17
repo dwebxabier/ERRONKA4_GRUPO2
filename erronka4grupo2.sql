@@ -3,9 +3,13 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
+<<<<<<< HEAD
 -- Tiempo de generación: 17-12-2019 a las 12:51:19
+=======
+-- Tiempo de generación: 17-12-2019 a las 12:06:35
+>>>>>>> f42b876af7a759123126bf1f85dc9829563a3373
 -- Versión del servidor: 10.4.6-MariaDB
--- Versión de PHP: 7.3.9
+-- Versión de PHP: 7.1.32
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -59,29 +63,43 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_equipo_load` ()  NO SQL
 SELECT *
 FROM equipo$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_get_admin_by_user_id` (IN `pUserId` VARCHAR(64))  NO SQL
-BEGIN
-SELECT admin.*  FROM admin WHERE admin.idUsuario=pUserId;
-END$$
-
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_insertar_equipo` (IN `vNombre` VARCHAR(50), IN `vIdCategoria` INT)  BEGIN
   INSERT INTO equipo (equipo.nombre ) values ( vNombre );
   INSERT INTO equipo_categoria ( equipo_categoria.idEquipo, equipo_categoria.idCategoria ) values ( EQUIPO_LAST_ID(), vIdCategoria );
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_insertar_equipo_en_usuario` (IN `vIdEquipo` INT)  NO SQL
+INSERT INTO usuario ( usuario.idEquipo )
+VALUES ( vIdEquipo )$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_insertar_idCat_equipo_categoria` (IN `vIdCategoria` INT)  NO SQL
 INSERT INTO equipo_categoria(equipo_categoria.idEquipo, equipo_categoria.idCategoria)
 VALUES(EQUIPO_LAST_ID(), vIdCategoria)$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_insertar_jugador` (IN `vNombre` VARCHAR(50))  NO SQL
+INSERT INTO jugador ( jugador.idUsuario, jugador.nombre )
+VALUES ( USUARIO_LAST_ID(), vNombre )$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_insertar_nombre_equipo` (IN `vNombre` VARCHAR(50))  NO SQL
 INSERT INTO equipo(equipo.nombre)
 VALUES(vNombre)$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_insertar_tecnico` (IN `vNombre` VARCHAR(50), IN `vLicencia` VARCHAR(50))  NO SQL
+INSERT INTO tecnico ( tecnico.idUsuario, tecnico.nombre, tecnico.licencia )
+VALUES ( USUARIO_LAST_ID(), vNombre, vLicencia )$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_jugador_by_idUsuario` (IN `vIdUsuario` INT)  NO SQL
 SELECT *
 FROM jugador
 WHERE jugador.idUsuario = vIdUsuario$$
 
+<<<<<<< HEAD
+=======
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_jugador_load` ()  NO SQL
+SELECT *
+FROM jugador$$
+
+>>>>>>> f42b876af7a759123126bf1f85dc9829563a3373
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_nombre_categoria` (IN `vIdCategoria` INT)  NO SQL
 SELECT categoria.nombre
 FROM categoria
@@ -91,6 +109,10 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_tecnico_by_idUsuario` (IN `vIdUs
 SELECT *
 FROM tecnico
 WHERE tecnico.idUsuario = vIdUsuario$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_tecnico_load` ()  NO SQL
+SELECT *
+FROM tecnico$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_usuario_by_equipo` (IN `vIdEquipo` INT)  NO SQL
 SELECT *
@@ -102,6 +124,9 @@ WHERE usuario.idEquipo = vIdEquipo$$
 --
 CREATE DEFINER=`root`@`localhost` FUNCTION `EQUIPO_LAST_ID` () RETURNS INT(11) NO SQL
 RETURN (SELECT equipo.idEquipo FROM equipo ORDER BY equipo.idEquipo DESC LIMIT 1)$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `USUARIO_LAST_ID` () RETURNS INT(11) NO SQL
+RETURN (SELECT usuario.idUsuario FROM usuario ORDER BY usuario.idUsuario DESC LIMIT 1)$$
 
 DELIMITER ;
 
@@ -122,8 +147,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`idAdmin`, `idUsuario`, `nombre`) VALUES
-(1, 5, 'admin'),
-(2, 2, 'admin');
+(1, 5, 'admin');
 
 -- --------------------------------------------------------
 
@@ -204,6 +228,9 @@ CREATE TABLE `equipo_categoria` (
 INSERT INTO `equipo_categoria` (`idEquipo`, `idCategoria`) VALUES
 (1, 3),
 (2, 2),
+(3, 1),
+(1, 3),
+(2, 2),
 (3, 1);
 
 -- --------------------------------------------------------
@@ -225,7 +252,8 @@ CREATE TABLE `jugador` (
 INSERT INTO `jugador` (`idJugador`, `idUsuario`, `nombre`) VALUES
 (1, 1, 'Carlos'),
 (2, 2, 'Bogdan'),
-(3, 3, 'Xabier');
+(3, 3, 'Xabier'),
+(4, 8, 'Gusmano');
 
 -- --------------------------------------------------------
 
@@ -245,8 +273,10 @@ CREATE TABLE `tecnico` (
 --
 
 INSERT INTO `tecnico` (`idTecnico`, `idUsuario`, `licencia`, `nombre`) VALUES
-(1, 6, 'entrenador', 'Jose'),
-(2, 7, 'delegado', 'Ramon');
+(1, 6, 'Entrenador', 'Jose'),
+(2, 7, 'Delegado', 'Ramon'),
+(3, 9, 'Entrenador', 'Pepe'),
+(4, 10, 'Auxiliar', 'Pablo');
 
 -- --------------------------------------------------------
 
@@ -256,17 +286,22 @@ INSERT INTO `tecnico` (`idTecnico`, `idUsuario`, `licencia`, `nombre`) VALUES
 
 CREATE TABLE `usuario` (
   `idUsuario` int(11) NOT NULL,
+<<<<<<< HEAD
   `idEquipo` int(11) DEFAULT NULL,
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(2562) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `nombreUsuario` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `admin` tinyint(1) NOT NULL
+=======
+  `idEquipo` int(11) DEFAULT NULL
+>>>>>>> f42b876af7a759123126bf1f85dc9829563a3373
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
+<<<<<<< HEAD
 INSERT INTO `usuario` (`idUsuario`, `idEquipo`, `password`, `email`, `nombreUsuario`, `admin`) VALUES
 (1, 1, '123', '', '', 0),
 (2, 2, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', 'la-contraseña-es-1234', 'bogdan-apc', 1),
@@ -274,6 +309,20 @@ INSERT INTO `usuario` (`idUsuario`, `idEquipo`, `password`, `email`, `nombreUsua
 (5, NULL, '123', '', '', 1),
 (6, 1, '123', '', '', 0),
 (7, 1, '123', '', '', 0);
+=======
+INSERT INTO `usuario` (`idUsuario`, `idEquipo`) VALUES
+(5, NULL),
+(1, 1),
+(6, 1),
+(7, 1),
+(8, 1),
+(10, 1),
+(11, 1),
+(12, 1),
+(2, 2),
+(9, 2),
+(3, 3);
+>>>>>>> f42b876af7a759123126bf1f85dc9829563a3373
 
 --
 -- Índices para tablas volcadas
@@ -342,7 +391,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `idAdmin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idAdmin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `categoria`
@@ -360,25 +409,29 @@ ALTER TABLE `ddmm`
 -- AUTO_INCREMENT de la tabla `equipo`
 --
 ALTER TABLE `equipo`
-  MODIFY `idEquipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idEquipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `jugador`
 --
 ALTER TABLE `jugador`
+<<<<<<< HEAD
   MODIFY `idJugador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+=======
+  MODIFY `idJugador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+>>>>>>> f42b876af7a759123126bf1f85dc9829563a3373
 
 --
 -- AUTO_INCREMENT de la tabla `tecnico`
 --
 ALTER TABLE `tecnico`
-  MODIFY `idTecnico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idTecnico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Restricciones para tablas volcadas
