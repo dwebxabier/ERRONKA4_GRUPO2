@@ -17,7 +17,8 @@
                 <h1>Lista de Equipos</h1>
             </legend>
             <fieldset width="50%" height="50%">
-                <table>
+                <div class="tablas">
+                <table id="tablaEquipos">
                     <tr>
                         <td><b>EQUIPO </b></td>
                         <td><b>NOMBRE</b></td>
@@ -29,6 +30,19 @@
                         <!-- <td><input type="button" value="Modificar" ng-click="modificar(item)"></td> -->
                     </tr>
                 </table>
+
+                <table id="tablaOpiniones">
+                    <tr>
+                        <td><b>EMAIL</b></td>
+                        <td><b>OPINION</b></td>
+                    </tr>
+                    <tr id="listaEquipos" ng-repeat="item in opiniones" ng-show="verTabla === 'true'">
+                        <td><b>{{item.email}}</b></td>
+                        <td data-id="{{item.idOpinion}}"><b>{{item.texto}}</b></td>
+                        <!-- <td><input type="button" value="Modificar" ng-click="modificar(item)"></td> -->
+                    </tr>
+                </table>
+            </div>
 
                 <div id="doha" ng-show="verMenu==='true'" ng-style="menu">
                         <input type="button" class="botones" value="Buscar Equipo" ng-click="Buscar()">

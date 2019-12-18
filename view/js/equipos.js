@@ -13,12 +13,12 @@ $(document).ready(function () {
 
             $.each(result, function (i, equipo) {
 
-                newRow += '<div class="card text-center col-md-3 mr-3 ml-3 mb-3" style="width: 18rem;">'
+                newRow += '<div class="card text-center col-md-3 mr-3 ml-3 mb-3 carousel" width: 18rem;>'
                 newRow += '<img src="img/escudo_APC.png" class="card-img-top mx-auto d-block">'
                 newRow += '<div class="card-body">'
-                newRow += '<h5 class="card-title text-dark">'+equipo.nombre+'</h5>'
-                newRow += '<p class="card-text text-dark">'+equipo.objectCategoria.idEquipo+'</p>'
-                newRow += '<a class="btn btnPlantilla btn-primary" data-id="'+equipo.idEquipo+'" data-toggle="modal" data-target="#myModalPlantilla">Plantilla</a>'
+                newRow += '<h5 class="card-title text-light">'+equipo.nombre+'</h5>'
+                newRow += '<p class="card-text text-light">'+equipo.objectCategoria.idEquipo+'</p>'
+                newRow += '<a class="btn btnPlantilla botones" data-id="'+equipo.idEquipo+'" data-toggle="modal" data-target="#myModalPlantilla">Plantilla</a>'
                 newRow += '</div></div>'
             
             });

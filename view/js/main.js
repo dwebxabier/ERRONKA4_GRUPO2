@@ -30,14 +30,20 @@ $(document).ready(function () {
   $('.modal-footer>#enviarOp').click(function () {
 
     var regex = /[\w-\.]{2,}@([\w-]{2,}\.)*([\w-]{2,}\.)[\w-]{2,4}/;
+    var mensaje;
 
     if (regex.test($("form").find('#email').val().trim())) {
 
       if ($("form").find('#comentario').val() == "") {
         alert('No has escrito el comentario');
+        mensaje = "no";
+        slide_stop();
       }
 
+      mensaje = "si";
+
     } else {
+<<<<<<< HEAD
       alert('La direccón de correo no es válida');
     }
   });
@@ -45,6 +51,45 @@ $(document).ready(function () {
 
 
   //NO TOCAR $$$$$$$$$$$$$$$$
+=======
+        alert('La direccón de correo no es válida');
+        mensaje = "no";
+        slide_stop();
+    }
+
+    if(mensaje == "si"){
+
+      var email = $("form").find('#email').val();
+      var texto = $("form").find('#comentario').val();
+
+      $.ajax({
+
+        type: 'GET',
+        data: {'email':email,'texto':texto},
+        url: 'controller/cInsertarOpinion.php',
+        dataType: 'json',
+        success: function (result) {
+
+            console.log(result);
+
+        }  
+
+    });
+
+    $('#myModal').modal('toggle');
+    $("form").find('#email').val("");
+    $("form").find('#comentario').val("");
+
+    }
+
+
+});
+
+
+
+  
+//NO TOCAR $$$$$$$$$$$$$$$$
+>>>>>>> 833dccc65a905c3357dcd46e14f66be9492bbb0e
   // $.ajax({
   //     type: "GET",
   //     url: "../controller/cIndex.php",

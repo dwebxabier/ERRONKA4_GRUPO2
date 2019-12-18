@@ -92,11 +92,22 @@ miApp.controller('miControlador', ['$scope', '$http', function ($scope, $http) {
                 $scope.tecnicos = data.data;
             });
 
+            $http({
+                method: 'GET',
+                url: '../controller/cOpiniones.php',
+            }).then(function (data) {
+
+                console.log(data.data);
+                $scope.opiniones = data.data;
+            });
+
             $scope.Buscar = function () {
                 $scope.eliminarTecnicos = "false";
                 $scope.eliminarEquipos = "false";
                 $scope.eliminarJugadores = "false";
                 $scope.agregarEquipos = "false";
+                $scope.agregarTecnico = "false";
+                $scope.agregarJugador = "false";
                 $scope.buscarEquipo = "true";
             }
 
