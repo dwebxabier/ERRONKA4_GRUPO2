@@ -19,6 +19,13 @@ body{
     border-bottom: 10px groove #981A32;
 }
 
+.navbar-nav>.li5 {
+    position: absolute;
+    right: 0;
+    width: 100px;
+}
+
+
 #logo{
     width: 70px;
     margin-left: 2%;
@@ -41,8 +48,6 @@ body{
 .nav-item>.nav-link{
     white-space: nowrap;
 }
-
-
 
 #carouselExampleFade>.carousel-inner>.carousel-item>img{
     width: 1280px;
