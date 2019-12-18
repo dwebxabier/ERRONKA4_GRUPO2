@@ -97,6 +97,8 @@ miApp.controller('miControlador', ['$scope', '$http', function ($scope, $http) {
                 $scope.eliminarEquipos = "false";
                 $scope.eliminarJugadores = "false";
                 $scope.agregarEquipos = "false";
+                $scope.agregarTecnico = "false";
+                $scope.agregarJugador = "false";
                 $scope.buscarEquipo = "true";
             }
 
