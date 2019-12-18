@@ -1,0 +1,25 @@
+body{
+    background-color: lightgrey;
+}
+
+#logo{
+    width: 70px;
+    margin-left: 2%;
+    border: black 2px solid;
+    padding: 3px;
+}
+
+.nav-item{
+    margin-left: 20%;
+}
+
+h1{
+    -webkit-text-stroke: 1px black;
+}
+
+
+/* ESTRELLAS DE PUNTUACION */
+
+.checked {
+    color: orange;
+  }
