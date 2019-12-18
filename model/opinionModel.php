@@ -33,18 +33,22 @@ class opinionModel extends opinionClass{
         
     }
   
-    public function getOpiniones(){
+    public function setList(){
 
         $this->OpenConnect();
         $sql="call sp_load_opiniones()";
         $result= $this->link->query($sql);
         
-        if ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
         {
-            $this->setIdOpinion($row['idOpinion']);
-            $this->setEmail($row['email']);
-            $this->setFecha($row['fecha']);
-            $this->setTexto($row['texto']);
+            $newOpinion = new opinionModel();
+
+            $newOpinion->setIdOpinion($row['idOpinion']);
+            $newOpinion->setEmail($row['email']);
+            $newOpinion->setFecha($row['fecha']);
+            $newOpinion->setTexto($row['texto']);
+
+            array_push($this->list, $newOpinion);
         }
         mysqli_free_result($result);
         $this->CloseConnect();
@@ -61,6 +65,19 @@ class opinionModel extends opinionClass{
       
         mysqli_free_result($result);
         $this->CloseConnect();
+    }
+
+    function getListJsonString() {
+        
+        $arr=array();
+        
+        foreach ($this->list as $object)
+        {
+            $vars = $object->getObjectVars();
+            
+            array_push($arr, $vars);
+        }
+        return json_encode($arr);
     }
 
 }
