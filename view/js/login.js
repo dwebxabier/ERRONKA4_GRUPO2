@@ -11,7 +11,7 @@ $(document).ready(function(){
 	    		
 	    		console.log(result);
 	    		
-	       		if (result ==1)
+	       		if (result.admin == 1)
 	       		{
 //	       			window.location.href="view/vLogin.html";
 	       			alert("Se ha iniciado sesión de forma correcta");

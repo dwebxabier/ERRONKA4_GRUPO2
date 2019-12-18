@@ -5,10 +5,10 @@ if ($_SERVER['SERVER_NAME'] == 'apc.dominios.fpz1920.com'){
 }else{
     include_once ("connect_data.php");
 }
-include_once 'adminClass.php';
+include_once 'opinionClass.php';
 
 
-class adminModel extends adminClass{
+class opinionModel extends opinionClass{
     
     private $link;
     private $list=array();
@@ -32,24 +32,36 @@ class adminModel extends adminClass{
         mysqli_close ($this->link);
         
     }
-    
   
-    public function getAdminByUserId(){
+    public function getOpiniones(){
+
         $this->OpenConnect();
-        
-        $userId=$this->idUsuario;
-        
-        $sql="call sp_get_admin_by_user_id($userId)";
+        $sql="call sp_load_opiniones()";
         $result= $this->link->query($sql);
         
-        
-        if (mysqli_fetch_array($result, MYSQLI_ASSOC))
-        {           
-            echo 1;
-        }else{echo 0;}
-        
+        if ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+        {
+            $this->setIdOpinion($row['idOpinion']);
+            $this->setEmail($row['email']);
+            $this->setFecha($row['fecha']);
+            $this->setTexto($row['texto']);
+        }
         mysqli_free_result($result);
         $this->CloseConnect();
     }
+
+    public function insertOpinion()
+    {
+        $this->OpenConnect();
+        $email=$this->getEmail();
+        $texto=$this->getTexto();
+        $sql="call sp_insertar_opinion('$email', '$texto')";
+        
+        $result = $this->link->query($sql);
+      
+        mysqli_free_result($result);
+        $this->CloseConnect();
+    }
+
 }
 
