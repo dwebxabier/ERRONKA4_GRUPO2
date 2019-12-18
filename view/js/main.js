@@ -47,12 +47,10 @@ $(document).ready(function () {
         slide_stop();
     }
 
-    alert(mensaje);
     if(mensaje == "si"){
 
       var email = $("form").find('#email').val();
       var texto = $("form").find('#comentario').val();
-      alert($("form").find('#email').val()+"---"+$("form").find('#comentario').val());
 
       $.ajax({
 
@@ -67,6 +65,10 @@ $(document).ready(function () {
         }  
 
     });
+
+    $('#myModal').modal('toggle');
+    $("form").find('#email').val("");
+    $("form").find('#comentario').val("");
 
     }
 
