@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-12-2019 a las 13:07:02
+-- Tiempo de generación: 18-12-2019 a las 08:56:07
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.1.32
 
@@ -80,7 +80,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_insertar_nombre_equipo` (IN `vNo
 INSERT INTO equipo(equipo.nombre)
 VALUES(vNombre)$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_insertar_opinion` (IN `vEmail` INT(50), IN `vTexto` INT(255))  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_insertar_opinion` (IN `vEmail` VARCHAR(50), IN `vTexto` VARCHAR(255))  NO SQL
 INSERT INTO opiniones (opiniones.email, opiniones.fecha, opiniones.texto)
 VALUES (vEmail, CURRENT_DATE, vTexto)$$
 
@@ -269,6 +269,14 @@ CREATE TABLE `opiniones` (
   `texto` mediumtext COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `opiniones`
+--
+
+INSERT INTO `opiniones` (`idOpinion`, `email`, `fecha`, `texto`) VALUES
+(1, '0', '2019-12-18', '0'),
+(2, 'isla.carlos.99@gmail.com', '2019-12-18', 'Esto es la primera prueba correcta de insertar opiniones en la base de datos.');
+
 -- --------------------------------------------------------
 
 --
@@ -423,7 +431,7 @@ ALTER TABLE `jugador`
 -- AUTO_INCREMENT de la tabla `opiniones`
 --
 ALTER TABLE `opiniones`
-  MODIFY `idOpinion` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idOpinion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `tecnico`

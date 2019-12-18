@@ -52,6 +52,7 @@ $(document).ready(function () {
 
       var email = $("form").find('#email').val();
       var texto = $("form").find('#comentario').val();
+      alert($("form").find('#email').val()+"---"+$("form").find('#comentario').val());
 
       $.ajax({
 
