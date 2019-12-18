@@ -18,14 +18,14 @@ if (($name != null) && ($password != null)) {
         $_SESSION['name'] = $name;
         $_SESSION['admin'] = $user->getAdmin();
         
-        print_r( $user->getAdmin());
+        
         $obj['usuario'] = $_SESSION['name'];
         $obj['admin'] = $_SESSION['admin'];
 
         $objJson = json_encode($obj);
-       echo$objJson;
+       echo $objJson;
     } else {
-        echo 0; // not correct user
+        echo -1; // not correct user
     }
 } else {
     echo -1; // not filled user or password

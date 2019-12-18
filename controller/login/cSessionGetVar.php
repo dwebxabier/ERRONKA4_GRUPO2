@@ -13,5 +13,5 @@ if ((isset($_SESSION['name']))  && (isset($_SESSION['admin']))){
     
 } else{
     
-    echo 0;
+    echo -1;
 }
