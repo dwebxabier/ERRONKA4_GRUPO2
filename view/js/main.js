@@ -1,4 +1,5 @@
 var usuarios
+
 $(document).ready(function () {
 
   // COMPROBACION DE SI LA SESSION ESTA INICIADA 
@@ -10,14 +11,14 @@ $(document).ready(function () {
   });
 
   // TRANSICION DE LOS DROPDOWNS A LA SECCION
-  $(function(){
-    $('.dropdown-menu>a[href]').click(function() {
-      if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+  $(function () {
+    $('.dropdown-menu>a[href]').click(function () {
+      if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
         var $target = $(this.hash);
-        $target = $target.length && $target || $('[name=' + this.hash.slice(1) +']');
+        $target = $target.length && $target || $('[name=' + this.hash.slice(1) + ']');
         if ($target.length) {
           var targetOffset = $target.offset().top;
-          $('html,body').animate({scrollTop: targetOffset}, 800);
+          $('html,body').animate({ scrollTop: targetOffset }, 800);
           return false;
         }
       }
@@ -26,24 +27,24 @@ $(document).ready(function () {
 
   // VALIDAMIENTO DEL MODAL CONTACTO
 
-  $('.modal-footer>#enviarOp').click(function() {
+  $('.modal-footer>#enviarOp').click(function () {
 
     var regex = /[\w-\.]{2,}@([\w-]{2,}\.)*([\w-]{2,}\.)[\w-]{2,4}/;
 
     if (regex.test($("form").find('#email').val().trim())) {
-        
-      if($("form").find('#comentario').val()==""){
+
+      if ($("form").find('#comentario').val() == "") {
         alert('No has escrito el comentario');
       }
 
     } else {
-        alert('La direccón de correo no es válida');
+      alert('La direccón de correo no es válida');
     }
-});
+  });
 
 
-  
-//NO TOCAR $$$$$$$$$$$$$$$$
+
+  //NO TOCAR $$$$$$$$$$$$$$$$
   // $.ajax({
   //     type: "GET",
   //     url: "../controller/cIndex.php",
@@ -57,35 +58,3 @@ $(document).ready(function () {
   // });
 
 });
-
-function sessionCheck(){
-  //NO TOCAR $$$$$$$$$$$$
-
-  $.ajax({
-
-    url: "../controller/login/cSessionVerVars.php",
-    dataType: "json",
-
-    success: function (result) {
-
-      console.log(result);
-
-      if (result != 0) {
-
-        newRow = "";
-        newRow += "<p>Has iniciado sesion: " + result.name
-          + " y eres admin(SI/NO) : " + result.admin + "</p>";
-
-        newRow += "<p><button id='itxi'>Session close</button></p>";
-        $("body").append(newRow);
-
-      } else {
-        $("body").append("No has iniciado session");
-
-      }
-    },
-    error: function (xhr) {
-      alert("An error occured: " + xhr.status + " " + xhr.statusText);
-    }
-  });
-}
