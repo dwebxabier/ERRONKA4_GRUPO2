@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-12-2019 a las 08:56:07
+-- Tiempo de generación: 18-12-2019 a las 14:27:03
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.1.32
 
@@ -173,27 +173,6 @@ INSERT INTO `categoria` (`idCategoria`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `ddmm`
---
-
-CREATE TABLE `ddmm` (
-  `idDDMM` int(11) NOT NULL,
-  `idJugador` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Volcado de datos para la tabla `ddmm`
---
-
-INSERT INTO `ddmm` (`idDDMM`, `idJugador`) VALUES
-(1, 1),
-(2, 1),
-(3, 2),
-(4, 3);
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `equipo`
 --
 
@@ -264,6 +243,7 @@ INSERT INTO `jugador` (`idJugador`, `idUsuario`, `nombre`) VALUES
 
 CREATE TABLE `opiniones` (
   `idOpinion` int(11) NOT NULL,
+  `idUsuario` int(11) NOT NULL,
   `email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `fecha` date NOT NULL,
   `texto` mediumtext COLLATE utf8_unicode_ci NOT NULL
@@ -273,9 +253,13 @@ CREATE TABLE `opiniones` (
 -- Volcado de datos para la tabla `opiniones`
 --
 
-INSERT INTO `opiniones` (`idOpinion`, `email`, `fecha`, `texto`) VALUES
-(1, '0', '2019-12-18', '0'),
-(2, 'isla.carlos.99@gmail.com', '2019-12-18', 'Esto es la primera prueba correcta de insertar opiniones en la base de datos.');
+INSERT INTO `opiniones` (`idOpinion`, `idUsuario`, `email`, `fecha`, `texto`) VALUES
+(2, 1, 'isla.carlos.99@gmail.com', '2019-12-18', 'Esto es la primera prueba correcta de insertar opiniones en la base de datos.'),
+(3, 2, 'eneko@gmail.com', '2019-12-18', 'Esta es la segunda prueba de insertar opiniones en la base de datos.'),
+(4, 3, 'gorka@gmail.com', '2019-12-18', 'esta es la tercera prueba para insertar opiniones en la base de datos.'),
+(5, 5, 'isla.carlos.99@gmail.com', '2019-12-18', 'esta es la cuarta prueba de insertar opiniones en la base de datos.'),
+(6, 6, 'eneko@gmail.com', '2019-12-18', 'esta es la quinta prueba de insertar opiniones en la base de datos.'),
+(7, 7, 'isla.carlos.99@gmail.com', '2019-12-18', 'bsefndijvfkd djqNKEDLZBDK SNDASJCDBCK S<DNANLJ');
 
 -- --------------------------------------------------------
 
@@ -346,13 +330,6 @@ ALTER TABLE `categoria`
   ADD PRIMARY KEY (`idCategoria`);
 
 --
--- Indices de la tabla `ddmm`
---
-ALTER TABLE `ddmm`
-  ADD PRIMARY KEY (`idDDMM`),
-  ADD KEY `idJugador` (`idJugador`);
-
---
 -- Indices de la tabla `equipo`
 --
 ALTER TABLE `equipo`
@@ -377,7 +354,8 @@ ALTER TABLE `jugador`
 -- Indices de la tabla `opiniones`
 --
 ALTER TABLE `opiniones`
-  ADD PRIMARY KEY (`idOpinion`);
+  ADD PRIMARY KEY (`idOpinion`),
+  ADD KEY `idUsuario` (`idUsuario`);
 
 --
 -- Indices de la tabla `tecnico`
@@ -410,12 +388,6 @@ ALTER TABLE `categoria`
   MODIFY `idCategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT de la tabla `ddmm`
---
-ALTER TABLE `ddmm`
-  MODIFY `idDDMM` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
 -- AUTO_INCREMENT de la tabla `equipo`
 --
 ALTER TABLE `equipo`
@@ -431,7 +403,7 @@ ALTER TABLE `jugador`
 -- AUTO_INCREMENT de la tabla `opiniones`
 --
 ALTER TABLE `opiniones`
-  MODIFY `idOpinion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idOpinion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `tecnico`
@@ -456,12 +428,6 @@ ALTER TABLE `admin`
   ADD CONSTRAINT `admin_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `ddmm`
---
-ALTER TABLE `ddmm`
-  ADD CONSTRAINT `ddmm_ibfk_1` FOREIGN KEY (`idJugador`) REFERENCES `jugador` (`idJugador`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Filtros para la tabla `equipo_categoria`
 --
 ALTER TABLE `equipo_categoria`
@@ -473,6 +439,12 @@ ALTER TABLE `equipo_categoria`
 --
 ALTER TABLE `jugador`
   ADD CONSTRAINT `jugador_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `opiniones`
+--
+ALTER TABLE `opiniones`
+  ADD CONSTRAINT `opiniones_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`);
 
 --
 -- Filtros para la tabla `tecnico`

@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-
+  <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- LINKS DE BOOSTRAP -->
@@ -33,7 +33,7 @@
                   <a class="nav-link" href="../index.html"><b>INICIO</b></a>
                 </li>
                 <li class="nav-item active">
-                  <a class="nav-link" style="color:black;" href="view/equipos.html"><b><u>EQUIPOS</u></b></a>
+                  <a class="nav-link" href="equipos.html"><b>EQUIPOS</b></a>
                 </li>
 
                 <li class="nav-item dropdown">
@@ -46,6 +46,9 @@
                       <a class="dropdown-item text-secondary" href="../index.html#tienda"><b>TIENDA</b></a>
                     </div>
                   </li>
+                  <li class="nav-item active">
+                    <a class="nav-link" style="color: black;" href="../opiniones.html"><b><u>RESEÑAS</u></b></a>
+                  </li>
 
                 <li class="nav-item active">
                   <a class="nav-link" data-toggle="modal" href="#myModal"><b>CONTACTO</b></a>
@@ -55,35 +58,36 @@
       </nav>
 
 
-      <!-- MODAL DE CONTACTO -->
+  <!-- MODAL DE CONTACTO -->
 
-      <div id="myModal" class="modal fade text-center" tabindex="-1" role="dialog">
-          <div class="modal-dialog" role="document">
-          <div class="modal-content">
-          <div class="modal-header">
-          <h5 class="modal-title text-dark">CONTACTA CON NOSOTROS</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+  <div id="myModal" class="modal fade text-center" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content   carousel">
+        <div class="modal-header">
+          <h5 class="modal-title text-light">CONTACTA CON NOSOTROS</h5>
+          <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
           </button>
-          </div>
-          <div class="modal-body text-dark">
-              <form>
-                  <div class="form-row">
-                    <div class="col-md-10 mb-3">
-                      <input type="text" class="form-control" placeholder="correo">
-                    </div>
-                    <div class="col-md-10">
-                      <div class="form-group">
-                        <textarea class="form-control" rows="5" id="comment" placeholder="Comentario"></textarea>
-                      </div>                    
-                    </div>
-                  </div>
-                </form>
-          </div>
-          <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Enviar</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>'
-          </div></div></div></div>
+        </div>
+        <div class="modal-body text-dark">
+          <form>
+            <div class="form-row">
+              <div class="col-md-10 mb-3">
+                <input type="text" id="email" class="form-control" placeholder="Introduce tu email">
+              </div>
+              <div class="form-group col-md-10">
+                <textarea class="form-control" id="comentario" placeholder="Introduce tu reseña" rows="3"></textarea>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" id="enviarOp" class="botones">Enviar</button>
+          <button type="button" class="botones" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
      <div class="row d-flex align-items-center justify-content-center m-3 opiniones">
  
