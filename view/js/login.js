@@ -28,6 +28,9 @@ function sessionCheck() {
 
 		success: function (result) {
 			console.log(result);
+			if (result.name!=null) {
+				conectCheck=true;
+			}
 			userCheck(result);
 		},
 		error: function (xhr) {
