@@ -1,5 +1,6 @@
 $(document).ready(function () {
   // COMPROBACION DE SI LA SESSION ESTA INICIADA 
+  $('#misRese').hide();
 
   function userCheck(data) {
     if (!data.admin - 1) {
@@ -22,9 +23,9 @@ $(document).ready(function () {
         userCheck(data);
         console.log(data);
 
-        if(data==-1){
-            $('#misRese').hide();
-        }
+        if(data!=-1){
+          $('#misRese').show();
+      }
       },
       error: function (xhr) {
         alert("An error occured: " + xhr.status + " " + xhr.statusText);
