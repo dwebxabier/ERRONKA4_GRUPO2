@@ -3,6 +3,60 @@ var usuarios;
 $(document).ready(function () {
 
   $('#logout').hide();
+  $('#misRese').hide();
+
+  $("#logout").click(function () {
+    $.ajax({
+      url: "controller/login/logOut.php",
+      dataType: "text",
+      success: function (result) {
+  
+        console.log(result);
+  
+        newRow = "";
+        newRow += "<p>Session destruida</p>";
+  
+        $("body").append(newRow);
+        location.reload(true);
+      },
+      error: function (xhr) {
+        alert("An error occured: " + xhr.status + " " + xhr.statusText);
+      }
+      
+  
+    });
+  });
+
+  var idGlobalUser;
+  
+  function sessionCheck() {
+    $.ajax({
+      url: "controller/login/cSessionGetVar.php",
+      dataType: "json",
+  
+      success: function (result) {
+        //decide que teiene que hacer dependiendo de el tipo de usuario
+        userCheck(result);
+        idGlobalUser=result.idUsuario;
+      },
+      error: function (xhr) {
+        alert("An error occured: " + xhr.status + " " + xhr.statusText);
+      }
+    });
+  
+  }
+  
+  function userCheck(result) {
+    if (!result.admin - 1) {
+      if (result.admin == 1) {
+        location.href = "admin.html";
+      } else {
+        //Adapta la pagina de Index para los usuarios
+        habilitarLogout(result);
+      }
+    }
+  }
+
   // COMPROBACION DE SI LA SESSION ESTA INICIADA 
   sessionCheck();
 
@@ -57,7 +111,7 @@ $(document).ready(function () {
       $.ajax({
 
         type: 'GET',
-        data: { 'email': email, 'texto': texto },
+        data: {'idUsuario': idGlobalUser, 'email': email, 'texto': texto },
         url: 'controller/cInsertarOpinion.php',
         dataType: 'json',
         success: function (result) {
@@ -73,60 +127,25 @@ $(document).ready(function () {
       $("form").find('#comentario').val("");
     }
   });
+  
 });
 
-$("#logout").click(function () {
-  $.ajax({
-    url: "controller/login/logOut.php",
-    dataType: "text",
-    success: function (result) {
 
-      console.log(result);
-
-      newRow = "";
-      newRow += "<p>Session destruida</p>";
-
-      $("body").append(newRow);
-    },
-    error: function (xhr) {
-      alert("An error occured: " + xhr.status + " " + xhr.statusText);
-    }
-  });
-});
-
-function sessionCheck() {
-  $.ajax({
-    url: "controller/login/cSessionGetVar.php",
-    dataType: "json",
-
-    success: function (result) {
-      //decide que teiene que hacer dependiendo de el tipo de usuario
-      userCheck(result);
-    },
-    error: function (xhr) {
-      alert("An error occured: " + xhr.status + " " + xhr.statusText);
-    }
-  });
-
-}
-
-function userCheck(result) {
-  if (!result.admin - 1) {
-    if (result.admin == 1) {
-      location.href = "admin.html";
-    } else {
-      //Adapta la pagina de Index para los usuarios
-      habilitarLogout(result);
-    }
-  }
-}
 
 function habilitarLogout(result) {
   var htmlzatia = "";
 
-  htmlzatia += 'Bienvenido ' + result.name + ', haz click para cerrar sesión';
+  htmlzatia += '<b>Logout</b>';
   $("#logout").html(htmlzatia);
 
+  htmlzatia = "";
+
+  htmlzatia += '<b>Bienvenido, '+result.name+'</b>';
+  $("#login").html(htmlzatia);
+
+  $(".li5 > a").removeAttr("href");
+
+  $('#misRese').show();
   $('#logout').show();
 
   $('.btnLogin').hide();

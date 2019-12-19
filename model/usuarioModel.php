@@ -112,10 +112,15 @@ class usuarioModel extends usuarioClass
             $passwordEncripted = $row['password'];
 
             if (password_verify($this->getPassword(), $passwordEncripted)) {
+
                 $this->setAdmin($row['admin']);
+                $this->setIdUsuario($row['idUsuario']);
+            
                 $userExists = true;
             }
         }
+        //print_r($this->getIdUsuario());
+        //print_r($sql);
         return $userExists;
         mysqli_free_result($result);
         $this->CloseConnect();

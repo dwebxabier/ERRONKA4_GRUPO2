@@ -3,6 +3,12 @@ include_once ("../model/opinionModel.php");
 
 $opinion = new opinionModel();
 
+$idUsuario=filter_input(INPUT_GET,"idUsuario");
+
+if (isset($idUsuario)){
+    $opinion->setIdUsuario($idUsuario);
+}
+
 $email=filter_input(INPUT_GET,"email");
 
 if (isset($email)){

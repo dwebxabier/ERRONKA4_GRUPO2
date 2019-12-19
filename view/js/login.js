@@ -5,7 +5,6 @@ $(document).ready(function () {
 	sessionCheck();
 
 	$("#submit").click(function () {
-		alert('hola');
 		var name = $("#name").val();
 		var password = $("#password").val();
 		$.ajax({

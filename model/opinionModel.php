@@ -44,6 +44,7 @@ class opinionModel extends opinionClass{
             $newOpinion = new opinionModel();
 
             $newOpinion->setIdOpinion($row['idOpinion']);
+            $newOpinion->setIdUsuario($row['idUsuario']);
             $newOpinion->setEmail($row['email']);
             $newOpinion->setFecha($row['fecha']);
             $newOpinion->setTexto($row['texto']);
@@ -57,9 +58,10 @@ class opinionModel extends opinionClass{
     public function insertOpinion()
     {
         $this->OpenConnect();
+        $idUsuario=$this->getIdUsuario();
         $email=$this->getEmail();
         $texto=$this->getTexto();
-        $sql="call sp_insertar_opinion('$email', '$texto')";
+        $sql="call sp_insertar_opinion($idUsuario, '$email', '$texto')";
         
         $result = $this->link->query($sql);
       

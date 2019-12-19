@@ -4,6 +4,7 @@
 class opinionClass{
     
     protected $idOpinion;
+    protected $idUsuario;
     protected $email;
     protected $fecha;
     protected $texto;
@@ -12,6 +13,11 @@ class opinionClass{
     public function getIdOpinion()
     {
         return $this->idOpinion;
+    }
+
+    public function getIdUsuario()
+    {
+        return $this->idUsuario;
     }
 
     public function getEmail()
@@ -32,6 +38,11 @@ class opinionClass{
     public function setIdOpinion($idOpinion)
     {
         $this->idOpinion = $idOpinion;
+    }
+
+    public function setIdUsuario($idUsuario)
+    {
+        $this->idUsuario = $idUsuario;
     }
 
     public function setEmail($email)

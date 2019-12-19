@@ -17,13 +17,13 @@ if (($name != null) && ($password != null)) {
         session_start();
         $_SESSION['name'] = $name;
         $_SESSION['admin'] = $user->getAdmin();
-        
-        
+        $_SESSION['idUsuario'] = $user->getIdUsuario();
+
         $obj['usuario'] = $_SESSION['name'];
         $obj['admin'] = $_SESSION['admin'];
-
+        $obj['idUsuario'] = $_SESSION['idUsuario'];
+       
         $objJson = json_encode($obj);
-       echo $objJson;
     } else {
         echo -1; // not correct user
     }

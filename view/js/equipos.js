@@ -1,5 +1,38 @@
 $(document).ready(function () {
   // COMPROBACION DE SI LA SESSION ESTA INICIADA 
+
+  function userCheck(data) {
+    if (!data.admin - 1) {
+      if (data.admin == 1) {
+        location.href = "admin.html";
+    } 
+    // else {
+    //     habilitarLogout(data);
+    //   }
+    }
+  }
+
+  function sessionCheck() {
+    $.ajax({
+      url: "../controller/login/cSessionGetVar.php",
+      dataType: "json",
+  
+      success: function (data) {
+        //decide que teiene que hacer dependiendo de el tipo de usuario
+        userCheck(data);
+        console.log(data);
+
+        if(data==-1){
+            $('#misRese').hide();
+        }
+      },
+      error: function (xhr) {
+        alert("An error occured: " + xhr.status + " " + xhr.statusText);
+      }
+    });
+  
+  }
+
   sessionCheck();
 
     $.ajax({

@@ -21,19 +21,24 @@ body{
 
 .navbar-nav>.li5 {
     position: absolute;
-    right: 0;
+    right: 70px;
     width: 100px;
 }
 
+.navbar-nav>.li4 {
+    position: absolute;
+    right: 155px;
+    width: 100px;
+}
 
 #logo{
     width: 70px;
-    margin-left: 2%;
-    margin-right: 2%;
+    margin-left: 0.5%;
+    margin-right: 0.5%;
 }
 
 .nav-item{
-    margin-right: 10%;
+    margin-right: 1%;
 }
 
 .carousel{
