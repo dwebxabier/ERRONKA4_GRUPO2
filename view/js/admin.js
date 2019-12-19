@@ -1,3 +1,4 @@
+sessionCheck();
 
 var miApp = angular.module('miApp', []);
 miApp.controller('miControlador', ['$scope', '$http', function ($scope, $http) {
@@ -291,15 +292,44 @@ miApp.controller('miControlador', ['$scope', '$http', function ($scope, $http) {
 
                 });
             }
-
-
         }, 300)
-
-
-
     });
-
-
-
-
 }]);
+$("#logout").click(function () {
+    $.ajax({
+        url: "../controller/login/logOut.php",
+        dataType: "text",
+        success: function (result) {
+            alert('Session destruida, hasta la proxima ;-)');
+            location.href = "../index.html"
+        },
+        error: function (xhr) {
+            alert("An error occured: " + xhr.status + " " + xhr.statusText);
+        }
+    });
+});
+function sessionCheck() {
+    $.ajax({
+        url: "/ERRONKA4_GRUPO2/controller/login/cSessionGetVar.php",
+        dataType: "json",
+
+        success: function (result) {
+            console.log(result);
+            userCheck(result);
+        },
+        error: function (xhr) {
+            alert("An error occured: " + xhr.status + " " + xhr.statusText);
+        }
+    });
+}
+
+function userCheck(result) {
+    if ((!result.admin - 1) || (result.admin==null)) {
+        if (result.admin == 1) {
+        } else {
+            location.href = "../index.html";
+        }
+        // } else {
+        // 	alert("Error al iniciar sesion");
+    }
+}

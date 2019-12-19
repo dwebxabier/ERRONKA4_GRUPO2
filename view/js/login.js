@@ -14,10 +14,9 @@ $(document).ready(function () {
 			dataType: "text",
 			success: function (result) {
 
-				console.log(result);
 				result = JSON.parse(result);
 				console.log(result);
-				// userCheck(result);
+				userCheck(result);
 			},
 			error: function (xhr) {
 				alert("An error occured: " + xhr.status + " " + xhr.statusText);
@@ -32,6 +31,8 @@ function sessionCheck() {
 	  dataType: "json",
   
 	  success: function (result) {
+		  console.log(result);
+		  userCheck(result);
 	  },
 	  error: function (xhr) {
 		alert("An error occured: " + xhr.status + " " + xhr.statusText);
@@ -39,14 +40,14 @@ function sessionCheck() {
 	});
   }
 
-// function userCheck(result){
-// 	if (!result.admin -1) {
-// 		if (result.admin == 1) {
-// 			location.href="admin.html";
-// 		} else { 
-// 			location.href="../index.html";
-// 		}
-// 	} else {
-// 		alert("Error al iniciar sesion");
-// 	}
-// }
+function userCheck(result){
+	if (!result.admin -1) {
+		if (result.admin == 1) {
+			location.href="admin.html";
+		} else { 
+			location.href="../index.html";
+		}
+	// } else {
+	// 	alert("Error al iniciar sesion");
+	 }
+}

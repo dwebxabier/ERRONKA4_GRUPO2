@@ -1,33 +1,34 @@
 
 function sessionCheck() {
-  alert('hola1.1');
-  $.ajax({
+  alert('No tienes poder aqui');
+//   alert('hola1.1');
+//   $.ajax({
 
-    url: "/ERRONKA4_GRUPO2/controller/login/cSessionGetVar.php",
-    dataType: "json",
+//     url: "/ERRONKA4_GRUPO2/controller/login/cSessionGetVar.php",
+//     dataType: "json",
 
-    success: function (result) {
- alert('hola1.2');
-    },
-    error: function (xhr) {
-      alert("An error occured: " + xhr.status + " " + xhr.statusText);
-    }
-  });
+//     success: function (result) {
+//  alert('hola1.2');
+//     },
+//     error: function (xhr) {
+//       alert("An error occured: " + xhr.status + " " + xhr.statusText);
+//     }
+//   });
 }
 
 
-function doTheValidate(result) {
-  var jose = window.location.pathname;
+// function doTheValidate(result) {
+//   var jose = window.location.pathname;
  
-  alert(jose);
+//   alert(jose);
 
-  if (result.admin != -1) {
-    if (result.admin != 0) {
-      window.location.href = "../index.html";
-    } else {
-      // window.location.href = "../index.html";
-    }
-  } else {
-    alert("Error al iniciar sesión");
-  }
-}
+//   if (result.admin != -1) {
+//     if (result.admin != 0) {
+//       window.location.href = "../index.html";
+//     } else {
+//       // window.location.href = "../index.html";
+//     }
+//   } else {
+//     alert("Error al iniciar sesión");
+//   }
+// }
