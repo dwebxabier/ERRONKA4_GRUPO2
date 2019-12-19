@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-12-2019 a las 14:27:03
+-- Tiempo de generación: 19-12-2019 a las 08:55:22
 -- Versión del servidor: 10.4.6-MariaDB
--- Versión de PHP: 7.1.32
+-- Versión de PHP: 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -58,6 +58,11 @@ WHERE entrenador.idTecnico = vIdTecnico$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_equipo_load` ()  NO SQL
 SELECT *
 FROM equipo$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_get_admin_by_user_id` (IN `pUserId` VARCHAR(64))  NO SQL
+BEGIN
+SELECT admin.*  FROM admin WHERE admin.idUsuario=pUserId;
+END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_insertar_equipo` (IN `vNombre` VARCHAR(50), IN `vIdCategoria` INT)  BEGIN
   INSERT INTO equipo (equipo.nombre ) values ( vNombre );
@@ -140,15 +145,16 @@ DELIMITER ;
 CREATE TABLE `admin` (
   `idAdmin` int(11) NOT NULL,
   `idUsuario` int(11) NOT NULL,
-  `nombre` varchar(50) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `nombre` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `admin`
 --
 
 INSERT INTO `admin` (`idAdmin`, `idUsuario`, `nombre`) VALUES
-(1, 5, 'admin');
+(1, 5, 'admin'),
+(2, 2, 'admin');
 
 -- --------------------------------------------------------
 
@@ -158,8 +164,8 @@ INSERT INTO `admin` (`idAdmin`, `idUsuario`, `nombre`) VALUES
 
 CREATE TABLE `categoria` (
   `idCategoria` int(11) NOT NULL,
-  `nombre` varchar(50) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `nombre` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `categoria`
@@ -173,13 +179,34 @@ INSERT INTO `categoria` (`idCategoria`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `ddmm`
+--
+
+CREATE TABLE `ddmm` (
+  `idDDMM` int(11) NOT NULL,
+  `idJugador` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `ddmm`
+--
+
+INSERT INTO `ddmm` (`idDDMM`, `idJugador`) VALUES
+(1, 1),
+(2, 1),
+(3, 2),
+(4, 3);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `equipo`
 --
 
 CREATE TABLE `equipo` (
   `idEquipo` int(11) NOT NULL,
-  `nombre` varchar(50) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `nombre` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `equipo`
@@ -199,13 +226,16 @@ INSERT INTO `equipo` (`idEquipo`, `nombre`) VALUES
 CREATE TABLE `equipo_categoria` (
   `idEquipo` int(11) NOT NULL,
   `idCategoria` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `equipo_categoria`
 --
 
 INSERT INTO `equipo_categoria` (`idEquipo`, `idCategoria`) VALUES
+(1, 3),
+(2, 2),
+(3, 1),
 (1, 3),
 (2, 2),
 (3, 1),
@@ -222,8 +252,8 @@ INSERT INTO `equipo_categoria` (`idEquipo`, `idCategoria`) VALUES
 CREATE TABLE `jugador` (
   `idJugador` int(11) NOT NULL,
   `idUsuario` int(11) NOT NULL,
-  `nombre` varchar(50) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `nombre` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `jugador`
@@ -232,8 +262,7 @@ CREATE TABLE `jugador` (
 INSERT INTO `jugador` (`idJugador`, `idUsuario`, `nombre`) VALUES
 (1, 1, 'Carlos'),
 (2, 2, 'Bogdan'),
-(3, 3, 'Xabier'),
-(4, 8, 'Gusmano');
+(3, 3, 'Xabier');
 
 -- --------------------------------------------------------
 
@@ -270,19 +299,17 @@ INSERT INTO `opiniones` (`idOpinion`, `idUsuario`, `email`, `fecha`, `texto`) VA
 CREATE TABLE `tecnico` (
   `idTecnico` int(11) NOT NULL,
   `idUsuario` int(11) NOT NULL,
-  `licencia` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `nombre` varchar(50) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `licencia` varchar(50) NOT NULL,
+  `nombre` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `tecnico`
 --
 
 INSERT INTO `tecnico` (`idTecnico`, `idUsuario`, `licencia`, `nombre`) VALUES
-(1, 6, 'Entrenador', 'Jose'),
-(2, 7, 'Delegado', 'Ramon'),
-(3, 9, 'Entrenador', 'Pepe'),
-(4, 10, 'Auxiliar', 'Pablo');
+(1, 6, 'entrenador', 'Jose'),
+(2, 7, 'delegado', 'Ramon');
 
 -- --------------------------------------------------------
 
@@ -292,25 +319,24 @@ INSERT INTO `tecnico` (`idTecnico`, `idUsuario`, `licencia`, `nombre`) VALUES
 
 CREATE TABLE `usuario` (
   `idUsuario` int(11) NOT NULL,
-  `idEquipo` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `idEquipo` int(11) DEFAULT NULL,
+  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(2562) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `nombreUsuario` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `admin` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`idUsuario`, `idEquipo`) VALUES
-(5, NULL),
-(1, 1),
-(6, 1),
-(7, 1),
-(8, 1),
-(10, 1),
-(11, 1),
-(12, 1),
-(2, 2),
-(9, 2),
-(3, 3);
+INSERT INTO `usuario` (`idUsuario`, `idEquipo`, `password`, `email`, `nombreUsuario`, `admin`) VALUES
+(1, 1, '123', '', '', 0),
+(2, 2, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', 'la-contraseña-es-1234', 'bogdan-apc', 1),
+(3, 3, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', '', 'qwerty', 0),
+(5, NULL, '123', '', '', 1),
+(6, 1, '123', '', '', 0),
+(7, 1, '123', '', '', 0);
 
 --
 -- Índices para tablas volcadas
@@ -328,6 +354,13 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `categoria`
   ADD PRIMARY KEY (`idCategoria`);
+
+--
+-- Indices de la tabla `ddmm`
+--
+ALTER TABLE `ddmm`
+  ADD PRIMARY KEY (`idDDMM`),
+  ADD KEY `idJugador` (`idJugador`);
 
 --
 -- Indices de la tabla `equipo`
@@ -348,13 +381,6 @@ ALTER TABLE `equipo_categoria`
 --
 ALTER TABLE `jugador`
   ADD PRIMARY KEY (`idJugador`),
-  ADD KEY `idUsuario` (`idUsuario`);
-
---
--- Indices de la tabla `opiniones`
---
-ALTER TABLE `opiniones`
-  ADD PRIMARY KEY (`idOpinion`),
   ADD KEY `idUsuario` (`idUsuario`);
 
 --
@@ -379,7 +405,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `idAdmin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idAdmin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `categoria`
@@ -388,34 +414,34 @@ ALTER TABLE `categoria`
   MODIFY `idCategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT de la tabla `ddmm`
+--
+ALTER TABLE `ddmm`
+  MODIFY `idDDMM` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT de la tabla `equipo`
 --
 ALTER TABLE `equipo`
-  MODIFY `idEquipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idEquipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `jugador`
 --
 ALTER TABLE `jugador`
-  MODIFY `idJugador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT de la tabla `opiniones`
---
-ALTER TABLE `opiniones`
-  MODIFY `idOpinion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idJugador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `tecnico`
 --
 ALTER TABLE `tecnico`
-  MODIFY `idTecnico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idTecnico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Restricciones para tablas volcadas
@@ -426,6 +452,12 @@ ALTER TABLE `usuario`
 --
 ALTER TABLE `admin`
   ADD CONSTRAINT `admin_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `ddmm`
+--
+ALTER TABLE `ddmm`
+  ADD CONSTRAINT `ddmm_ibfk_1` FOREIGN KEY (`idJugador`) REFERENCES `jugador` (`idJugador`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `equipo_categoria`
@@ -439,12 +471,6 @@ ALTER TABLE `equipo_categoria`
 --
 ALTER TABLE `jugador`
   ADD CONSTRAINT `jugador_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `opiniones`
---
-ALTER TABLE `opiniones`
-  ADD CONSTRAINT `opiniones_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`);
 
 --
 -- Filtros para la tabla `tecnico`
