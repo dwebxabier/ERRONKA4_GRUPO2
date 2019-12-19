@@ -10,10 +10,8 @@ if (($name != null) && ($password != null)) {
     $user = new usuarioModel();
     $user->setNombreUsuario($name);
     $user->setPassword($password);
-
     if ($user->findUserByUsername()) // si es correcto el userName y el password
     {
-
         session_start();
         $_SESSION['name'] = $name;
         $_SESSION['admin'] = $user->getAdmin();
@@ -24,6 +22,7 @@ if (($name != null) && ($password != null)) {
         $obj['idUsuario'] = $_SESSION['idUsuario'];
        
         $objJson = json_encode($obj);
+        print_r($objJson);
     } else {
         echo -1; // not correct user
     }

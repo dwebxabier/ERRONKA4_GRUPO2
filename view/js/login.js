@@ -10,10 +10,10 @@ $(document).ready(function () {
 		$.ajax({
 			data: { 'name': name, 'password': password },
 			url: "../controller/login/cSessionSetVar.php",
-			dataType: "text",
+			dataType: "json",
 			success: function (result) {
 
-				result = jQuery.parseJSON(result);
+				// result = jQuery.parseJSON(result);
 				console.log(result);
 				userCheck(result);
 			},
@@ -46,7 +46,8 @@ function userCheck(result){
 		} else { 
 			location.href="../index.html";
 		}
-	// } else {
+	} 
+	// else {
 	// 	alert("Error al iniciar sesion");
-	 }
+	//  }
 }
