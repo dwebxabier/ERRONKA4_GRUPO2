@@ -1,10 +1,10 @@
-var usuarios
+var usuarios;
 
 $(document).ready(function () {
 
   // COMPROBACION DE SI LA SESSION ESTA INICIADA 
   sessionCheck();
-
+  
 
   $(".info").click(function () {
     $('#exampleModalLongTitle').html($(this).prev('h2').text());
@@ -43,15 +43,6 @@ $(document).ready(function () {
       mensaje = "si";
 
     } else {
-<<<<<<< HEAD
-      alert('La direccón de correo no es válida');
-    }
-  });
-
-
-
-  //NO TOCAR $$$$$$$$$$$$$$$$
-=======
         alert('La direccón de correo no es válida');
         mensaje = "no";
         slide_stop();
@@ -83,13 +74,8 @@ $(document).ready(function () {
     }
 
 
-});
-
-
-
-  
+}); 
 //NO TOCAR $$$$$$$$$$$$$$$$
->>>>>>> 833dccc65a905c3357dcd46e14f66be9492bbb0e
   // $.ajax({
   //     type: "GET",
   //     url: "../controller/cIndex.php",

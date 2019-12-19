@@ -1,4 +1,6 @@
 $(document).ready(function () {
+  // COMPROBACION DE SI LA SESSION ESTA INICIADA 
+  sessionCheck();
 
     $.ajax({
         type: 'GET',
