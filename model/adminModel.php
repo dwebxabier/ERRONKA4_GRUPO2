@@ -1,5 +1,4 @@
 <?php
-// echo $_SERVER['SERVER_NAME'];
 if ($_SERVER['SERVER_NAME'] == 'apc.dominios.fpz1920.com'){
     include_once ("connect_dataServer.php");
 }else{
