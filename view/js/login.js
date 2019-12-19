@@ -13,7 +13,7 @@ $(document).ready(function () {
 			dataType: "text",
 			success: function (result) {
 
-				result = JSON.parse(result);
+				result = jQuery.parseJSON(result);
 				console.log(result);
 				userCheck(result);
 			},
