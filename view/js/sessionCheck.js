@@ -27,7 +27,7 @@ function sessionCheck() {
 //       window.location.href = "../index.html";
 //     } else {
 //       // window.location.href = "../index.html";
-//     }
+//     } 
 //   } else {
 //     alert("Error al iniciar sesión");
 //   }

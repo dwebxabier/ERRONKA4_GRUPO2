@@ -96,7 +96,7 @@ $("#logout").click(function () {
 
 function sessionCheck() {
   $.ajax({
-    url: "/ERRONKA4_GRUPO2/controller/login/cSessionGetVar.php",
+    url: "controller/login/cSessionGetVar.php",
     dataType: "json",
 
     success: function (result) {
