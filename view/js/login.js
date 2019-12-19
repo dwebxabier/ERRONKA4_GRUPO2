@@ -1,7 +1,6 @@
+var conectCheck = false;
 $(document).ready(function () {
-
 	// COMPROBACION DE SI LA SESSION ESTA INICIADA 
-
 	sessionCheck();
 
 	$("#submit").click(function () {
@@ -12,9 +11,7 @@ $(document).ready(function () {
 			url: "../controller/login/cSessionSetVar.php",
 			dataType: "json",
 			success: function (result) {
-
-				// result = jQuery.parseJSON(result);
-				console.log(result);
+				conectCheck = true;
 				userCheck(result);
 			},
 			error: function (xhr) {
@@ -26,28 +23,30 @@ $(document).ready(function () {
 
 function sessionCheck() {
 	$.ajax({
-	  url: "../controller/login/cSessionGetVar.php",
-	  dataType: "json",
-  
-	  success: function (result) {
-		  console.log(result);
-		  userCheck(result);
-	  },
-	  error: function (xhr) {
-		alert("An error occured: " + xhr.status + " " + xhr.statusText);
-	  }
-	});
-  }
+		url: "../controller/login/cSessionGetVar.php",
+		dataType: "json",
 
-function userCheck(result){
-	if (!result.admin -1) {
-		if (result.admin == 1) {
-			location.href="admin.html";
-		} else { 
-			location.href="../index.html";
+		success: function (result) {
+			console.log(result);
+			userCheck(result);
+		},
+		error: function (xhr) {
+			alert("An error occured: " + xhr.status + " " + xhr.statusText);
 		}
-	} 
-	// else {
-	// 	alert("Error al iniciar sesion");
-	//  }
+	});
+}
+
+function userCheck(result) {
+	if (conectCheck != false) {
+		if (!result.admin -1) {
+			if (result.admin == 1) {
+				location.href = "admin.html";
+			} else {
+				location.href = "../index.html";
+			}
+		}else {
+			alert("Error al iniciar sesion");
+		 }
+	}
+		conectCheck = false;
 }
