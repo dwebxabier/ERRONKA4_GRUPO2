@@ -1,5 +1,5 @@
 <?php
-
+header("Access-Control-Allow-Origin: *");
 include_once ("../model/equipoModel.php");
 
  $equipo=new equipoModel();

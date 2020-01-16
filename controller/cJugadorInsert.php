@@ -1,4 +1,5 @@
 <?php
+header("Access-Control-Allow-Origin: *");
 include_once ("../model/usuarioModel.php");
 include_once ("../model/jugadorModel.php");
 
