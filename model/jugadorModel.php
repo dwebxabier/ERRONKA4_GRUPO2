@@ -11,7 +11,12 @@ class jugadorModel extends jugadorClass{
     
     private $link;
     private $list=array();
-    // private $objectJugador;
+    private $objectVotos;
+
+    public function getObjectVotos()
+    {
+        return $this->objectVotos;
+    }
     
     public function OpenConnect()
     {
@@ -46,6 +51,15 @@ class jugadorModel extends jugadorClass{
             $newJugador->setIdJugador($row['idJugador']);
             $newJugador->setIdUsuario($row['idUsuario']);
             $newJugador->setNombre($row['nombre']);
+            $newJugador->setFotoPerfil($row['fotoPerfil']);
+
+            require_once ($_SERVER['DOCUMENT_ROOT']."/ERRONKA4_GRUPO2/model/votoModel.php");
+            
+            $voto = new votoModel();
+            $voto->setIdJugadorVotado($row['idJugador']);
+            $voto->contarVotosByJugador();
+            
+            $newJugador->objectVotos=$voto;
             
             array_push($this->list, $newJugador);
         }
@@ -108,6 +122,20 @@ class jugadorModel extends jugadorClass{
             $vars = $object->getObjectVars();
             
             array_push($arr, $vars);
+        }
+        return json_encode($arr);
+    }
+
+    function getListJsonStringVoto()
+    {
+        $arr = array();
+        foreach ($this->list as $voto) {
+
+            $vars = $voto->getObjectVars();
+            $objectVotos = $voto->objectVotos->getObjectVars();
+            $vars['objectVotos'] = $objectVotos;
+            array_push($arr, $vars);
+
         }
         return json_encode($arr);
     }

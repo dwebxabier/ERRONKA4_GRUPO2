@@ -5,6 +5,7 @@ class jugadorClass{
     protected $idUsuario;
     protected $idJugador;
     protected $nombre;
+    protected $fotoPerfil;
 
     /**
      * @return mixed
@@ -31,6 +32,14 @@ class jugadorClass{
     }
 
     /**
+     * @return mixed
+     */
+    public function getFotoPerfil()
+    {
+        return $this->fotoPerfil;
+    }
+
+    /**
      * @param mixed $idUsuario
      */
     public function setIdUsuario($idUsuario)
@@ -54,6 +63,13 @@ class jugadorClass{
         $this->nombre = $nombre;
     }
 
+    /**
+     * @param mixed $fotoPerfil
+     */
+    public function setFotoPerfil($fotoPerfil)
+    {
+        $this->fotoPerfil = $fotoPerfil;
+    }
     
     function getObjectVars()
     {

@@ -3,7 +3,7 @@ include_once ("../model/jugadorModel.php");
 
 $jugador= new jugadorModel();
 $jugador->setList(); 
-$jugadorJSON=$jugador->getListJsonString();
+$jugadorJSON=$jugador->getListJsonStringVoto();
 
 echo $jugadorJSON;
 
