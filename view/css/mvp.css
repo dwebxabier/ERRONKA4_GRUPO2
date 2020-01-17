@@ -8,5 +8,16 @@
 }
 
 .card{
-  color: black;
+  color: white;
+}
+
+.carousel>.card-body{
+  text-align: center;
+}
+
+.carousel>img{
+  width: 96%;
+  height: 320px;
+  margin-left: 2%;
+  margin-top: 2%;
 }

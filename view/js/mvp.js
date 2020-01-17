@@ -51,13 +51,13 @@ $(document).ready(function () {
 
             $.each(result, function (i, jugador) {
 
-                newRow += '<div class="card m-3" style="width: 18rem;">'
+                newRow += '<div class="card m-3 carousel" style="width: 18rem;">'
                 newRow += '<img class="card-img-top mt-2" src="'+jugador.fotoPerfil+'">'
                 newRow += '<div class="card-body">'
                 newRow += '<h5 class="card-title">'+jugador.nombre+'</h5>'
                 newRow += '<p class="card-text" >Categoria: '+jugador.objectVotos.idCategoria+'</p>'
                 newRow += '<p class="card-text" >Votos: '+jugador.objectVotos.idVoto+'</p>'
-                newRow += '<a href="#" class="btn btn-primary">Votar</a>'
+                newRow += '<button type="button" id="votarJugador" class="btn btn-danger mvp-button">Votar</button>'
                 newRow += '</div></div>'
  
             });
@@ -87,7 +87,7 @@ $(document).ready(function () {
 
             $.each(result, function (i, jugador) {
 
-              newRow += '<div class="card m-3" style="width: 18rem;">'
+              newRow += '<div class="card m-3 carousel" style="width: 18rem;">'
               newRow += '<img class="card-img-top" src="'+jugador.idUsuario+'">'
               newRow += '<div class="card-body">'
               newRow += '<h5 class="card-title">'+jugador.idJugadorVotado+'</h5>'
