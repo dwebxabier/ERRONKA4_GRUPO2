@@ -1,4 +1,5 @@
 <?php
+header("Access-Control-Allow-Origin: *");
 include_once ($_SERVER['DOCUMENT_ROOT'] . "/ERRONKA4_GRUPO2/model/equipoModel.php");
 
 $equipo= new equipoModel();

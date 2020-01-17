@@ -1,4 +1,5 @@
 <?php
+header("Access-Control-Allow-Origin: *");
 include_once ("../model/equipoModel.php");
 include_once ("../model/equipo_categoriaModel.php");
 

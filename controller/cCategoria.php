@@ -1,4 +1,6 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+
 include_once ("../model/categoriaModel.php");
 
 $categoria= new categoriaModel();
