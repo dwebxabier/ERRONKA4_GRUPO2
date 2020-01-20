@@ -41,6 +41,11 @@ body{
     margin-right: 1%;
 }
 
+#galeria, #carouselExampleFade{
+    border: none;
+    background-color: transparent;
+}
+
 .carousel{
     background-color: #981A32;
     border-radius: 12px;
