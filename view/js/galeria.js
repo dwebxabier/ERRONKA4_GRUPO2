@@ -35,8 +35,6 @@ $(document).ready(function () {
     }
   
     sessionCheck();
-
-    $('#MVPs').click(function () {
   
       $.ajax({
           type: 'GET',
@@ -52,7 +50,7 @@ $(document).ready(function () {
               $.each(result, function (i, jugador) {
   
                 newRow += '<div class="card m-3 carousel" style="width: 18rem;">'
-                newRow += '<img  src="'+jugador.fotoEquipo+'">'
+                newRow += '<img src="'+jugador.fotoEquipo+'">'
                 newRow += '</div>'
   
             });
@@ -64,7 +62,7 @@ $(document).ready(function () {
   
       });
   
-    });
+  
   
   
   
