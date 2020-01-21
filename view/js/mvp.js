@@ -44,12 +44,14 @@ $(document).ready(function () {
         dataType: 'json',
         success: function (result) {
 
-            console.log(result);
+          console.log(result);
 
-            $(".jugadores-mvp").empty();
-            var newRow = "";
+          $(".jugadores-mvp").empty();
 
-            $.each(result, function (i, jugador) {
+          var newRow = "";
+
+            $.each(result, function (x, jugador) {
+
 
                 newRow += '<div class="card m-3 carousel" style="width: 18rem;">'
                 newRow += '<img class="card-img-top mt-2" src="'+jugador.fotoPerfil+'">'
@@ -58,11 +60,17 @@ $(document).ready(function () {
                 newRow += '<p class="card-text" >Categoria: '+jugador.objectVotos.idCategoria+'</p>'
                 newRow += '<p class="card-text" >Votos: '+jugador.objectVotos.idVoto+'</p>'
                 newRow += '<button type="button" id="votarJugador" class="btn btn-danger mvp-button">Votar</button>'
-                newRow += '</div></div>'
+                newRow += '</div></div>' 
  
             });
 
+          
+
             $(".jugadores-mvp").append(newRow);
+
+          
+
+          
                 
 
         }
