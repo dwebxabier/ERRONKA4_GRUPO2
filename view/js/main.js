@@ -10,42 +10,39 @@ $(document).ready(function () {
       url: "controller/login/logOut.php",
       dataType: "text",
       success: function (result) {
-  
+
         console.log(result);
-  
+
         newRow = "";
         newRow += "<p>Session destruida</p>";
-  
+
         $("body").append(newRow);
         location.reload(true);
       },
       error: function (xhr) {
         alert("An error occured: " + xhr.status + " " + xhr.statusText);
       }
-      
-  
     });
   });
 
   var idGlobalUser;
-  
+
   function sessionCheck() {
     $.ajax({
       url: "controller/login/cSessionGetVar.php",
       dataType: "json",
-  
+
       success: function (result) {
         //decide que teiene que hacer dependiendo de el tipo de usuario
         userCheck(result);
-        idGlobalUser=result.idUsuario;
+        idGlobalUser = result.idUsuario;
       },
       error: function (xhr) {
         alert("An error occured: " + xhr.status + " " + xhr.statusText);
       }
     });
-  
   }
-  
+
   function userCheck(result) {
     if (!result.admin - 1) {
       if (result.admin == 1) {
@@ -57,8 +54,8 @@ $(document).ready(function () {
     }
   }
 
-  // COMPROBACION DE SI LA SESSION ESTA INICIADA 
-  sessionCheck();
+   // COMPROBACION DE SI LA SESSION ESTA INICIADA 
+   sessionCheck();
 
 
   $(".info").click(function () {
@@ -111,7 +108,7 @@ $(document).ready(function () {
       $.ajax({
 
         type: 'GET',
-        data: {'idUsuario': idGlobalUser, 'email': email, 'texto': texto },
+        data: { 'idUsuario': idGlobalUser, 'email': email, 'texto': texto },
         url: 'controller/cInsertarOpinion.php',
         dataType: 'json',
         success: function (result) {
@@ -127,7 +124,7 @@ $(document).ready(function () {
       $("form").find('#comentario').val("");
     }
   });
-  
+
 });
 
 
@@ -140,7 +137,7 @@ function habilitarLogout(result) {
 
   htmlzatia = "";
 
-  htmlzatia += '<b>Bienvenido, '+result.name+'</b>';
+  htmlzatia += '<b>Bienvenido, ' + result.name + '</b>';
   $("#login").html(htmlzatia);
 
   $(".li5 > a").removeAttr("href");

@@ -13,6 +13,7 @@ $(document).ready(function () {
 			success: function (result) {
 				conectCheck = true;
 				userCheck(result);
+				sessionStorage.setItem('PHPSESSID',result.PHPSESSID);
 			},
 			error: function (xhr) {
 				alert("An error occured: " + xhr.status + " " + xhr.statusText);
@@ -24,13 +25,14 @@ $(document).ready(function () {
 function sessionCheck() {
 	$.ajax({
 		url: "../controller/login/cSessionGetVar.php",
-		dataType: "json",
-
+		
 		success: function (result) {
 			console.log(result);
 			if (result.name!=null) {
 				conectCheck=true;
 			}
+			sessionStorage.setItem('PHPSESSID',result.PHPSESSID);
+			
 			userCheck(result);
 		},
 		error: function (xhr) {
@@ -40,6 +42,7 @@ function sessionCheck() {
 }
 
 function userCheck(result) {
+	
 	if (conectCheck != false) {
 		if (!result.admin -1) {
 			if (result.admin == 1) {

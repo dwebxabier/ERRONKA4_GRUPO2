@@ -316,6 +316,7 @@ function sessionCheck() {
         success: function (result) {
             console.log(result);
             userCheck(result);
+
         },
         error: function (xhr) {
             alert("An error occured: " + xhr.status + " " + xhr.statusText);
@@ -329,7 +330,5 @@ function userCheck(result) {
         } else {
             location.href = "../index.html";
         }
-        // } else {
-        // 	alert("Error al iniciar sesion");
     }
 }
