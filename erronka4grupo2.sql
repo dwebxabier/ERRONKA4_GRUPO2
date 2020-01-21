@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-12-2019 a las 08:55:22
+-- Tiempo de generación: 21-01-2020 a las 08:48:23
 -- Versión del servidor: 10.4.6-MariaDB
--- Versión de PHP: 7.3.9
+-- Versión de PHP: 7.1.32
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -59,6 +59,12 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_equipo_load` ()  NO SQL
 SELECT *
 FROM equipo$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_fotos_del_equipoPriv` (IN `_idCategoria` INT)  NO SQL
+SELECT * FROM fotos_equipos WHERE fotos_equipos.privado = 1 AND fotos_equipos.idCategoria = _idCategoria$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_fotos_del_equipoPubli` ()  NO SQL
+SELECT * FROM fotos_equipos WHERE fotos_equipos.privado = 0$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_get_admin_by_user_id` (IN `pUserId` VARCHAR(64))  NO SQL
 BEGIN
 SELECT admin.*  FROM admin WHERE admin.idUsuario=pUserId;
@@ -85,9 +91,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_insertar_nombre_equipo` (IN `vNo
 INSERT INTO equipo(equipo.nombre)
 VALUES(vNombre)$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_insertar_opinion` (IN `vEmail` VARCHAR(50), IN `vTexto` VARCHAR(255))  NO SQL
-INSERT INTO opiniones (opiniones.email, opiniones.fecha, opiniones.texto)
-VALUES (vEmail, CURRENT_DATE, vTexto)$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_insertar_opinion` (IN `vIdUsuario` INT, IN `vEmail` VARCHAR(50), IN `vTexto` VARCHAR(255))  NO SQL
+INSERT INTO opiniones (opiniones.idUsuario, opiniones.email, opiniones.fecha, opiniones.texto)
+VALUES (vIdUsuario, vEmail, CURRENT_DATE, vTexto)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_insertar_tecnico` (IN `vNombre` VARCHAR(50), IN `vLicencia` VARCHAR(50))  NO SQL
 INSERT INTO tecnico ( tecnico.idUsuario, tecnico.nombre, tecnico.licencia )
@@ -97,6 +103,17 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_jugador_by_idUsuario` (IN `vIdUs
 SELECT *
 FROM jugador
 WHERE jugador.idUsuario = vIdUsuario$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_jugador_con_mas_votos` ()  NO SQL
+SELECT jugador.fotoPerfil AS 'fotoPerfil', categoria.nombre AS 'categoria', jugador.nombre AS 'jugador',  MAX(votos_recibidos) AS 'votos' FROM (SELECT votos.idCategoria, votos.idJugadorVotado, COUNT(votos.idJugadorVotado) AS 'votos_recibidos'
+FROM votos  
+GROUP BY votos.idJugadorVotado) as tb
+JOIN jugador ON tb.idJugadorVotado=jugador.idJugador
+JOIN usuario ON jugador.idUsuario=usuario.idUsuario
+JOIN equipo ON usuario.idEquipo=equipo.idEquipo
+JOIN equipo_categoria ON equipo.idEquipo=equipo_categoria.idEquipo
+JOIN categoria ON equipo_categoria.idCategoria=categoria.idCategoria
+GROUP by tb.idCategoria$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_jugador_load` ()  NO SQL
 SELECT *
@@ -124,6 +141,16 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_usuario_by_equipo` (IN `vIdEquip
 SELECT *
 FROM usuario
 WHERE usuario.idEquipo = vIdEquipo$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_votos_load` ()  NO SQL
+SELECT *
+FROM votos$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_votos_totales` (IN `vIdJugador` INT)  NO SQL
+SELECT categoria.nombre AS 'categoria', COUNT(votos.idJugadorVotado) AS 'votos'
+FROM votos
+JOIN categoria ON votos.idCategoria = categoria.idCategoria
+WHERE votos.idJugadorVotado = vIdJugador$$
 
 --
 -- Funciones
@@ -246,23 +273,50 @@ INSERT INTO `equipo_categoria` (`idEquipo`, `idCategoria`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `fotos_equipos`
+--
+
+CREATE TABLE `fotos_equipos` (
+  `idFoto` int(11) NOT NULL,
+  `idCategoria` int(11) NOT NULL,
+  `fotoEquipo` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
+  `privado` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `fotos_equipos`
+--
+
+INSERT INTO `fotos_equipos` (`idFoto`, `idCategoria`, `fotoEquipo`, `privado`) VALUES
+(1, 1, 'https://static1.hoy.es/www/pre2017/multimedia/prensa/noticias/200801/22/fotos/023D2MERP2_1.jpg', 0),
+(2, 2, 'https://cadenaser00.epimg.net/emisora/imagenes/2018/04/12/radio_elda/1523552986_004512_1523553175_noticia_normal.jpg', 0),
+(4, 3, 'http://www.forumdrago.com/wp-content/uploads/2017/09/nuevo-halcon2.jpg', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `jugador`
 --
 
 CREATE TABLE `jugador` (
   `idJugador` int(11) NOT NULL,
   `idUsuario` int(11) NOT NULL,
-  `nombre` varchar(50) NOT NULL
+  `nombre` varchar(50) NOT NULL,
+  `fotoPerfil` varchar(250) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'https://image.flaticon.com/icons/png/512/1685/1685087.png'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `jugador`
 --
 
-INSERT INTO `jugador` (`idJugador`, `idUsuario`, `nombre`) VALUES
-(1, 1, 'Carlos'),
-(2, 2, 'Bogdan'),
-(3, 3, 'Xabier');
+INSERT INTO `jugador` (`idJugador`, `idUsuario`, `nombre`, `fotoPerfil`) VALUES
+(1, 1, 'Carlos', 'https://scontent-mad1-1.cdninstagram.com/v/t51.2885-15/e35/73096340_147261636593369_2989453184324637307_n.jpg?_nc_ht=scontent-mad1-1.cdninstagram.com&_nc_cat=105&_nc_ohc=cnfKWF6wEJUAX8ack0o&oh=bb0d5012e6ded33eadb1f7d6914582d2&oe=5EA75E24'),
+(2, 2, 'Bogdan', 'https://image.flaticon.com/icons/png/512/1685/1685087.png'),
+(3, 3, 'Xabier', 'https://image.flaticon.com/icons/png/512/1685/1685087.png'),
+(4, 8, 'Gusmano', 'https://scontent-mad1-1.cdninstagram.com/v/t51.2885-15/e35/36542224_435265406955670_2602636532246380544_n.jpg?_nc_ht=scontent-mad1-1.cdninstagram.com&_nc_cat=110&_nc_ohc=s67Tk24MidIAX9nZXo4&oh=d2fb5c06cf515f1b5fd41be45d8b8842&oe=5EBBBD26'),
+(5, 9, 'Jose', 'https://image.flaticon.com/icons/png/512/1685/1685087.png'),
+(6, 10, 'Federico', 'https://image.flaticon.com/icons/png/512/1685/1685087.png'),
+(7, 11, 'Julen', 'https://image.flaticon.com/icons/png/512/1685/1685087.png');
 
 -- --------------------------------------------------------
 
@@ -285,10 +339,11 @@ CREATE TABLE `opiniones` (
 INSERT INTO `opiniones` (`idOpinion`, `idUsuario`, `email`, `fecha`, `texto`) VALUES
 (2, 1, 'isla.carlos.99@gmail.com', '2019-12-18', 'Esto es la primera prueba correcta de insertar opiniones en la base de datos.'),
 (3, 2, 'eneko@gmail.com', '2019-12-18', 'Esta es la segunda prueba de insertar opiniones en la base de datos.'),
-(4, 3, 'gorka@gmail.com', '2019-12-18', 'esta es la tercera prueba para insertar opiniones en la base de datos.'),
+(4, 3, 'gorka@gmail.com', '2019-12-18', 'Esta es la cuarta prueba de insertar opiniones en la base de datos.'),
 (5, 5, 'isla.carlos.99@gmail.com', '2019-12-18', 'esta es la cuarta prueba de insertar opiniones en la base de datos.'),
 (6, 6, 'eneko@gmail.com', '2019-12-18', 'esta es la quinta prueba de insertar opiniones en la base de datos.'),
-(7, 7, 'isla.carlos.99@gmail.com', '2019-12-18', 'bsefndijvfkd djqNKEDLZBDK SNDASJCDBCK S<DNANLJ');
+(7, 7, 'isla.carlos.99@gmail.com', '2019-12-18', 'Esta es la sexta prueba de insertar opiniones en la base de datos.'),
+(9, 3, 'isla.carlos.99@gmail.com', '2019-12-19', 'Esta es la novena prueba de insertar opiniones en la base de datos.');
 
 -- --------------------------------------------------------
 
@@ -309,7 +364,8 @@ CREATE TABLE `tecnico` (
 
 INSERT INTO `tecnico` (`idTecnico`, `idUsuario`, `licencia`, `nombre`) VALUES
 (1, 6, 'entrenador', 'Jose'),
-(2, 7, 'delegado', 'Ramon');
+(2, 7, 'delegado', 'Ramon'),
+(3, 12, 'Delegado', 'Manuel');
 
 -- --------------------------------------------------------
 
@@ -321,7 +377,7 @@ CREATE TABLE `usuario` (
   `idUsuario` int(11) NOT NULL,
   `idEquipo` int(11) DEFAULT NULL,
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(2562) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(256) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `nombreUsuario` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `admin` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -331,12 +387,51 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`idUsuario`, `idEquipo`, `password`, `email`, `nombreUsuario`, `admin`) VALUES
-(1, 1, '123', '', '', 0),
+(1, 1, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', '', '', 0),
 (2, 2, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', 'la-contraseña-es-1234', 'bogdan-apc', 1),
 (3, 3, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', '', 'qwerty', 0),
-(5, NULL, '123', '', '', 1),
-(6, 1, '123', '', '', 0),
-(7, 1, '123', '', '', 0);
+(5, NULL, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', '', '', 1),
+(6, 1, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', '', '', 0),
+(7, 1, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', '', '', 0),
+(8, 1, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', '', '', 0),
+(9, 1, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', '', '', 0),
+(10, 2, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', '', '', 0),
+(11, 2, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', '', '', 0),
+(12, 2, '', '', '', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `votos`
+--
+
+CREATE TABLE `votos` (
+  `idVoto` int(11) NOT NULL,
+  `idUsuario` int(11) NOT NULL,
+  `idCategoria` int(11) NOT NULL,
+  `idJugadorVotado` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `votos`
+--
+
+INSERT INTO `votos` (`idVoto`, `idUsuario`, `idCategoria`, `idJugadorVotado`) VALUES
+(1, 7, 3, 1),
+(2, 9, 3, 1),
+(3, 3, 3, 1),
+(4, 10, 3, 1),
+(5, 5, 2, 2),
+(6, 7, 2, 2),
+(7, 1, 2, 2),
+(8, 11, 2, 2),
+(9, 6, 1, 3),
+(10, 8, 1, 3),
+(11, 2, 1, 3),
+(12, 8, 3, 4),
+(13, 11, 3, 5),
+(14, 3, 2, 6),
+(15, 10, 2, 7);
 
 --
 -- Índices para tablas volcadas
@@ -377,10 +472,24 @@ ALTER TABLE `equipo_categoria`
   ADD KEY `idCategoria` (`idCategoria`);
 
 --
+-- Indices de la tabla `fotos_equipos`
+--
+ALTER TABLE `fotos_equipos`
+  ADD PRIMARY KEY (`idFoto`),
+  ADD UNIQUE KEY `IdEquipo` (`idCategoria`);
+
+--
 -- Indices de la tabla `jugador`
 --
 ALTER TABLE `jugador`
   ADD PRIMARY KEY (`idJugador`),
+  ADD KEY `idUsuario` (`idUsuario`);
+
+--
+-- Indices de la tabla `opiniones`
+--
+ALTER TABLE `opiniones`
+  ADD PRIMARY KEY (`idOpinion`),
   ADD KEY `idUsuario` (`idUsuario`);
 
 --
@@ -396,6 +505,14 @@ ALTER TABLE `tecnico`
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`idUsuario`),
   ADD KEY `idEquipo` (`idEquipo`);
+
+--
+-- Indices de la tabla `votos`
+--
+ALTER TABLE `votos`
+  ADD PRIMARY KEY (`idVoto`),
+  ADD KEY `idUsuario` (`idUsuario`),
+  ADD KEY `idJugadorVotado` (`idJugadorVotado`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -423,25 +540,43 @@ ALTER TABLE `ddmm`
 -- AUTO_INCREMENT de la tabla `equipo`
 --
 ALTER TABLE `equipo`
-  MODIFY `idEquipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idEquipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de la tabla `fotos_equipos`
+--
+ALTER TABLE `fotos_equipos`
+  MODIFY `idFoto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `jugador`
 --
 ALTER TABLE `jugador`
-  MODIFY `idJugador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idJugador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT de la tabla `opiniones`
+--
+ALTER TABLE `opiniones`
+  MODIFY `idOpinion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `tecnico`
 --
 ALTER TABLE `tecnico`
-  MODIFY `idTecnico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idTecnico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT de la tabla `votos`
+--
+ALTER TABLE `votos`
+  MODIFY `idVoto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Restricciones para tablas volcadas
@@ -467,10 +602,22 @@ ALTER TABLE `equipo_categoria`
   ADD CONSTRAINT `equipo_categoria_ibfk_2` FOREIGN KEY (`idCategoria`) REFERENCES `categoria` (`idCategoria`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Filtros para la tabla `fotos_equipos`
+--
+ALTER TABLE `fotos_equipos`
+  ADD CONSTRAINT `fotos_equipos_ibfk_1` FOREIGN KEY (`idCategoria`) REFERENCES `categoria` (`idCategoria`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Filtros para la tabla `jugador`
 --
 ALTER TABLE `jugador`
   ADD CONSTRAINT `jugador_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `opiniones`
+--
+ALTER TABLE `opiniones`
+  ADD CONSTRAINT `opiniones_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`);
 
 --
 -- Filtros para la tabla `tecnico`
@@ -483,6 +630,13 @@ ALTER TABLE `tecnico`
 --
 ALTER TABLE `usuario`
   ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`idEquipo`) REFERENCES `equipo` (`idEquipo`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `votos`
+--
+ALTER TABLE `votos`
+  ADD CONSTRAINT `votos_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `votos_ibfk_2` FOREIGN KEY (`idJugadorVotado`) REFERENCES `jugador` (`idJugador`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
