@@ -90,6 +90,19 @@ class votoModel extends votoClass{
         $this->CloseConnect();
     }
 
+    public function insertar_voto()
+    {
+        $this->OpenConnect();
+        $idUsuario=$this->getIdUsuario();
+        $idCategoria=$this->getIdCategoria();
+        $idJugadorVotado=$this->getIdJugadorVotado();
+        $sql="call sp_insertar_voto($idUsuario, $idCategoria, $idJugadorVotado)";
+  
+        $result = $this->link->query($sql);
+
+        mysqli_free_result($result);
+        $this->CloseConnect();
+    }
 
     function getListJsonString() {
         
