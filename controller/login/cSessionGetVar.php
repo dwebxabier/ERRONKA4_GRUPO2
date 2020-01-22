@@ -16,7 +16,7 @@ if ((isset($_SESSION['name']))  && (isset($_SESSION['admin']))){
     
     $objJson= json_encode($obj);
     
-    echo $objJson;         // ver var session
+    echo /*$GET['callblack'].'('.*/$objJson/*.')'*/;         // ver var session
     
 } else{
     
