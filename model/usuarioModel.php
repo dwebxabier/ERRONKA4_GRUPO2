@@ -115,6 +115,7 @@ class usuarioModel extends usuarioClass
 
                 $this->setAdmin($row['admin']);
                 $this->setIdUsuario($row['idUsuario']);
+                $this->setIdCategoria($row['idCategoria']);
             
                 $userExists = true;
             }

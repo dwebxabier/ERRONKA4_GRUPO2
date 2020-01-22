@@ -1,3 +1,6 @@
+var idUsuario;
+var idCategoria;
+
 $(document).ready(function () {
     // COMPROBACION DE SI LA SESSION ESTA INICIADA 
     $('#misRese').hide();
@@ -22,7 +25,13 @@ $(document).ready(function () {
           //decide que teiene que hacer dependiendo de el tipo de usuario
           userCheck(data);
           console.log(data);
-  
+          
+          idUsuario= data.idUsuario;
+          
+
+
+          alert(idUsuario);
+
           if(data!=-1){
             $('#misRese').show();
         }
@@ -35,8 +44,6 @@ $(document).ready(function () {
     }
   
     sessionCheck();
-
-    $('#MVPs').click(function () {
   
       $.ajax({
           type: 'GET',
@@ -52,7 +59,7 @@ $(document).ready(function () {
               $.each(result, function (i, jugador) {
   
                 newRow += '<div class="card m-3 carousel" style="width: 18rem;">'
-                newRow += '<img  src="'+jugador.fotoEquipo+'">'
+                newRow += '<img src="'+jugador.fotoEquipo+'">'
                 newRow += '</div>'
   
             });
@@ -60,11 +67,12 @@ $(document).ready(function () {
               $(".jugadores-mvp").append(newRow);
                   
   
+              
           }
   
       });
   
-    });
+  
   
   
   
