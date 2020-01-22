@@ -8,7 +8,6 @@ class usuarioClass{
     protected $email;
     protected $nombreUsuario;
     protected $admin;
-    protected $idCategoria;
 
     /**
      * @return mixed
@@ -48,14 +47,6 @@ class usuarioClass{
     public function getNombreUsuario()
     {
         return $this->nombreUsuario;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getIdCategoria()
-    {
-        return $this->idCategoria;
     }
 
     /**
@@ -110,15 +101,6 @@ class usuarioClass{
     public function setIdEquipo($idEquipo)
     {
         $this->idEquipo = $idEquipo;
-    }
-
-    
-    /**
-     * @param mixed $idEquipo
-     */
-    public function setIdCategoria($idCategoria)
-    {
-        $this->idCategoria = $idCategoria;
     }
 
    

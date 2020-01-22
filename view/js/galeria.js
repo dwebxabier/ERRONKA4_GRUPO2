@@ -87,7 +87,6 @@ $(document).ready(function () {
               $(".Galeria-Publi").append(newRow);
                   
   
-              
           }
   
       });
