@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-01-2020 a las 08:48:23
+-- Tiempo de generación: 22-01-2020 a las 13:00:59
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.1.32
 
@@ -288,9 +288,12 @@ CREATE TABLE `fotos_equipos` (
 --
 
 INSERT INTO `fotos_equipos` (`idFoto`, `idCategoria`, `fotoEquipo`, `privado`) VALUES
-(1, 1, 'https://static1.hoy.es/www/pre2017/multimedia/prensa/noticias/200801/22/fotos/023D2MERP2_1.jpg', 0),
-(2, 2, 'https://cadenaser00.epimg.net/emisora/imagenes/2018/04/12/radio_elda/1523552986_004512_1523553175_noticia_normal.jpg', 0),
-(4, 3, 'http://www.forumdrago.com/wp-content/uploads/2017/09/nuevo-halcon2.jpg', 0);
+(1, 1, 'https://saxdigital.com/wp-content/uploads/2019/10/petanca-sax.jpg', 1),
+(2, 1, 'https://fotos00.diarioinformacion.com/2018/04/10/328x206/img-20180410-wa0008.jpg', 0),
+(3, 2, 'https://valledelasuvas.es/wp-content/uploads/2019/03/PETANCA-FEMENINA-ASPE.jpg', 1),
+(4, 2, 'http://www.eldigitaldecanarias.net/images/5-09-2017/petanca.JPG', 0),
+(5, 3, 'http://www.fepetanca.com/wp-content/uploads/2018/10/44571361_1877471932288344_4255842725208784896_n-385x305.jpg', 1),
+(8, 3, 'https://imagenes.heraldo.es/files/image_990_v1/uploads/imagenes/2018/10/29/_440233791869262176442653236037594268303360n770x480_cd9f786d.jpg', 0);
 
 -- --------------------------------------------------------
 
@@ -476,7 +479,7 @@ ALTER TABLE `equipo_categoria`
 --
 ALTER TABLE `fotos_equipos`
   ADD PRIMARY KEY (`idFoto`),
-  ADD UNIQUE KEY `IdEquipo` (`idCategoria`);
+  ADD KEY `idCategoria` (`idCategoria`);
 
 --
 -- Indices de la tabla `jugador`
@@ -546,7 +549,7 @@ ALTER TABLE `equipo`
 -- AUTO_INCREMENT de la tabla `fotos_equipos`
 --
 ALTER TABLE `fotos_equipos`
-  MODIFY `idFoto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idFoto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `jugador`
