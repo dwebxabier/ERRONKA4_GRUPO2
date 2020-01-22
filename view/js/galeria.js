@@ -1,4 +1,5 @@
 var idUsuario;
+var idCategoria;
 
 $(document).ready(function () {
     // COMPROBACION DE SI LA SESSION ESTA INICIADA 
@@ -26,6 +27,8 @@ $(document).ready(function () {
           console.log(data);
           
           idUsuario= data.idUsuario;
+          
+
 
           alert(idUsuario);
 

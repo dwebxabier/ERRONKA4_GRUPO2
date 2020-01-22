@@ -28,10 +28,12 @@ if (($name != null) && ($password != null)) {
         $_SESSION['name'] = $name;
         $_SESSION['admin'] = $user->getadmin();
         $_SESSION['idUsuario'] = $user->getIdUsuario();
+        $_SESSION['idCategoria'] = $user->getIdCategoria();
 
         $obj['usuario'] = $_SESSION['name'];
         $obj['admin'] = $_SESSION['admin'];
         $obj['idUsuario'] = $_SESSION['idUsuario'];
+        $obj['idCategoria'] = $_SESSION['idCategoria'];
         $obj['PHPSESSID']=$PHPSESSID;
 
         $objJson = json_encode($obj);

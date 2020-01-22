@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-01-2020 a las 08:48:23
+-- Tiempo de generación: 22-01-2020 a las 10:41:15
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.1.32
 
@@ -28,7 +28,11 @@ DELIMITER $$
 --
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spFindUserByUsername` (IN `pUser` VARCHAR(256))  NO SQL
 BEGIN
-SELECT usuario.*  FROM usuario WHERE usuario.nombreUsuario=pUser;
+SELECT usuario.*, categoria.idCategoria  FROM usuario 
+JOIN equipo ON usuario.idEquipo=equipo.idEquipo 
+JOIN equipo_categoria ON equipo.idEquipo=equipo_categoria.idEquipo 
+JOIN categoria ON equipo_categoria.idCategoria=categoria.idCategoria JOIN fotos_equipos ON categoria.idCategoria=fotos_equipos.idCategoria
+WHERE usuario.nombreUsuario=pUser;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_categoria_del_equipo` (IN `vIdEquipo` INT)  NO SQL
@@ -58,6 +62,14 @@ WHERE entrenador.idTecnico = vIdTecnico$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_equipo_load` ()  NO SQL
 SELECT *
 FROM equipo$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_fotosequipo_de_usuario` ()  NO SQL
+SELECT usuario.idUsuario, equipo.idEquipo, equipo_categoria.idCategoria, categoria.nombre, fotos_equipos.idFoto
+FROM usuario 
+JOIN equipo ON usuario.idEquipo=equipo.idEquipo 
+JOIN equipo_categoria ON equipo.idEquipo=equipo_categoria.idEquipo 
+JOIN categoria ON equipo_categoria.idCategoria=categoria.idCategoria JOIN fotos_equipos ON categoria.idCategoria=fotos_equipos.idCategoria
+GROUP BY usuario.idUsuario$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_fotos_del_equipoPriv` (IN `_idCategoria` INT)  NO SQL
 SELECT * FROM fotos_equipos WHERE fotos_equipos.privado = 1 AND fotos_equipos.idCategoria = _idCategoria$$
