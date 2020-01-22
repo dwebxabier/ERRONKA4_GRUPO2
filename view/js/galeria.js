@@ -1,3 +1,5 @@
+var idUsuario;
+
 $(document).ready(function () {
     // COMPROBACION DE SI LA SESSION ESTA INICIADA 
     $('#misRese').hide();
@@ -22,7 +24,11 @@ $(document).ready(function () {
           //decide que teiene que hacer dependiendo de el tipo de usuario
           userCheck(data);
           console.log(data);
-  
+          
+          idUsuario= data.idUsuario;
+
+          alert(idUsuario);
+
           if(data!=-1){
             $('#misRese').show();
         }
@@ -60,6 +66,7 @@ $(document).ready(function () {
               $(".jugadores-mvp").append(newRow);
                   
   
+              
           }
   
       });
