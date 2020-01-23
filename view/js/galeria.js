@@ -5,8 +5,8 @@ var nombreCategoria;
 $(document).ready(function () {
     // COMPROBACION DE SI LA SESSION ESTA INICIADA 
     $('#misRese').hide();
-    $(".Galeria-Priv").hide();
-  
+
+
     function userCheck(data) {
       if (!data.admin - 1) {
         if (data.admin == 1) {
@@ -158,7 +158,7 @@ $(document).ready(function () {
 
             
             if(idUsuario !== undefined | null){
-              $(".Galeria-Priv").show();
+              $(".Galeria-Priv").attr('style',"");
               var newRow = "";
   
               $.each(result, function (i, jugador) {
