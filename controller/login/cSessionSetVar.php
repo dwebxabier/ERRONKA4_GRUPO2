@@ -37,9 +37,9 @@ if (($name != null) && ($password != null)) {
     $user->setPassword($password);
     if ($user->findUserByUsername()) // si es correcto el userName y el password
     {
-
+        session_start();
         $_SESSION['name'] = $name;
-        $_SESSION['admin'] = $user->getadmin();
+        $_SESSION['admin'] = $user->getAdmin();
         $_SESSION['idUsuario'] = $user->getIdUsuario();
         $_SESSION['idCategoria'] = $user->getIdCategoria();
 
@@ -47,13 +47,12 @@ if (($name != null) && ($password != null)) {
         $obj['admin'] = $_SESSION['admin'];
         $obj['idUsuario'] = $_SESSION['idUsuario'];
         $obj['idCategoria'] = $_SESSION['idCategoria'];
-        $obj['PHPSESSID']=$PHPSESSID;
-
+       
         $objJson = json_encode($obj);
         print_r($objJson);
     } else {
-        echo - 1; // not correct user
+        echo -1; // not correct user
     }
 } else {
-    echo - 1; // not filled user or password
+    echo -1; // not filled user or password
 }

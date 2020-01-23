@@ -27,15 +27,16 @@ if ($PHPSESSID == '') // si llega PHPSESSID a '', crear session nueva, sino rest
     session_start();
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9c914fa216affcd864840edd2fb25ff7e8c38df9
 if ((isset($_SESSION['name']))  && (isset($_SESSION['admin']))){
     
     
     $obj['name']=$_SESSION['name'];
     $obj['admin']=$_SESSION['admin'];
     $obj['idUsuario']=$_SESSION['idUsuario'];
-    $obj['idCategoria'] = $_SESSION['idCategoria'];
-    $obj['PHPSESSID']=$PHPSESSID;
     
     $objJson= json_encode($obj);
     

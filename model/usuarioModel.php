@@ -114,7 +114,7 @@ class usuarioModel extends usuarioClass
             if (password_verify($this->getPassword(), $passwordEncripted)) {
 
                 $this->setAdmin($row['admin']);
-                $this->setIdUsuario($row['idUsuario']);
+                $this->setIdUsuario($row['idUsuario']);                
                 $this->setIdCategoria($row['idCategoria']);
             
                 $userExists = true;

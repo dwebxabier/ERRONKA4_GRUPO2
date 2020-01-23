@@ -1,5 +1,4 @@
 var dataSession;
-
 $(document).ready(function () {
   // COMPROBACION DE SI LA SESSION ESTA INICIADA 
   $('#misRese').hide();
@@ -30,6 +29,12 @@ $(document).ready(function () {
 
         if(data!=-1){
           $('#misRese').show();
+
+      } else{
+          $("#votar").attr('disabled', true)
+          $('#votar').css('color', '#fff');
+          $('#votar').css('background-color', '#c82333');
+          $('#votar').css('border-color', '#bd2130');
       }
       },
       error: function (xhr) {
@@ -41,15 +46,16 @@ $(document).ready(function () {
 
   sessionCheck();
 
+
   $('#votar').click(function () {
 
     $.ajax({
         type: 'GET',
         url: '../controller/cJugadores.php',
         dataType: 'json',
-        success: function (result) {
+        success: function (data) {
 
-          console.log(result);
+          console.log(data);
 
           var categorias_array = ["Senior", "Infantil", "Alevin"];
 
@@ -61,7 +67,7 @@ $(document).ready(function () {
 
             newRow += '<div class="'+categorias_array[i]+' titulo-cat"><h3>'+categorias_array[i]+'</h3></div>'
 
-            $.each(result, function (x, jugador) {
+            $.each(data, function (x, jugador) {
 
               if(jugador.objectVotos.idCategoria == categorias_array[i]){
 
@@ -80,13 +86,18 @@ $(document).ready(function () {
 
           }
 
+          $(".jugadores-mvp").append(newRow);
+
           $.ajax({
+
             type: 'GET',
             url: '../controller/cComprobarVoto.php',
             dataType: 'json',
             success: function (result) {
-    
+
                 console.log(result);
+
+                var cont = data.length;
 
                 for(var i=0; i<result.length; i++){
 
@@ -103,33 +114,37 @@ $(document).ready(function () {
                     if($(".categoria").attr("data-id") == categoria){
 
                       $("."+categoria).remove();
-                      
-                    }
+                      cont = cont - 1;
+      
+                            }
 
+                          }
+
+                        }
+
+                  if($(".jugadores-mvp").html() == ''){
+
+                  var tituloRow = '';
+                  tituloRow += '<div><h3>No te quedan votos por realizar</h3></div>'
+                  $(".jugadores-mvp").append(tituloRow);
+
+                  $("#votar").attr('disabled', true)
+                  $('#votar').css('color', '#fff');
+                  $('#votar').css('background-color', '#c82333');
+                  $('#votar').css('border-color', '#bd2130');
+                                
                   }
 
-                }
-                            
-            }
-    
-        });
 
+                    }
         
-    if($(".jugadores-mvp").html()==""){
+                });     
 
-      var avisoRow = "";
-      avisoRow += '<div><h3>No te quedan votos</h3></div>'
-      $(".jugadores-mvp").append(avisoRow);
-      $("#votar").attr("disabled", true)
-      $('#votar').css('color', '#fff');
-      $('#votar').css('background-color', '#c82333');
-      $('#votar').css('border-color', '#bd2130');
-    }
+                
+        
+            
 
-            $(".jugadores-mvp").append(newRow);
-
-
-            $('.votarJugador').click(function () {
+              $('.votarJugador').click(function () {
 
               var categoria = $(this).prevAll(".categoria").attr("data-id");
 
@@ -145,20 +160,19 @@ $(document).ready(function () {
               var idCategoria = categoria;
               var idUsuario = dataSession.idUsuario;
 
-              alert("Votado a jugador "+idJugadorVotado+" de categoria "+idCategoria+" por el usuario "+idUsuario);
 
               $.ajax({
 
                 type: 'GET',
                 data: {'idUsuario': idUsuario, 'idCategoria': idCategoria, 'idJugadorVotado': idJugadorVotado},
                 url: '../controller/cInsertarVoto.php',
-                dataType: 'json',
                 success: function (result) {
-        
-                  console.log(result);
+
+                  window.location.reload();
         
                 }
-        
+
+                
               });
 
 
@@ -171,7 +185,6 @@ $(document).ready(function () {
         }
 
     });
-
 
   });
 
