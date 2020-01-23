@@ -1,6 +1,8 @@
 var idUsuario;
 var idCategoria;
 var nombreCategoria;
+var savedFileBase64;
+var filename;
 
 $(document).ready(function () {
     // COMPROBACION DE SI LA SESSION ESTA INICIADA 
@@ -61,6 +63,34 @@ $(document).ready(function () {
   
     sessionCheck();
   
+
+    $("#fitx").change(function(){
+		
+      let file = $("#fitx").prop("files")[0];
+      filename = file.name.toLowerCase();
+      console.log(filename);
+      
+      if (!new RegExp("(.*?).(jpg|jpeg|png|gif)$").test(filename)) {
+        alert("Solo se aceptan imágenes JPG, PNG y GIF");
+      }
+      let reader = new FileReader();
+      
+      reader.onload = function(e) {
+        
+        let fileBase64 = e.target.result;
+
+        // Almacenar en variable global para uso posterior
+        savedFileBase64 = fileBase64;
+      };
+      reader.readAsDataURL(file);
+  });
+
+  $("#upload").click(function(){
+    // Código para previsualizar
+      $("#filmPhoto").css("background-image", "url(" + savedFileBase64 + ")");
+  });
+
+
       $.ajax({
           type: 'GET',
           url: '../controller/cEquiposGaleriaPubli.php',
@@ -85,22 +115,19 @@ $(document).ready(function () {
             });
               
               fotosPrivadas();
+              
               $(".Galeria-Publi").append(newRow);
                   
               $("#btnExecInsert").click(function(){
-			
-                var INidCategoria=$("#TituloPeliculaInsert").val();
-                var INfotoEquipo=$("#AnioInsert").val();
-                var INprivado=$("#DirectorInsert").val(); 
-                
+			          
                   $.ajax({
                        type: "POST",
                        data:{ 
-                           'idCategoria':INidCategoria,
-                           'privado':INprivado,'filename':filename,
+                           'idCategoria':idCategoria,
+                           'filename':filename,
                            'savedFileBase64': savedFileBase64},
                            
-                       url: "controller/cFotosInsert.php", 
+                       url: "../controller/cFotosInsert.php", 
                        dataType: "json",  //type of the result
                        success: function(result){  
                          
@@ -117,33 +144,6 @@ $(document).ready(function () {
           }
   
       });
-  
-      $("#fitx").change(function(){
-		
-        let file = $("#fitx").prop("files")[0];
-        filename = file.name.toLowerCase();
-        console.log(filename);
-        
-        if (!new RegExp("(.*?).(jpg|jpeg|png|gif)$").test(filename)) {
-          alert("Solo se aceptan imágenes JPG, PNG y GIF");
-        }
-        let reader = new FileReader();
-        
-        reader.onload = function(e) {
-          
-          let fileBase64 = e.target.result;
-  
-          // Almacenar en variable global para uso posterior
-          savedFileBase64 = fileBase64;
-        };
-        reader.readAsDataURL(file);
-    });
-
-    $("#upload").click(function(){
-      // Código para previsualizar
-        $("#filmPhoto").css("background-image", "url(" + savedFileBase64 + ")");
-    });
-
     
       function fotosPrivadas(){    //Para mostrar las fotos privadas de su categoria
 
