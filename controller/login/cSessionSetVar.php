@@ -6,28 +6,30 @@ require_once '../../model/adminModel.php';
 
 
 
+
 $name = "";
-$admin = - 2; // alert incorrect loging
+$admin = -2; // alert incorrect loging
 
-$name = filter_input(INPUT_GET, "name");
-$password = filter_input(INPUT_GET, "password");
 
-$PHPSESSID = array_merge($_GET,$_POST);
+$PHPSESSID = array_merge($_GET, $_POST);
 
 
 $PHPSESSID = filter_input(INPUT_GET, "PHPSESSID");
 
-if(strlen($PHPSESSID) < 26){ $PHPSESSID = session_id(); }
+if (strlen($PHPSESSID) < 26) {
+    $PHPSESSID = session_id();
+}
 
 session_id($PHPSESSID);
 session_start();
+
+$name = filter_input(INPUT_GET, "name");
+$password = filter_input(INPUT_GET, "password");
 
 if (isset($_SESSION['name'])) {
     $name = $_SESSION['name'];
     $admin = $_SESSION['admin'];
 }
-
-
 
 
 if (($name != null) && ($password != null)) {
@@ -47,7 +49,7 @@ if (($name != null) && ($password != null)) {
         $obj['admin'] = $_SESSION['admin'];
         $obj['idUsuario'] = $_SESSION['idUsuario'];
         $obj['idCategoria'] = $_SESSION['idCategoria'];
-       
+
         $objJson = json_encode($obj);
         print_r($objJson);
     } else {
