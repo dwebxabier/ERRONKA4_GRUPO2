@@ -5,6 +5,7 @@ var nombreCategoria;
 $(document).ready(function () {
     // COMPROBACION DE SI LA SESSION ESTA INICIADA 
     $('#misRese').hide();
+    $(".Galeria-Priv").hide();
   
     function userCheck(data) {
       if (!data.admin - 1) {
@@ -86,13 +87,65 @@ $(document).ready(function () {
               fotosPrivadas();
               $(".Galeria-Publi").append(newRow);
                   
+              $("#btnExecInsert").click(function(){
+			
+                var INidCategoria=$("#TituloPeliculaInsert").val();
+                var INfotoEquipo=$("#AnioInsert").val();
+                var INprivado=$("#DirectorInsert").val(); 
+                
+                  $.ajax({
+                       type: "POST",
+                       data:{ 
+                           'idCategoria':INidCategoria,
+                           'privado':INprivado,'filename':filename,
+                           'savedFileBase64': savedFileBase64},
+                           
+                       url: "controller/cFotosInsert.php", 
+                       dataType: "json",  //type of the result
+                       success: function(result){  
+                         
+                         console.log(result);
+                         alert(result.resultado);
+                         window.location.reload(true);  //recarga la pagina
+                       },
+                       error : function(xhr) {
+                       alert("An error occured: " + xhr.status + " " + xhr.statusText);
+                     }
+                  });  	
+            });
   
           }
   
       });
   
+      $("#fitx").change(function(){
+		
+        let file = $("#fitx").prop("files")[0];
+        filename = file.name.toLowerCase();
+        console.log(filename);
+        
+        if (!new RegExp("(.*?).(jpg|jpeg|png|gif)$").test(filename)) {
+          alert("Solo se aceptan imágenes JPG, PNG y GIF");
+        }
+        let reader = new FileReader();
+        
+        reader.onload = function(e) {
+          
+          let fileBase64 = e.target.result;
   
-      function fotosPrivadas(){
+          // Almacenar en variable global para uso posterior
+          savedFileBase64 = fileBase64;
+        };
+        reader.readAsDataURL(file);
+    });
+
+    $("#upload").click(function(){
+      // Código para previsualizar
+        $("#filmPhoto").css("background-image", "url(" + savedFileBase64 + ")");
+    });
+
+    
+      function fotosPrivadas(){    //Para mostrar las fotos privadas de su categoria
 
         $.ajax({
           type: 'GET',
@@ -103,9 +156,9 @@ $(document).ready(function () {
   
               console.log(result);
 
-
+            
             if(idUsuario !== undefined | null){
-
+              $(".Galeria-Priv").show();
               var newRow = "";
   
               $.each(result, function (i, jugador) {

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-01-2020 a las 13:00:59
+-- Tiempo de generación: 23-01-2020 a las 12:30:53
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.1.32
 
@@ -28,7 +28,11 @@ DELIMITER $$
 --
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spFindUserByUsername` (IN `pUser` VARCHAR(256))  NO SQL
 BEGIN
-SELECT usuario.*  FROM usuario WHERE usuario.nombreUsuario=pUser;
+SELECT usuario.*, categoria.idCategoria  FROM usuario 
+JOIN equipo ON usuario.idEquipo=equipo.idEquipo 
+JOIN equipo_categoria ON equipo.idEquipo=equipo_categoria.idEquipo 
+JOIN categoria ON equipo_categoria.idCategoria=categoria.idCategoria JOIN fotos_equipos ON categoria.idCategoria=fotos_equipos.idCategoria
+WHERE usuario.nombreUsuario=pUser;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_categoria_del_equipo` (IN `vIdEquipo` INT)  NO SQL
@@ -59,6 +63,14 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_equipo_load` ()  NO SQL
 SELECT *
 FROM equipo$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_fotosequipo_de_usuario` ()  NO SQL
+SELECT usuario.idUsuario, equipo.idEquipo, equipo_categoria.idCategoria, categoria.nombre, fotos_equipos.idFoto
+FROM usuario 
+JOIN equipo ON usuario.idEquipo=equipo.idEquipo 
+JOIN equipo_categoria ON equipo.idEquipo=equipo_categoria.idEquipo 
+JOIN categoria ON equipo_categoria.idCategoria=categoria.idCategoria JOIN fotos_equipos ON categoria.idCategoria=fotos_equipos.idCategoria
+GROUP BY usuario.idUsuario$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_fotos_del_equipoPriv` (IN `_idCategoria` INT)  NO SQL
 SELECT * FROM fotos_equipos WHERE fotos_equipos.privado = 1 AND fotos_equipos.idCategoria = _idCategoria$$
 
@@ -78,6 +90,9 @@ END$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_insertar_equipo_en_usuario` (IN `vIdEquipo` INT)  NO SQL
 INSERT INTO usuario ( usuario.idEquipo )
 VALUES ( vIdEquipo )$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_insertar_foto` (IN `_idCategoria` INT, IN `_fotoEquipo` VARCHAR(250), IN `_privado` BOOLEAN)  NO SQL
+INSERT INTO `fotos_equipos`(`idCategoria`, `fotoEquipo`, `privado`) VALUES (_idCategoria, _fotoEquipo, _privado)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_insertar_idCat_equipo_categoria` (IN `vIdCategoria` INT)  NO SQL
 INSERT INTO equipo_categoria(equipo_categoria.idEquipo, equipo_categoria.idCategoria)
@@ -390,7 +405,7 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`idUsuario`, `idEquipo`, `password`, `email`, `nombreUsuario`, `admin`) VALUES
-(1, 1, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', '', '', 0),
+(1, 1, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', '', 'carlos', 0),
 (2, 2, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', 'la-contraseña-es-1234', 'bogdan-apc', 1),
 (3, 3, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', '', 'qwerty', 0),
 (5, NULL, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', '', '', 1),

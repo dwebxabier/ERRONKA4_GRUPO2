@@ -76,6 +76,27 @@ class fotosEquipoModel extends fotosEquipoClass{
         $this->CloseConnect();
     }
 
+    public function insert()
+    {  
+         $this->OpenConnect(); 
+   
+         $idCategoria=$this->getIdCategoria();
+         $fotoEquipo= $this->getFotoEquipo();
+         $privado= $this->getPrivado(); 
+         
+         $sql = "CALL sp_insert_foto($idCategoria, '$fotoEquipo', $privado)";
+         //$sql = "CALL spInsert('nuevo', 'ssss', 55)";
+         
+         if ($this->link->query($sql)) // insert egiten da
+        {
+            echo "La imagen se ha insertado con exito";
+        } else {
+            echo "Fallo en la insercion de la foto: (" . $this->link->errno . ") " . $this->link->error;
+        }
+         
+         $this->CloseConnect();
+    }
+
     function getListJsonString() {
         
         $arr=array();
