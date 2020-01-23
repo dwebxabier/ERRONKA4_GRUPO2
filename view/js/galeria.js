@@ -88,16 +88,12 @@ $(document).ready(function () {
               $(".Galeria-Publi").append(newRow);
                   
               $("#btnExecInsert").click(function(){
-			
-                var INidCategoria=$("#TituloPeliculaInsert").val();
-                var INfotoEquipo=$("#AnioInsert").val();
-                var INprivado=$("#DirectorInsert").val(); 
-                
+			          
                   $.ajax({
                        type: "POST",
                        data:{ 
-                           'idCategoria':INidCategoria,
-                           'privado':INprivado,'filename':filename,
+                           'idCategoria':idCategoria,
+                           'filename':filename,
                            'savedFileBase64': savedFileBase64},
                            
                        url: "controller/cFotosInsert.php", 

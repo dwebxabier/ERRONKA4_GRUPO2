@@ -17,7 +17,7 @@ if (isset($_SESSION['name']) )
 } 
 
 $idCategoria = filter_input(INPUT_POST, 'idCategoria');
-$privado = filter_input(INPUT_POST, 'privado');
+$privado = 1; //siempre sera privado
 
 $filename = filter_input(INPUT_POST, 'filename');
 $savedFileBase64 = filter_input(INPUT_POST, 'savedFileBase64');
