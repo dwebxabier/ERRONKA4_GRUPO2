@@ -37,7 +37,7 @@ if (($name != null) && ($password != null)) {
     $user->setPassword($password);
     if ($user->findUserByUsername()) // si es correcto el userName y el password
     {
-        session_start();
+        // session_start();
         $_SESSION['name'] = $name;
         $_SESSION['admin'] = $user->getAdmin();
         $_SESSION['idUsuario'] = $user->getIdUsuario();
