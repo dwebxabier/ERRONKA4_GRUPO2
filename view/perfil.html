@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- LINKS DE BOOSTRAP -->
+  <link rel="stylesheet" href="css/css_boostrap/bootstrap.css">
+  <link rel="stylesheet" href="css/css_boostrap/bootstrap-grid.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <!-- LINK CSS NUESTRO -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/perfil.css">
+
+
+
+  <title>Inicio</title>
+</head>
+
+
+
+<body class="bg-danger text-white">
+
+  <!-- NAVBAR -->
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+    <img id="logo" src="img/escudo_APC.png" />
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        
+        <li class="nav-item active">
+          <a class="nav-link" style="color:black;" href="../index.html"><b><u>INICIO</u></b></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="equipos.html"><b>EQUIPOS</b></a>
+        </li>
+
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+             <b>SECCIONES</b>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item text-secondary" href="galeria.html"><b>GALERIA</b></a>
+              <a class="dropdown-item text-secondary" href="#top5"><b>TOP 5</b></a>
+              <a class="dropdown-item text-secondary" href="#tienda"><b>TIENDA</b></a>
+            </div>
+          </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="opiniones.html"><b>RESEÑAS</b></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" data-toggle="modal" href="#myModal"><b>CONTACTO</b></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="misOpiniones.html" id="misRese"><b>MIS RESEÑAS</b></a>
+        </li>
+        <li class="li5 nav-item">
+          <a class="nav-link" href="login.html"><button type="button" class="btn btn-light" id="login"><b>Iniciar sesion</b></button></a>
+        </li>
+        <li class="li4 nav-item">
+          <a class="nav-link" ><button type="button" class="btn btn-light" id="logout"><b></b></button></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="mvp.html" id="mvp"><b>MVP</b></a>
+        </li>
+    </ul>
+      </ul>
+    </div>
+
+  </nav>
+
+  <!-- MODAL DE CONTACTO -->
+
+  <div id="myModal" class="modal fade text-center" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content   carousel">
+        <div class="modal-header">
+          <h5 class="modal-title text-light">CONTACTA CON NOSOTROS</h5>
+          <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-dark">
+          <form>
+            <div class="form-row">
+              <div class="col-md-10 mb-3">
+                <input type="text" id="email" class="form-control" placeholder="Introduce tu email">
+              </div>
+              <div class="form-group col-md-10">
+                <textarea class="form-control" id="comentario" placeholder="Introduce tu reseña" rows="3"></textarea>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" id="enviarOp" class="botones">Enviar</button>
+          <button type="button" class="botones" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- BANNER-->
+
+  <img id="top-banner" class="col-14" src="img/banner.png">
+
+  <!-- START PERFIL -->
+
+<div class="mb-5 container bootstrap snippet">
+    <div class="row text-center">
+  		<div id="username" class="col-sm-3"> </div>
+    </div>
+    <div class="row">
+          <div class="col-sm-3"><!--left col-->
+
+      <div class="containerr text-center mt-5">
+        <img id="foto_avatar" src="img/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
+        <div class="middle">
+            <img id="lapiz_editor" src="img/lapiz_editor.png">
+        </div>
+        <input type="file" id="file-upload" class="text-center center-block file-upload mt-3">
+      </div></hr><br>
+
+        </div><!--/col-3-->
+    	<div class="col-sm-8">
+              
+          <div class="tab-content">
+            <div class="tab-pane active" id="home">
+            
+                  <form class="form" action="##" method="post" id="registrationForm">
+                      <div class="form-group">
+                          
+                          <div class="col-xs-6">
+                              <label for="first_name"><h4>Usuario</h4></label>
+                              <input type="text" class="form-control" name="first_name" id="first_name" placeholder="usuario" title="enter your first name if any.">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          
+                          <div class="col-xs-6">
+                            <label for="last_name"><h4>Nombre</h4></label>
+                              <input type="text" class="form-control" name="last_name" id="last_name" placeholder="nombre" title="enter your last name if any.">
+                          </div>
+                      </div>        
+                      <div class="form-group">
+                          
+                          <div class="col-xs-6">
+                              <label for="email"><h4>Email</h4></label>
+                              <input type="email" class="form-control" name="Email" id="Email" placeholder="ejemplo@email.com" title="enter your email." required>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          
+                          <div class="col-xs-6">
+                              <label for="password"><h4>Contraseña</h4></label>
+                              <input type="password" class="form-control" name="password" id="password" placeholder="contraseña" title="enter your password.">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          
+                          <div class="col-xs-6">
+                            <label for="password"><h4>Verificar contraseña</h4></label>
+                              <input type="password" class="form-control" name="password" id="password2" placeholder="contraseña" title="enter your password2.">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                           <div class="col-xs-12">
+                                <br>
+                              	<button id="glyphicon-ok-sign" class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Guardar </button>
+                               	<button id="glyphicon-repeat" class="btn btn-lg btn-danger" type="reset"><i class="glyphicon glyphicon-repeat"></i> Limpiar </button>
+                            </div>
+                      </div>
+              	</form>
+              
+               
+              </div><!--/tab-pane-->
+          </div><!--/tab-content-->
+
+        </div><!--/col-9-->
+    </div><!--/row-->
+</div>                                                     
+  
+  <!-- END PERFIL -->
+
+  <!-- BANNER-->
+
+  <img id="banner" class="col-14" src="img/banner.png">
+
+  <!-- FOOTER -->
+  <div class="row footer col-14 d-flex align-items-center justify-content-center bg-secondary">
+    <div class="texto-info col-md-4">
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+      standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
+      type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
+      remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
+      Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions
+      of Lorem Ipsum.qwer
+    </div>
+    <div class="social col-md-4" align="center">
+      <a href="https://www.instagram.com/albacetepetancaclub/?hl=es" target="_blank"><img src="img/insta.png"></a>
+      <a href="https://www.facebook.com/petancaclub.albacete.1" target="_blank"><img src="img/facebook.png"></a>
+      <a href="https://twitter.com/albacetepetanc1" target="_blank"><img src="img/twitter.png"></a>
+    </div>
+    <iframe id="lugar" class="mapa col-md-3"
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24808.104622379622!2d-1.8780989968338722!3d38.99219789157474!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd665fe2fb218d15%3A0x8269cd31d6186180!2sAlbacete!5e0!3m2!1ses!2ses!4v1575539217004!5m2!1ses!2ses"
+      width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+  </div>
+
+</body>
+<!-- LINK DE JQUERY -->
+<script src="js/jquery.js"></script>
+
+<!-- LINK DE BOOSTRAP JS -->
+<script src="js/js_bootstrap/bootstrap.js"></script>
+
+<!-- LINK DE NUESTRO JS -->
+<!-- <script src="view/js/sessionCheck.js"></script> -->
+ 
+<script  src="js/perfil.js"></script>
+
+
+</html>

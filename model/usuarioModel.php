@@ -61,6 +61,30 @@ class usuarioModel extends usuarioClass
         mysqli_close($this->link);
     }
 
+    public function setList()
+    {
+        $this->OpenConnect();
+        $sql = "call sp_load_usuarios()";
+        $result = $this->link->query($sql);
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+
+            $newUsuario = new usuarioModel();
+
+            $newUsuario->setIdUsuario($row['idUsuario']);
+            $newUsuario->setIdEquipo($row['idEquipo']);
+            $newUsuario->setPassword($row['password']);
+            $newUsuario->setEmail($row['email']);
+            $newUsuario->setNombreUsuario($row['nombreUsuario']);
+            $newUsuario->setAdmin($row['admin']);
+
+            array_push($this->list, $newUsuario);
+        }
+        mysqli_free_result($result);
+        unset($jugador);
+        $this->CloseConnect();
+    }
+    
+
     public function setJugadoresByEquipo()
     {
         $this->OpenConnect();
@@ -152,6 +176,20 @@ class usuarioModel extends usuarioClass
         $this->CloseConnect();
     }
 
+    public function updateUsuario()
+    {
+        $this->OpenConnect();
+        $nombre_usuario = $this->getNombreUsuario();
+        $email = $this->getEmail();
+        $password = $this->getPassword();
+        $idUsuario = $this->getIdUsuario();
+        $sql = "call sp_update_usuario('$nombre_usuario', '$email', '$password', $idUsuario)";
+        $result = $this->link->query($sql);
+
+        mysqli_free_result($result);
+        $this->CloseConnect();
+    }
+
     function getListJsonStringJugador()
     {
         $arr = array();
@@ -176,6 +214,19 @@ class usuarioModel extends usuarioClass
                 $vars['objectTecnico'] = $objectTecnico;
                 array_push($arr, $vars);
             }
+        }
+        return json_encode($arr);
+    }
+
+    function getListJsonString() {
+        
+        $arr=array();
+        
+        foreach ($this->list as $object)
+        {
+            $vars = $object->getObjectVars();
+            
+            array_push($arr, $vars);
         }
         return json_encode($arr);
     }
