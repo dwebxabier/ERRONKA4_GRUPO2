@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-01-2020 a las 12:30:53
+-- Tiempo de generación: 24-01-2020 a las 13:46:26
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.1.32
 
@@ -564,7 +564,7 @@ ALTER TABLE `equipo`
 -- AUTO_INCREMENT de la tabla `fotos_equipos`
 --
 ALTER TABLE `fotos_equipos`
-  MODIFY `idFoto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idFoto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de la tabla `jugador`

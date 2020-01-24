@@ -130,16 +130,16 @@ $(document).ready(function () {
           type: "POST",
           data: {
             'idCategoria': idCategoria,
-            'filename': filename,
+            'filename': "../uploads/"+filename,
             'savedFileBase64': savedFileBase64
           },
 
           url: "../controller/cFotosInsert.php",
-          dataType: "json",  //type of the result
+          //dataType: "json",  //type of the result
           success: function (result) {
 
             console.log(result);
-            alert(result.resultado);
+           
             window.location.reload(true);  //recarga la pagina
           },
           error: function (xhr) {

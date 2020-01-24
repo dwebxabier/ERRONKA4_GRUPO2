@@ -84,7 +84,7 @@ class fotosEquipoModel extends fotosEquipoClass{
          $fotoEquipo= $this->getFotoEquipo();
          $privado= $this->getPrivado(); 
          
-         $sql = "CALL sp_insert_foto($idCategoria, '$fotoEquipo', $privado)";
+         $sql = "CALL sp_insertar_foto($idCategoria, '$fotoEquipo', $privado)";
          //$sql = "CALL spInsert('nuevo', 'ssss', 55)";
          
          if ($this->link->query($sql)) // insert egiten da
