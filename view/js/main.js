@@ -28,6 +28,7 @@ $(document).ready(function () {
   });
 
   var idGlobalUser;
+
   $.ajax({
     type: "GET",
     data: { 'PHPSESSID': (sessionStorage.getItem('PHPSESSID') || '') },
@@ -38,7 +39,7 @@ $(document).ready(function () {
 
     success: function (result) {
 
-      sessionStorage.setItem('PHPSESSID', result.PHPSESSID);
+      sessionStorage.setItem('PHPSESSID', result.$PHPSESSID || '');
 
       userCheck(result);
 
@@ -48,21 +49,6 @@ $(document).ready(function () {
       alert("An error occured: " + xhr.status + " " + xhr.statusText);
     }
   });
-  // function sessionCheck() {
-  //   $.ajax({
-  //     url: "controller/login/cSessionGetVar.php",
-  //     dataType: "json",
-
-  //     success: function (result) {
-  //       //decide que teiene que hacer dependiendo de el tipo de usuario
-  //       userCheck(result);
-  //       idGlobalUser=result.idUsuario;
-  //     },
-  //     error: function (xhr) {
-  //       alert("An error occured: " + xhr.status + " " + xhr.statusText);
-  //     }
-  //   });
-  // }
 
   function userCheck(result) {
     if (!result.admin - 1) {
@@ -75,8 +61,8 @@ $(document).ready(function () {
     }
   }
 
-  // COMPROBACION DE SI LA SESSION ESTA INICIADA 
-  sessionCheck();
+  // // COMPROBACION DE SI LA SESSION ESTA INICIADA 
+  // sessionCheck();
 
 
   $(".info").click(function () {

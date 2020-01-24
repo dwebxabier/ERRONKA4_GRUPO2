@@ -10,22 +10,22 @@ header('Access-Control-Allow-Origin: *');
 
 require_once '../../model/usuarioModel.php';
 
-$name = "";
-$type = - 1; // alert not logged
-
 $PHPSESSID = (filter_input(INPUT_GET, "PHPSESSID"));
 
 if ($PHPSESSID == null) {
     $PHPSESSID = filter_input(INPUT_POST, "PHPSESSID");
 }
-if ($PHPSESSID == '') // si llega PHPSESSID a '', crear session nueva, sino restaurar la que tiene que ser
-{
+if ($PHPSESSID === ''/* || strlen($PHPSESSID) < 26*/) { // si llega PHPSESSID a '', crear session nueva, sino restaurar la que tiene que ser
     session_start();
     $PHPSESSID = session_id();
+    $_SESSION['PHPSESSID'] = $PHPSESSID;
+    // $objJson =  $PHPSESSID;  
 } else {
     session_id($PHPSESSID);
+    $_SESSION['PHPSESSID'] = $PHPSESSID;
     session_start();
 }
+
 
 if ((isset($_SESSION['name']))  && (isset($_SESSION['admin']))){
     
@@ -34,12 +34,28 @@ if ((isset($_SESSION['name']))  && (isset($_SESSION['admin']))){
     $obj['admin']=$_SESSION['admin'];
     $obj['idUsuario']=$_SESSION['idUsuario'];
     $obj['idCategoria']=$_SESSION['idCategoria'];
+    $obj['$PHPSESSID'] = $PHPSESSID;
     
-    $objJson= json_encode($obj);
+    $objJson = json_encode($obj);
     
     echo/* $GET['callblack'].'('.*/$objJson/*.')'*/;         // ver var session
     
 } else{
-    
     echo -1;
 }
+// $name = "";
+// $type = - 1; // alert not logged
+
+// $PHPSESSID = (filter_input(INPUT_GET, "PHPSESSID"));
+
+// if ($PHPSESSID == null) {
+//     $PHPSESSID = filter_input(INPUT_POST, "PHPSESSID");
+// }
+// if ($PHPSESSID == '') // si llega PHPSESSID a '', crear session nueva, sino restaurar la que tiene que ser
+// {
+//     session_start();
+//     $PHPSESSID = session_id();
+// } else {
+//     session_id($PHPSESSID);
+//     session_start();
+// }
