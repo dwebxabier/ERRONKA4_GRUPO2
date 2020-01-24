@@ -146,6 +146,7 @@ function habilitarLogout(result) {
 
   htmlzatia += '<b>Bienvenido, ' + result.name + '</b>';
   $("#login").html(htmlzatia);
+  $("#login").attr("href", "view/perfil.html")
 
   $(".li5 > a").removeAttr("href");
 
@@ -155,3 +156,8 @@ function habilitarLogout(result) {
   $('.btnLogin').hide();
   $('.btnRegister').hide();
 }
+
+
+$('').click(function () {
+
+});

@@ -113,6 +113,18 @@ class jugadorModel extends jugadorClass{
         $this->CloseConnect();
     }
 
+    public function updateJugador()
+    {
+        $this->OpenConnect();
+        $nombre_jugador = $this->getNombre();
+        $idUsuario = $this->getIdUsuario();
+        $sql = "call sp_update_jugador('$nombre_jugador', $idUsuario)";
+        $result = $this->link->query($sql);
+
+        mysqli_free_result($result);
+        $this->CloseConnect();
+    }
+
     function getListJsonString() {
         
         $arr=array();
