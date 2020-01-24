@@ -4,6 +4,7 @@
 class usuarioClass{
     protected $idUsuario;
     protected $idEquipo;
+    protected $idCategoria;
     protected $password;
     protected $email;
     protected $nombreUsuario;
@@ -110,8 +111,19 @@ class usuarioClass{
         $vars = get_object_vars($this);
         return  $vars;
     }
-    
 
+    public function setIdCategoria($idCategoria)
+    {
+        $this->idCategoria = $idCategoria;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdCategoria()
+    {
+        return $this->idCategoria;
+    }
  
 }
 
