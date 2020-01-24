@@ -16,7 +16,11 @@ $(document).ready(function () {
 
   function sessionCheck() {
     $.ajax({
+      type: "GET",
+      data: { 'PHPSESSID': (sessionStorage.getItem('PHPSESSID') || '') },
       url: "../controller/login/cSessionGetVar.php",
+      // "http://lmar.fpz1920.com/controller/cIndex.php",
+      //url: "controller/cIndex.php", 
       dataType: "json",
   
       success: function (data) {
