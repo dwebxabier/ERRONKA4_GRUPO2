@@ -54,5 +54,3 @@ file_put_contents($writable_dir.$filename, $file,  LOCK_EX);
 // $arr['fileBase64']=$fileBase64;
 
 // echo json_encode($arr);
-
-unset ($pelicula);

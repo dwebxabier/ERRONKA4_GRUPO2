@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-01-2020 a las 08:55:53
+-- Tiempo de generación: 27-01-2020 a las 12:07:02
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.1.32
 
@@ -151,6 +151,11 @@ WHERE tecnico.idUsuario = vIdUsuario$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_tecnico_load` ()  NO SQL
 SELECT *
 FROM tecnico$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_update_foto_jugador` (IN `vFoto` VARCHAR(256), IN `vIdUsuario` INT)  NO SQL
+UPDATE jugador
+SET jugador.fotoPerfil = vFoto
+WHERE jugador.idUsuario = vIdUsuario$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_update_jugador` (IN `vNombre_jugador` VARCHAR(50), IN `vIdUsuario` INT)  NO SQL
 UPDATE jugador
@@ -337,7 +342,7 @@ CREATE TABLE `jugador` (
 INSERT INTO `jugador` (`idJugador`, `idUsuario`, `nombre`, `fotoPerfil`) VALUES
 (1, 1, 'Carlos', 'https://scontent-mad1-1.cdninstagram.com/v/t51.2885-15/e35/73096340_147261636593369_2989453184324637307_n.jpg?_nc_ht=scontent-mad1-1.cdninstagram.com&_nc_cat=105&_nc_ohc=cnfKWF6wEJUAX8ack0o&oh=bb0d5012e6ded33eadb1f7d6914582d2&oe=5EA75E24'),
 (2, 2, 'Bogdan', 'https://image.flaticon.com/icons/png/512/1685/1685087.png'),
-(3, 3, 'Xabier', 'https://image.flaticon.com/icons/png/512/1685/1685087.png'),
+(3, 3, 'Xabier', '../uploads/jugador_perfil.png'),
 (4, 8, 'Gusmano', 'https://scontent-mad1-1.cdninstagram.com/v/t51.2885-15/e35/36542224_435265406955670_2602636532246380544_n.jpg?_nc_ht=scontent-mad1-1.cdninstagram.com&_nc_cat=110&_nc_ohc=s67Tk24MidIAX9nZXo4&oh=d2fb5c06cf515f1b5fd41be45d8b8842&oe=5EBBBD26'),
 (5, 9, 'Jose', 'https://image.flaticon.com/icons/png/512/1685/1685087.png'),
 (6, 10, 'Federico', 'https://image.flaticon.com/icons/png/512/1685/1685087.png'),
@@ -415,7 +420,7 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`idUsuario`, `idEquipo`, `password`, `email`, `nombreUsuario`, `admin`) VALUES
 (1, 1, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', '', '', 0),
 (2, 2, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', 'la-contraseña-es-1234', 'bogdan-apc', 1),
-(3, 3, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', 'xabier@gmail.com', 'qwerty', 0),
+(3, 3, '$2y$10$mdlceCawoBC6FTFSPxs0weRxAUJMVwNod0KL1p9vyCfF8UkdsDWXK', 'xabier@gmail.com', 'qwerty', 0),
 (5, NULL, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', '', '', 1),
 (6, 1, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', '', '', 0),
 (7, 1, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', '', '', 0),

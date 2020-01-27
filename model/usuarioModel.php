@@ -183,8 +183,10 @@ class usuarioModel extends usuarioClass
         $nombre_usuario = $this->getNombreUsuario();
         $email = $this->getEmail();
         $password = $this->getPassword();
+        $options=['cost'=>10];
+        $encriptedPass=password_hash ($password, PASSWORD_BCRYPT, $options);
         $idUsuario = $this->getIdUsuario();
-        $sql = "call sp_update_usuario('$nombre_usuario', '$email', '$password', $idUsuario)";
+        $sql = "call sp_update_usuario('$nombre_usuario', '$email', '$encriptedPass', $idUsuario)";
         $result = $this->link->query($sql);
 
         mysqli_free_result($result);

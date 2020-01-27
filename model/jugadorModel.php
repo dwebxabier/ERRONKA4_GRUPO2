@@ -125,6 +125,19 @@ class jugadorModel extends jugadorClass{
         $this->CloseConnect();
     }
 
+    public function updateFotoPerfil()
+    {
+        $this->OpenConnect();
+        $foto = $this->getFotoPerfil();
+        $idUsuario = $this->getIdUsuario();
+        $sql = "call sp_update_foto_jugador('$foto', $idUsuario)";
+        $result = $this->link->query($sql);
+
+        mysqli_free_result($result);
+        $this->CloseConnect();
+    }
+  
+
     function getListJsonString() {
         
         $arr=array();

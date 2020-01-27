@@ -1,6 +1,8 @@
 var dataSession;
 var usuarios;
 var juagdores;
+var savedFileBase64;
+var filename;
 
 $(document).ready(function () {
   // COMPROBACION DE SI LA SESSION ESTA INICIADA 
@@ -20,7 +22,9 @@ $(document).ready(function () {
 
   function sessionCheck() {
     $.ajax({
+      type: "GET",
       url: "../controller/login/cSessionGetVar.php",
+      data: { 'PHPSESSID': (sessionStorage.getItem('PHPSESSID') || '') },
       dataType: "json",
   
       success: function (data) {
@@ -69,8 +73,8 @@ $(document).ready(function () {
 
             $("#first_name").val(data[x].nombreUsuario);
             $("#Email").val(data[x].email);
-            $("#password").val(data[x].password);
-            $("#password2").val(data[x].password);
+            $("#password").val("");
+            $("#password2").val("");
           }
 
         });
@@ -106,63 +110,93 @@ $(document).ready(function () {
 
 });
 
+// CARGAR FOTO NUEVA
+
+$("#file-upload").change(function () {
+
+  let file = $("#file-upload").prop("files")[0];
+  filename = file.name.toLowerCase();
+  console.log(filename);
+
+  if (!new RegExp("(.*?).(jpg|jpeg|png|gif)$").test(filename)) {
+    alert("Solo se aceptan imágenes JPG, PNG y GIF");
+  }
+  let reader = new FileReader();
+
+  reader.onload = function (e) {
+
+    let fileBase64 = e.target.result;
+
+    // Almacenar en variable global para uso posterior
+    savedFileBase64 = fileBase64;
+  };
+  reader.readAsDataURL(file);
+
+  var fileRow = '';
+  fileRow += 'Cambiar foto de perfil a: '+filename
+  $(".nombre-file").append(fileRow);
+});
+
+
 // GUARDAR DATOS
 
 $('#glyphicon-ok-sign').click(function(){
 
-  // var email = $("#Email").val();
-  // var caract = new RegExp(/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/);
-  // var mensaje = "";
+  var email = $("#Email").val();
+  var caract = new RegExp(/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/);
+  var mensaje = "";
 
-  // if (caract.test(email) == false){
-  //     mensaje = "INCORRECTO";
-  // }else{
-  //   mensaje = "CORRECTO";
-  // }
-
-  var idUsuario;
-  var nombreUsuario;
-  var email;
-  var password;
-
-  $.each(usuarios, function (x) {
-
-    if(usuarios[x].idUsuario == dataSession.idUsuario){
-
-      idUsuario = usuarios[x].idUsuario;
-      nombreUsuario = usuarios[x].nombreUsuario;
-      email = usuarios[x].email;
-      password = usuarios[x].password;
-
+  if (caract.test(email) == false){
+      mensaje = "INCORRECTO";
+      alert("Email no apropiado");
+      location.reload();
+  }else{
+    
+    if($("#password").val() == $("#password2").val()){
+      mensaje = "CORRECTO";
+    } else {
+      alert("Las contraseñas no coinciden");
+      mensaje = "INCORRECTO";
+      location.reload();
     }
+  }
 
-  });
+  var idUsuario = dataSession.idUsuario;
+  var nombreUsuario = $("#first_name").val();
+  var nombreJugador = $("#last_name").val();
+  var email = $("#Email").val();
+  var password = $("#password").val();
 
-  var nombreJugador;
-
-  $.each(juagdores, function (x) {
-
-    if(juagdores[x].idUsuario == dataSession.idUsuario){
-
-      nombreJugador = juagdores[x].nombre;
-
-    }
-
-  });
-
-  alert(idUsuario+" "+nombreUsuario+" "+nombreJugador+" "+email+" "+password);
 
   $.ajax({
     type: 'GET',
     url: '../controller/cUpdateJugador.php',
-    value: {'idUsuario': idUsuario, 'usuario': nombreUsuario, 'nombre': nombreJugador, 'email': email, 'password': password},
+    data: {'idUsuario': idUsuario, 'usuario': nombreUsuario, 'nombre': nombreJugador, 'email': email, 'password': password},
     success: function (result) {
   
         console.log(result);
-  
+
     }
   
   });
+
+
+  $.ajax({
+    type: "POST",
+    data: {'idUsuario': idUsuario, 'filename': "../uploads/"+filename, 'savedFileBase64': savedFileBase64},
+    url: "../controller/cUpdateFotoPerfil.php",
+
+    success: function (result) {
+
+      console.log(result);
+     
+      window.location.reload(true);  //recarga la pagina
+    },
+    error: function (xhr) {
+      alert("An error occured: " + xhr.status + " " + xhr.statusText);
+    }
+  });
+
 
 });
 

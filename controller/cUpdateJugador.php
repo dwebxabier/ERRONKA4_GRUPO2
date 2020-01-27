@@ -6,22 +6,24 @@ include_once ("../model/jugadorModel.php");
 $usuario= new usuarioModel();
 $jugador = new jugadorModel();
 
-$usuario_array = json_decode($_GET['value']);
 
-$idUsuario=$usuario_array->$idUsuario;
-$nombre_usuario=$usuario_array->usuario;
-$nombre_jugador=$usuario_array->nombre;
-$email=$usuario_array->email;
-$password=$usuario_array->password;
-
-
+$idUsuario=filter_input(INPUT_GET,"idUsuario");
 $usuario->setIdUsuario($idUsuario);
 $jugador->setIdUsuario($idUsuario);
 
+$nombre_usuario=filter_input(INPUT_GET,"usuario");
 $usuario->setNombreUsuario($nombre_usuario);
-$jugador->setNombre($nombre_jugador);   
+
+$nombre_jugador=filter_input(INPUT_GET,"nombre");
+$jugador->setNombre($nombre_jugador); 
+
+$email=filter_input(INPUT_GET,"email");
 $usuario->setEmail($email); 
+
+$password=filter_input(INPUT_GET,"password");
 $usuario->setPassword($password);
+
+
 
 $usuario->updateUsuario();
 $jugador->updateJugador();
