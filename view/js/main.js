@@ -1,4 +1,5 @@
 var usuarios;
+var data;
 
 $(document).ready(function () {
 
@@ -44,6 +45,8 @@ $(document).ready(function () {
       userCheck(result);
 
       console.log(result);
+
+      data = result;
     },
     error: function (xhr) {
       alert("An error occured: " + xhr.status + " " + xhr.statusText);
@@ -63,6 +66,8 @@ $(document).ready(function () {
 
   // // COMPROBACION DE SI LA SESSION ESTA INICIADA 
   // sessionCheck();
+
+
 
 
   $(".info").click(function () {
@@ -146,9 +151,9 @@ function habilitarLogout(result) {
 
   htmlzatia += '<b>Bienvenido, ' + result.name + '</b>';
   $("#login").html(htmlzatia);
-  $("#login").attr("href", "view/perfil.html")
 
   $(".li5 > a").removeAttr("href");
+  $(".li5>a").attr("href", "view/perfil.html");
 
   $('#misRese').show();
   $('#logout').show();
