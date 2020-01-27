@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-01-2020 a las 13:46:26
+-- Tiempo de generación: 27-01-2020 a las 08:55:53
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.1.32
 
@@ -63,14 +63,6 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_equipo_load` ()  NO SQL
 SELECT *
 FROM equipo$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_fotosequipo_de_usuario` ()  NO SQL
-SELECT usuario.idUsuario, equipo.idEquipo, equipo_categoria.idCategoria, categoria.nombre, fotos_equipos.idFoto
-FROM usuario 
-JOIN equipo ON usuario.idEquipo=equipo.idEquipo 
-JOIN equipo_categoria ON equipo.idEquipo=equipo_categoria.idEquipo 
-JOIN categoria ON equipo_categoria.idCategoria=categoria.idCategoria JOIN fotos_equipos ON categoria.idCategoria=fotos_equipos.idCategoria
-GROUP BY usuario.idUsuario$$
-
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_fotos_del_equipoPriv` (IN `_idCategoria` INT)  NO SQL
 SELECT * FROM fotos_equipos WHERE fotos_equipos.privado = 1 AND fotos_equipos.idCategoria = _idCategoria$$
 
@@ -92,7 +84,7 @@ INSERT INTO usuario ( usuario.idEquipo )
 VALUES ( vIdEquipo )$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_insertar_foto` (IN `_idCategoria` INT, IN `_fotoEquipo` VARCHAR(250), IN `_privado` BOOLEAN)  NO SQL
-INSERT INTO `fotos_equipos`(`idCategoria`, `fotoEquipo`, `privado`) VALUES (_idCategoria, _fotoEquipo, _privado)$$
+INSERT INTO fotos_equipos(idCategoria, fotoEquipo, privado) VALUES (_idCategoria, _fotoEquipo, _privado)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_insertar_idCat_equipo_categoria` (IN `vIdCategoria` INT)  NO SQL
 INSERT INTO equipo_categoria(equipo_categoria.idEquipo, equipo_categoria.idCategoria)
@@ -113,6 +105,10 @@ VALUES (vIdUsuario, vEmail, CURRENT_DATE, vTexto)$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_insertar_tecnico` (IN `vNombre` VARCHAR(50), IN `vLicencia` VARCHAR(50))  NO SQL
 INSERT INTO tecnico ( tecnico.idUsuario, tecnico.nombre, tecnico.licencia )
 VALUES ( USUARIO_LAST_ID(), vNombre, vLicencia )$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_insertar_voto` (IN `vIdUsuario` INT, IN `vIdCategoria` INT, IN `vIdJugadorVotado` INT)  NO SQL
+INSERT INTO votos(votos.idUsuario, votos.idCategoria, votos.idJugadorVotado)
+VALUES (vIdUsuario, vIdCategoria, vIdJugadorVotado)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_jugador_by_idUsuario` (IN `vIdUsuario` INT)  NO SQL
 SELECT *
@@ -138,6 +134,10 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_load_opiniones` ()  NO SQL
 SELECT *
 FROM opiniones$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_load_usuarios` ()  NO SQL
+SELECT *
+FROM usuario$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_nombre_categoria` (IN `vIdCategoria` INT)  NO SQL
 SELECT categoria.nombre
 FROM categoria
@@ -151,6 +151,16 @@ WHERE tecnico.idUsuario = vIdUsuario$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_tecnico_load` ()  NO SQL
 SELECT *
 FROM tecnico$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_update_jugador` (IN `vNombre_jugador` VARCHAR(50), IN `vIdUsuario` INT)  NO SQL
+UPDATE jugador
+SET jugador.nombre = vNombre_jugador
+WHERE jugador.idUsuario = vIdUsuario$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_update_usuario` (IN `vNombre_usuario` VARCHAR(64), IN `vEmail` VARCHAR(256), IN `vPassword` VARCHAR(255), IN `vIdUsuario` INT)  NO SQL
+UPDATE usuario
+SET usuario.nombreUsuario = vNombre_usuario, usuario.email = vEmail, usuario.password = vPassword
+WHERE usuario.idUsuario = vIdUsuario$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_usuario_by_equipo` (IN `vIdEquipo` INT)  NO SQL
 SELECT *
@@ -303,12 +313,9 @@ CREATE TABLE `fotos_equipos` (
 --
 
 INSERT INTO `fotos_equipos` (`idFoto`, `idCategoria`, `fotoEquipo`, `privado`) VALUES
-(1, 1, 'https://saxdigital.com/wp-content/uploads/2019/10/petanca-sax.jpg', 1),
-(2, 1, 'https://fotos00.diarioinformacion.com/2018/04/10/328x206/img-20180410-wa0008.jpg', 0),
-(3, 2, 'https://valledelasuvas.es/wp-content/uploads/2019/03/PETANCA-FEMENINA-ASPE.jpg', 1),
-(4, 2, 'http://www.eldigitaldecanarias.net/images/5-09-2017/petanca.JPG', 0),
-(5, 3, 'http://www.fepetanca.com/wp-content/uploads/2018/10/44571361_1877471932288344_4255842725208784896_n-385x305.jpg', 1),
-(8, 3, 'https://imagenes.heraldo.es/files/image_990_v1/uploads/imagenes/2018/10/29/_440233791869262176442653236037594268303360n770x480_cd9f786d.jpg', 0);
+(1, 1, 'https://static1.hoy.es/www/pre2017/multimedia/prensa/noticias/200801/22/fotos/023D2MERP2_1.jpg', 0),
+(2, 2, 'https://cadenaser00.epimg.net/emisora/imagenes/2018/04/12/radio_elda/1523552986_004512_1523553175_noticia_normal.jpg', 0),
+(4, 3, 'http://www.forumdrago.com/wp-content/uploads/2017/09/nuevo-halcon2.jpg', 0);
 
 -- --------------------------------------------------------
 
@@ -334,7 +341,8 @@ INSERT INTO `jugador` (`idJugador`, `idUsuario`, `nombre`, `fotoPerfil`) VALUES
 (4, 8, 'Gusmano', 'https://scontent-mad1-1.cdninstagram.com/v/t51.2885-15/e35/36542224_435265406955670_2602636532246380544_n.jpg?_nc_ht=scontent-mad1-1.cdninstagram.com&_nc_cat=110&_nc_ohc=s67Tk24MidIAX9nZXo4&oh=d2fb5c06cf515f1b5fd41be45d8b8842&oe=5EBBBD26'),
 (5, 9, 'Jose', 'https://image.flaticon.com/icons/png/512/1685/1685087.png'),
 (6, 10, 'Federico', 'https://image.flaticon.com/icons/png/512/1685/1685087.png'),
-(7, 11, 'Julen', 'https://image.flaticon.com/icons/png/512/1685/1685087.png');
+(7, 11, 'Julen', 'https://image.flaticon.com/icons/png/512/1685/1685087.png'),
+(9, 15, 'prueba', 'https://image.flaticon.com/icons/png/512/1685/1685087.png');
 
 -- --------------------------------------------------------
 
@@ -405,9 +413,9 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`idUsuario`, `idEquipo`, `password`, `email`, `nombreUsuario`, `admin`) VALUES
-(1, 1, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', '', 'carlos', 0),
+(1, 1, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', '', '', 0),
 (2, 2, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', 'la-contraseña-es-1234', 'bogdan-apc', 1),
-(3, 3, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', '', 'qwerty', 0),
+(3, 3, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', 'xabier@gmail.com', 'qwerty', 0),
 (5, NULL, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', '', '', 1),
 (6, 1, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', '', '', 0),
 (7, 1, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', '', '', 0),
@@ -415,7 +423,8 @@ INSERT INTO `usuario` (`idUsuario`, `idEquipo`, `password`, `email`, `nombreUsua
 (9, 1, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', '', '', 0),
 (10, 2, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', '', '', 0),
 (11, 2, '$2y$10$jNiP5vCy4oYEkNmyBaKD6uszRLncoSRduADoQhBUYJ4LTvIX/IikG', '', '', 0),
-(12, 2, '', '', '', 0);
+(12, 2, '', '', '', 0),
+(15, 1, '', '', '', 0);
 
 -- --------------------------------------------------------
 
@@ -437,7 +446,6 @@ CREATE TABLE `votos` (
 INSERT INTO `votos` (`idVoto`, `idUsuario`, `idCategoria`, `idJugadorVotado`) VALUES
 (1, 7, 3, 1),
 (2, 9, 3, 1),
-(3, 3, 3, 1),
 (4, 10, 3, 1),
 (5, 5, 2, 2),
 (6, 7, 2, 2),
@@ -448,7 +456,6 @@ INSERT INTO `votos` (`idVoto`, `idUsuario`, `idCategoria`, `idJugadorVotado`) VA
 (11, 2, 1, 3),
 (12, 8, 3, 4),
 (13, 11, 3, 5),
-(14, 3, 2, 6),
 (15, 10, 2, 7);
 
 --
@@ -494,7 +501,7 @@ ALTER TABLE `equipo_categoria`
 --
 ALTER TABLE `fotos_equipos`
   ADD PRIMARY KEY (`idFoto`),
-  ADD KEY `idCategoria` (`idCategoria`);
+  ADD UNIQUE KEY `IdEquipo` (`idCategoria`);
 
 --
 -- Indices de la tabla `jugador`
@@ -564,13 +571,13 @@ ALTER TABLE `equipo`
 -- AUTO_INCREMENT de la tabla `fotos_equipos`
 --
 ALTER TABLE `fotos_equipos`
-  MODIFY `idFoto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `idFoto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `jugador`
 --
 ALTER TABLE `jugador`
-  MODIFY `idJugador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idJugador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `opiniones`
@@ -588,13 +595,13 @@ ALTER TABLE `tecnico`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `votos`
 --
 ALTER TABLE `votos`
-  MODIFY `idVoto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `idVoto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- Restricciones para tablas volcadas
